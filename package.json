@@ -11,6 +11,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "prettier": "^3.7.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-scripts": "5.0.1",
@@ -40,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
   }
 }
