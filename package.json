@@ -2,6 +2,7 @@
   "name": "muzino",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ligosan.github.io/muzino",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -20,7 +21,11 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
