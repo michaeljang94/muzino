@@ -36,4 +36,4 @@ export const Manager: React.FC = () => {
       </section>
     </div>
   );
-}
+};

@@ -8,18 +8,18 @@ export const App = () => {
     <HashRouter>
       <nav>
         <ul>
-            <li>
-                <Link to="/admin">Admin</Link>
-            </li>
-            <li>
-                <Link to="/scoreboard">Scoreboard</Link>
-            </li>
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
+          <li>
+            <Link to="/scoreboard">Scoreboard</Link>
+          </li>
         </ul>
       </nav>
       <Routes>
-        <Route path="/admin" element={<Manager />}/>
-        <Route path="/scoreboard" element={<Scoreboard />}/>
+        <Route path="/admin" element={<Manager />} />
+        <Route path="/scoreboard" element={<Scoreboard />} />
       </Routes>
     </HashRouter>
   );
-}
+};
