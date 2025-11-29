@@ -6,16 +6,21 @@ import { Button, Container, Grid, Stack } from '@mui/material';
 
 import qrcode from '../qrcode.svg';
 
-export const PlayerProfilePage: React.FC = () => {
-  const profileName = 'muone';
-  const money = '$1,000';
+export interface PlayerProfilePageProps {
+  name?: string;
+  money?: string;
+}
+
+export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, money }) => {
+  const playerName = name || 'muone';
+  const playerMoney = money || '$1,000';
 
   return (
     // <div className="player-default-div">
     <Container maxWidth="sm">
       <Grid container spacing={2}>
         <Grid size={6}>
-          <h1>{profileName}</h1>
+          <h1>{playerName}</h1>
         </Grid>
         <Grid size={6}>
           <h1
@@ -23,7 +28,7 @@ export const PlayerProfilePage: React.FC = () => {
               textAlign: 'center',
             }}
           >
-            {money}
+            {playerMoney}
           </h1>
         </Grid>
       </Grid>
