@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   Grid,
   LinearProgress,
   Stack,
@@ -75,7 +76,9 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={6}>
-            <h1>{playerName}</h1>
+            <h1 style={{
+                textAlign: 'center',
+              }}>{playerName}</h1>
           </Grid>
           <Grid size={6}>
             <h1
@@ -87,7 +90,7 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
             </h1>
           </Grid>
         </Grid>
-        <hr />
+        {!inGame && <Divider></Divider>}
         {inGame && <LinearProgress color="warning" />}
         <Grid container spacing={2}>
           <Grid size={12}>
@@ -129,7 +132,6 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
             </Container>
           </Grid>
         </Grid>
-        <hr />
       </Container>
       {showLeaveDialog()}
     </>
