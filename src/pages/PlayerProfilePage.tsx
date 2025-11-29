@@ -4,37 +4,46 @@ import { Text } from 'react-native';
 import './PlayerProfilePage.css';
 import { Button, Container, Grid, Stack } from '@mui/material';
 
-import logo from '../logo.svg';
+import qrcode from '../qrcode.svg';
 
 export const PlayerProfilePage: React.FC = () => {
   const profileName = 'muone';
-  const money = '$1,000'
+  const money = '$1,000';
 
   return (
     // <div className="player-default-div">
-    <Container fixed>
+    <Container maxWidth="sm">
       <Grid container spacing={2}>
         <Grid size={6}>
           <h1>{profileName}</h1>
         </Grid>
         <Grid size={6}>
-          <h1 style={{
-            textAlign: 'center'
-          }}>{money}</h1>
+          <h1
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            {money}
+          </h1>
         </Grid>
       </Grid>
       <hr />
       <Grid container spacing={2}>
         <Grid size={12}>
-          <img src={logo} alt="logo" />
+          <Container maxWidth="sm" style={{ justifyContent: 'center', display: 'flex' }}>
+            <img src={qrcode} alt="logo" />
+          </Container>
         </Grid>
         <Grid size={12}>
-          <Stack spacing={2}>
-            <Button variant="contained">Join Game</Button>
-            <Button variant="contained">Text</Button>
-          </Stack>
+          <Container maxWidth="sm">
+            <Stack spacing={2}>
+              <Button variant="contained">Join Game</Button>
+              <Button variant="contained">Text</Button>
+            </Stack>
+          </Container>
         </Grid>
       </Grid>
+      <hr />
     </Container>
     // </div>
   );
