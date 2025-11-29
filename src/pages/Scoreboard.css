@@ -9,12 +9,7 @@
   color: white;
 }
 
-.scoreboard-td {
-    width: 500px;
-    align-items: center;
-    justify-content: center;
-}
-
-th { 
-    border-bottom: 10px solid white; 
+.scoreboard-table-cell {
+  color: white;
+  font-size: 25px;
 }

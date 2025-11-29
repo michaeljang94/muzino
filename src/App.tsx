@@ -1,8 +1,7 @@
 import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { Manager } from './pages/Manager';
 import { Scoreboard } from './pages/Scoreboard';
-import { Player } from './pages/Player';
+import { PlayerProfilePage } from './pages/PlayerProfilePage';
 
 export const App = () => {
   return (
@@ -10,20 +9,16 @@ export const App = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/admin">Admin</Link>
+            <Link to="/player">Player</Link>
           </li>
           <li>
             <Link to="/scoreboard">Scoreboard</Link>
           </li>
-          <li>
-            <Link to="/player">Player</Link>
-          </li>
         </ul>
       </nav>
       <Routes>
-        <Route path="/admin" element={<Manager />} />
         <Route path="/scoreboard" element={<Scoreboard />} />
-        <Route path="/player" element={<Player />} />
+        <Route path="/player" element={<PlayerProfilePage />} />
       </Routes>
     </HashRouter>
   );

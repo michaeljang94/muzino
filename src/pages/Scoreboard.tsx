@@ -1,5 +1,6 @@
 import React from 'react';
 import './Scoreboard.css';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 interface Player {
   name: string;
@@ -20,34 +21,26 @@ export const Scoreboard: React.FC = () => {
 
   return (
     <div className="scoreboard">
-      <table>
-        <thead>
-          <tr>
-            <td className="scoreboard-td">
-              <p>
-                <b>Name</b>
-              </p>
-            </td>
-            <td>
-              <p>
-                <b>Point</b>
-              </p>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {examplePlayersMap.map(player => (
-            <tr>
-              <td>
-                <p>{player.name}</p>
-              </td>
-              <td>
-                <p>{player.score}</p>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TableContainer style={{ maxWidth: '500px', color: 'white' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Score</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {examplePlayersMap.map(player => (
+              <>
+                <TableRow>
+                  <TableCell>{player.name}</TableCell>
+                  <TableCell>{player.score}</TableCell>
+                </TableRow>
+              </>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
