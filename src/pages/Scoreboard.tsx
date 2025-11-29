@@ -1,11 +1,27 @@
 import React from 'react';
 import './Scoreboard.css';
 
+interface Player {
+  name: string;
+  score: string;
+}
+
 export const Scoreboard: React.FC = () => {
+  const examplePlayersMap: Player[] = [
+    {
+      name: 'Muone',
+      score: '1000',
+    },
+    {
+      name: 'Babo',
+      score: '1000',
+    },
+  ];
+
   return (
     <div className="scoreboard">
       <table>
-        <thead>
+        <thead >
           <tr>
             <td>
               <p>
@@ -20,14 +36,16 @@ export const Scoreboard: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <p>Muone</p>
-            </td>
-            <td>
-              <p>1,000</p>
-            </td>
-          </tr>
+          {examplePlayersMap.map(player => (
+            <tr>
+              <td>
+                <p>{player.name}</p>
+              </td>
+              <td>
+                <p>{player.score}</p>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

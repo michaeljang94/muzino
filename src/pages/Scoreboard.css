@@ -8,3 +8,13 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+th { 
+    border-bottom: 10px solid white; 
+}
+
+td {
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+}
