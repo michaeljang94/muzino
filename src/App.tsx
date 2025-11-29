@@ -20,6 +20,8 @@ export const App = () => {
           <Tab label="Admin Portal" />
           <Tab label="My Profile" />
           <Tab label="Scoreboard" />
+          <Tab label="Users" />
+          <Tab label="Tables" />
         </Tabs>
       </Box>
       {value === 0 && <AdminPortal />}
