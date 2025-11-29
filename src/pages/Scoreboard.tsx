@@ -20,7 +20,7 @@ export const Scoreboard: React.FC = () => {
   ];
 
   return (
-    <div className="scoreboard">
+    // <div className="scoreboard">
       <TableContainer style={{ maxWidth: '500px', color: 'white' }}>
         <Table>
           <TableHead>
@@ -41,6 +41,6 @@ export const Scoreboard: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    // </div>
   );
 };
