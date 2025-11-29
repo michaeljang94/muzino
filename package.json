@@ -2,7 +2,7 @@
   "name": "muzino",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ligosan.github.io/muzino",
+  "homepage": "https://michaeljang94.github.io/muzino",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
