@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'react-native';
 
 import './PlayerProfilePage.css';
@@ -14,6 +14,8 @@ export interface PlayerProfilePageProps {
 export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, money }) => {
   const playerName = name || 'muone';
   const playerMoney = money || '$1,000';
+
+  const [inGame, setInGame] = useState(false);
 
   return (
     // <div className="player-default-div">
@@ -49,7 +51,30 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
         <Grid size={12}>
           <Container maxWidth="sm">
             <Stack spacing={2}>
-              <Button variant="contained" style={{height: 100}}>Join Game</Button>
+              {!inGame && (
+                <Button
+                  onClick={() => {
+                    setInGame(true);
+                  }}
+                  color={'primary'}
+                  variant={'contained'}
+                  style={{ height: 100 }}
+                >
+                  Join Game
+                </Button>
+              )}
+              {inGame && (
+                <Button
+                  onClick={() => {
+                    setInGame(false);
+                  }}
+                  color={'error'}
+                  variant={'contained'}
+                  style={{ height: 100 }}
+                >
+                  Leave Game
+                </Button>
+              )}
             </Stack>
           </Container>
         </Grid>

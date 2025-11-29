@@ -53,10 +53,10 @@ export const App = () => {
   //         </li>
   //       </ul>
   //     </nav>
-      // <Routes>
-      //   <Route path="/scoreboard" element={<Scoreboard />} />
-      //   <Route path="/player" element={<PlayerProfilePage />} />
-      // </Routes>
-    // </HashRouter>
+  // <Routes>
+  //   <Route path="/scoreboard" element={<Scoreboard />} />
+  //   <Route path="/player" element={<PlayerProfilePage />} />
+  // </Routes>
+  // </HashRouter>
   // );
 };
