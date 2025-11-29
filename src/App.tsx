@@ -1,13 +1,13 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Manager } from './pages/Manager';
 
-function App() {
+export const App = () => {
   return (
-    <div>
-      <Manager />
-    </div>
+    <Router basename='muzino'>
+      <Routes>
+        <Route path="admin" element={<Manager />}/>
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../logo.svg';
 
-export function Manager() {
+export const Manager: React.FC = () => {
   return (
     <div className="App-header">
       <section>
