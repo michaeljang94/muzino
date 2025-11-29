@@ -17,7 +17,6 @@ interface Player {
 }
 
 export const Scoreboard: React.FC = () => {
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -42,27 +41,27 @@ export const Scoreboard: React.FC = () => {
       },
     ];
 
-    for(let i = 0; i < 100; i++) {
-      const playerName = "Player " + i;
-      const playerMoney = "1000";
+    for (let i = 0; i < 100; i++) {
+      const playerName = 'Player ' + i;
+      const playerMoney = '1000';
 
       examplePlayersMap.push({
         name: playerName,
-        score: playerMoney
-      })
+        score: playerMoney,
+      });
     }
 
-    return examplePlayersMap
-  }
+    return examplePlayersMap;
+  };
 
-  const examplePlayersMap = generateRandomPlayerMap()
+  const examplePlayersMap = generateRandomPlayerMap();
 
   const visibleRows = React.useMemo(
     () =>
       [...examplePlayersMap]
         // .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage],
+    [page, rowsPerPage]
   );
 
   return (
@@ -89,14 +88,14 @@ export const Scoreboard: React.FC = () => {
         </Table>
       </TableContainer>
       <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={examplePlayersMap.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={examplePlayersMap.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Container>
 
     // </div>

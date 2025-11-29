@@ -16,7 +16,13 @@ export const App = () => {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
           <Tab label="Admin Portal" />
           <Tab label="My Profile" />
           <Tab label="Scoreboard" />
