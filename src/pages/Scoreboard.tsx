@@ -29,7 +29,7 @@ export const Scoreboard: React.FC = () => {
 
   return (
     // <div className="scoreboard">
-    <Container>
+    <Container fixed>
       <TableContainer style={{ maxWidth: '500px', color: 'white' }}>
         <Table>
           <TableHead>

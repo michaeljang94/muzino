@@ -11,12 +11,12 @@ export const PlayerProfilePage: React.FC = () => {
 
   return (
     // <div className="player-default-div">
-    <Container>
+    <Container fixed>
       <h1>{profileName}</h1>
       <hr />
       <Grid container spacing={2}>
         <Grid size={6}>
-          <img src={logo} alt="logo" width={500} height={500} />
+          <img src={logo} alt="logo" />
         </Grid>
         <Grid size={6}>
           <Stack spacing={2}>
