@@ -49,8 +49,7 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
         <Grid size={12}>
           <Container maxWidth="sm">
             <Stack spacing={2}>
-              <Button variant="contained">Join Game</Button>
-              <Button variant="contained">Text</Button>
+              <Button variant="contained" style={{height: 100}}>Join Game</Button>
             </Stack>
           </Container>
         </Grid>
