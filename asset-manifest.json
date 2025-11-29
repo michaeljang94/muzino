@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/muzino/static/css/main.f855e6bc.css",
-    "main.js": "/muzino/static/js/main.9ee71c62.js",
+    "main.css": "/muzino/static/css/main.9ec48eee.css",
+    "main.js": "/muzino/static/js/main.97b9ec04.js",
     "static/js/453.d28868b6.chunk.js": "/muzino/static/js/453.d28868b6.chunk.js",
     "static/media/logo.svg": "/muzino/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/muzino/index.html",
-    "main.f855e6bc.css.map": "/muzino/static/css/main.f855e6bc.css.map",
-    "main.9ee71c62.js.map": "/muzino/static/js/main.9ee71c62.js.map",
+    "main.9ec48eee.css.map": "/muzino/static/css/main.9ec48eee.css.map",
+    "main.97b9ec04.js.map": "/muzino/static/js/main.97b9ec04.js.map",
     "453.d28868b6.chunk.js.map": "/muzino/static/js/453.d28868b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.9ee71c62.js"
+    "static/css/main.9ec48eee.css",
+    "static/js/main.97b9ec04.js"
   ]
 }
