@@ -1,13 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import { Manager } from './pages/Manager';
+import { Scoreboard } from './pages/Scoreboard';
 
 export const App = () => {
   return (
-    <Router basename='muzino'>
+    <HashRouter>
+      <nav>
+        <ul>
+            <li>
+                <Link to="/admin">Admin</Link>
+            </li>
+            <li>
+                <Link to="/scoreboard">Scoreboard</Link>
+            </li>
+        </ul>
+      </nav>
       <Routes>
-        <Route path="admin" element={<Manager />}/>
+        <Route path="/admin" element={<Manager />}/>
+        <Route path="/scoreboard" element={<Scoreboard />}/>
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
