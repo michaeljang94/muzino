@@ -30,8 +30,9 @@ export const PlayerProfilePage: React.FC = () => {
       <hr />
       <Grid container spacing={2}>
         <Grid size={12}>
-          <Container maxWidth="sm" style={{ justifyContent: 'center', display: 'flex' }}>
-            <img src={qrcode} alt="logo" />
+          <Container maxWidth="sm" style={{ 
+            alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+            <img src={qrcode} alt="logo" width={350} height={350} />
           </Container>
         </Grid>
         <Grid size={12}>
