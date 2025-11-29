@@ -1,6 +1,14 @@
 import React from 'react';
 import './Scoreboard.css';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 
 interface Player {
   name: string;
@@ -21,6 +29,7 @@ export const Scoreboard: React.FC = () => {
 
   return (
     // <div className="scoreboard">
+    <Container>
       <TableContainer style={{ maxWidth: '500px', color: 'white' }}>
         <Table>
           <TableHead>
@@ -41,6 +50,8 @@ export const Scoreboard: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+    </Container>
+
     // </div>
   );
 };
