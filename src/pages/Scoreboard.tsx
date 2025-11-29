@@ -21,9 +21,9 @@ export const Scoreboard: React.FC = () => {
   return (
     <div className="scoreboard">
       <table>
-        <thead >
+        <thead>
           <tr>
-            <td>
+            <td className="scoreboard-td">
               <p>
                 <b>Name</b>
               </p>

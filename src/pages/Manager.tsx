@@ -14,7 +14,7 @@ export const Manager: React.FC = () => {
         <table>
           <tbody>
             <tr>
-              <td>
+              <td className="manager-td">
                 <p>1,000</p>
               </td>
               <td>

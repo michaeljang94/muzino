@@ -9,12 +9,12 @@
   color: white;
 }
 
-th { 
-    border-bottom: 10px solid white; 
-}
-
-td {
+.scoreboard-td {
     width: 500px;
     align-items: center;
     justify-content: center;
+}
+
+th { 
+    border-bottom: 10px solid white; 
 }
