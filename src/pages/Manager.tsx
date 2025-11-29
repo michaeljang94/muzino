@@ -1,9 +1,10 @@
 import React from 'react';
 import logo from '../logo.svg';
+import './Manager.css';
 
 export const Manager: React.FC = () => {
   return (
-    <div className="App-header">
+    <div className="manager">
       <section>
         <header>
           <p>Muzino</p>

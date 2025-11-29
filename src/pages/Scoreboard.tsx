@@ -1,8 +1,9 @@
 import React from 'react';
+import './Scoreboard.css';
 
 export const Scoreboard: React.FC = () => {
   return (
-    <div>
+    <div className="scoreboard">
       <table>
         <thead>
           <tr>
