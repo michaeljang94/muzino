@@ -1,8 +1,8 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { PlayerProfilePage } from '../pages/PlayerProfilePage';
-import { Scoreboard } from '@mui/icons-material';
 import { UsersPage } from '../pages/UsersPage';
+import { Scoreboard } from '../pages/Scoreboard';
 
 export const AdminPanel = () => {
   const [value, setValue] = useState(0);
@@ -21,14 +21,13 @@ export const AdminPanel = () => {
           variant="scrollable"
           scrollButtons="auto"
         >
-          {/* <Tab label="Admin Portal" /> */}
           <Tab label="My Profile" />
           <Tab label="Scoreboard" />
           <Tab label="Users" />
           <Tab label="Tables" />
         </Tabs>
       </Box>
-      {/* {value === 0 && <AdminPortal />} */}
+      
       {value === 0 && <PlayerProfilePage />}
       {value === 1 && <Scoreboard />}
       {value === 2 && <UsersPage />}

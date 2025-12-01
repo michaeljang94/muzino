@@ -6,9 +6,14 @@ import { PlayerProfilePage } from './pages/PlayerProfilePage';
 import { RouterProvider } from 'react-router';
 import { Scoreboard } from './pages/Scoreboard';
 import { PrivateRoute } from './components/auth/PrivateRoute';
+import { AdminPanel } from './components/AdminPanel';
 
 export const Router = () => {
   const { token } = useAuth();
+
+  if (token) {
+    return <AdminPanel></AdminPanel>
+  }
 
   const unauthenticatedRoutes = [
     {
