@@ -27,7 +27,7 @@ export const AdminPanel = () => {
           <Tab label="Tables" />
         </Tabs>
       </Box>
-      
+
       {value === 0 && <PlayerProfilePage />}
       {value === 1 && <Scoreboard />}
       {value === 2 && <UsersPage />}

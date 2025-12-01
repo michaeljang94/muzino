@@ -18,7 +18,7 @@ export const App = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  
+
   return (
     <AuthProvider>
       <Router />

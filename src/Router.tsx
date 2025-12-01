@@ -13,7 +13,7 @@ export const Router = () => {
   const { token } = useAuth();
 
   if (token) {
-    return <AdminPanel></AdminPanel>
+    return <AdminPanel></AdminPanel>;
   }
 
   const unauthenticatedRoutes = [
