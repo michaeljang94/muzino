@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Alert from '@mui/material/Alert';
 
@@ -25,8 +25,31 @@ export interface PlayerProfilePageProps {
 }
 
 export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, money }) => {
-  const playerName = name || 'muone';
-  const playerMoney = money || '$1,000';
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          'http://localhost:8080/get_user/ddcc3eb1-949e-41db-a70d-a99118eb5ada'
+        );
+
+        const user = await response.json();
+
+        setPlayerName(user.user.name);
+        setPlayerScore(user.user.score);
+      } catch (error: any) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUser(); // Call the async function
+  }, []); // Empty array to run the effect only once (on mount)
+
+  const [playerName, setPlayerName] = useState();
+  const [playerScore, setPlayerScore] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [inGame, setInGame] = useState(false);
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
@@ -70,15 +93,23 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
     );
   };
 
+  if (error) {
+    return <></>;
+  }
+
   return (
     // <div className="player-default-div">
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={6}>
-            <h1 style={{
+            <h1
+              style={{
                 textAlign: 'center',
-              }}>{playerName}</h1>
+              }}
+            >
+              {playerName}
+            </h1>
           </Grid>
           <Grid size={6}>
             <h1
@@ -86,7 +117,7 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
                 textAlign: 'center',
               }}
             >
-              {playerMoney}
+              {playerScore}
             </h1>
           </Grid>
         </Grid>

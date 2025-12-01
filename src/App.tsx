@@ -6,6 +6,8 @@ import { Tabs, Tab, Container, Box } from '@mui/material';
 import { useState } from 'react';
 import { AdminPortal } from './pages/AdminPortal';
 import { UsersPage } from './pages/UsersPage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 export const App = () => {
   const [value, setValue] = useState(0);
@@ -14,49 +16,41 @@ export const App = () => {
     setValue(newValue);
   };
 
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          {/* <Tab label="Admin Portal" /> */}
-          <Tab label="My Profile" />
-          <Tab label="Scoreboard" />
-          <Tab label="Users" />
-          <Tab label="Tables" />
-        </Tabs>
-      </Box>
-      {/* {value === 0 && <AdminPortal />} */}
-      {value === 0 && <PlayerProfilePage />}
-      {value === 1 && <Scoreboard />}
-      {value === 2 && <UsersPage />}
-    </Box>
-  );
-
   // return (
-  //   <HashRouter>
-  //     <nav>
-  //       <ul>
-  //         <li>
-  //           <Link to="">Portal</Link>
-  //         </li>
-  //         <li>
-  //           <Link to="/player">Player</Link>
-  //         </li>
-  //         <li>
-  //           <Link to="/scoreboard">Scoreboard</Link>
-  //         </li>
-  //       </ul>
-  //     </nav>
-  // <Routes>
-  //   <Route path="/scoreboard" element={<Scoreboard />} />
-  //   <Route path="/player" element={<PlayerProfilePage />} />
-  // </Routes>
-  // </HashRouter>
+  //   <Box sx={{ width: '100%' }}>
+  //     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+  //       <Tabs
+  //         value={value}
+  //         onChange={handleChange}
+  //         aria-label="basic tabs example"
+  //         variant="scrollable"
+  //         scrollButtons="auto"
+  //       >
+  //         {/* <Tab label="Admin Portal" /> */}
+  //         <Tab label="My Profile" />
+  //         <Tab label="Scoreboard" />
+  //         <Tab label="Users" />
+  //         <Tab label="Tables" />
+  //       </Tabs>
+  //     </Box>
+  //     {/* {value === 0 && <AdminPortal />} */}
+  //     {value === 0 && <PlayerProfilePage />}
+  //     {value === 1 && <Scoreboard />}
+  //     {value === 2 && <UsersPage />}
+  //   </Box>
   // );
+
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/scoreboard" element={<Scoreboard />} />
+          <Route path="/player" element={<PlayerProfilePage />} />
+        </Route>
+      </Routes>
+    </HashRouter>
+  );
 };
