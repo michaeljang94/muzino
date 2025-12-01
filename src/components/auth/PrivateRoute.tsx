@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 
 interface PrivateRouteProps {
@@ -14,6 +14,8 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
+  console.log('priv');
+
   // Otherwise, render the protected component
-  return <>{children}</>;
+  return <Outlet />;
 };

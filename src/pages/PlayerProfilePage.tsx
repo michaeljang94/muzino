@@ -4,6 +4,7 @@ import Alert from '@mui/material/Alert';
 
 import './PlayerProfilePage.css';
 import {
+  Box,
   Button,
   Container,
   Dialog,
@@ -15,11 +16,15 @@ import {
   Grid,
   LinearProgress,
   Stack,
+  Tab,
+  Tabs,
   Typography,
 } from '@mui/material';
 
 import qrcode from '../qrcode.svg';
-import { Label } from '@mui/icons-material';
+import { Label, Scoreboard } from '@mui/icons-material';
+import { useAuth } from '../components/auth/AuthProvider';
+import { UsersPage } from './UsersPage';
 
 export interface PlayerProfilePageProps {
   id?: string;
@@ -33,6 +38,16 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
 
   const [inGame, setInGame] = useState(false);
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
+
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  const { token } = useAuth();
+
+  id = id || token || '';
 
   useEffect(() => {
     const fetchUser = async () => {

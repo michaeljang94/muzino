@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter, Route, Link } from 'react-router-dom';
 import './App.css';
 import { Scoreboard } from './pages/Scoreboard';
 import { PlayerProfilePage } from './pages/PlayerProfilePage';
@@ -10,6 +10,8 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { AuthProvider } from './components/auth/AuthProvider';
 import { PrivateRoute } from './components/auth/PrivateRoute';
+import { AdminPanel } from './components/AdminPanel';
+import { Router } from './Router';
 
 export const App = () => {
   const [value, setValue] = useState(0);
@@ -19,32 +21,32 @@ export const App = () => {
   };
 
   // return (
-  //   <Box sx={{ width: '100%' }}>
-  //     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-  //       <Tabs
-  //         value={value}
-  //         onChange={handleChange}
-  //         aria-label="basic tabs example"
-  //         variant="scrollable"
-  //         scrollButtons="auto"
-  //       >
-  //         {/* <Tab label="Admin Portal" /> */}
-  //         <Tab label="My Profile" />
-  //         <Tab label="Scoreboard" />
-  //         <Tab label="Users" />
-  //         <Tab label="Tables" />
-  //       </Tabs>
-  //     </Box>
-  //     {/* {value === 0 && <AdminPortal />} */}
-  //     {value === 0 && <PlayerProfilePage />}
-  //     {value === 1 && <Scoreboard />}
-  //     {value === 2 && <UsersPage />}
+  // <Box sx={{ width: '100%' }}>
+  //   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+  //     <Tabs
+  //       value={value}
+  //       onChange={handleChange}
+  //       aria-label="basic tabs example"
+  //       variant="scrollable"
+  //       scrollButtons="auto"
+  //     >
+  //       {/* <Tab label="Admin Portal" /> */}
+  //       <Tab label="My Profile" />
+  //       <Tab label="Scoreboard" />
+  //       <Tab label="Users" />
+  //       <Tab label="Tables" />
+  //     </Tabs>
   //   </Box>
+  //   {/* {value === 0 && <AdminPortal />} */}
+  //   {value === 0 && <PlayerProfilePage />}
+  //   {value === 1 && <Scoreboard />}
+  //   {value === 2 && <UsersPage />}
+  // </Box>
   // );
 
   return (
     <AuthProvider>
-      <HashRouter>
+      {/* <HashRouter>
         <Routes>
           <Route path="/">
             <Route index element={<LoginPage />}></Route>
@@ -61,7 +63,8 @@ export const App = () => {
             />
           </Route>
         </Routes>
-      </HashRouter>
+      </HashRouter> */}
+      <Router />
     </AuthProvider>
   );
 };

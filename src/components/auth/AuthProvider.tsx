@@ -21,7 +21,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // State to hold the authentication token
-  const [token, setToken_] = useState(localStorage.getItem('_auth'));
+  const [token, setToken_] = useState(localStorage.getItem('token'));
 
   // Function to set the authentication token
   const setToken = (newToken: string) => {
