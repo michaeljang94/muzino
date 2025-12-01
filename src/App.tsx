@@ -8,6 +8,8 @@ import { AdminPortal } from './pages/AdminPortal';
 import { UsersPage } from './pages/UsersPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
+import { AuthProvider } from './components/auth/AuthProvider';
+import { PrivateRoute } from './components/auth/PrivateRoute';
 
 export const App = () => {
   const [value, setValue] = useState(0);
@@ -41,16 +43,25 @@ export const App = () => {
   // );
 
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/">
-          <Route index element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/scoreboard" element={<Scoreboard />} />
-          <Route path="/player" element={<PlayerProfilePage />} />
-        </Route>
-      </Routes>
-    </HashRouter>
+    <AuthProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<LoginPage />}></Route>
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/scoreboard" element={<Scoreboard />} />
+            <Route
+              path="/player"
+              element={
+                <PrivateRoute>
+                  <PlayerProfilePage />
+                </PrivateRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </HashRouter>
+    </AuthProvider>
   );
 };

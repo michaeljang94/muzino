@@ -11,10 +11,18 @@ import {
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/auth/AuthProvider';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = React.useState('');
+
+  const { setToken } = useAuth();
+
+  const handleLogin = () => {
+    setToken('test token'); // Authenticate the user
+    navigate('/player'); // Redirect to the dashboard
+  };
 
   const handleChange = (newValue: string) => {
     setOtp(newValue);
@@ -49,7 +57,7 @@ export const LoginPage: React.FC = () => {
             >
               Register
             </Button>
-            <Button fullWidth size="large" variant="contained">
+            <Button fullWidth size="large" variant="contained" onClick={handleLogin}>
               Login
             </Button>
           </CardActions>
