@@ -15,29 +15,29 @@ import {
   Grid,
   LinearProgress,
   Stack,
+  Typography,
 } from '@mui/material';
 
 import qrcode from '../qrcode.svg';
+import { Label } from '@mui/icons-material';
 
 export interface PlayerProfilePageProps {
-  id?: string
+  id?: string;
 }
 
 export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
-    const [playerName, setPlayerName] = useState();
+  const [playerName, setPlayerName] = useState();
   const [playerScore, setPlayerScore] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [inGame, setInGame] = useState(false);
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
-  
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8080/get_user/${id}`
-        );
+        const response = await fetch(`http://localhost:8080/get_user/${id}`);
 
         const user = await response.json();
 
@@ -52,8 +52,6 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
 
     fetchUser(); // Call the async function
   }, [inGame]); // Empty array to run the effect only once (on mount)
-
-
 
   const onClickLeaveGame = () => {
     setOpenLeaveDialog(true);
@@ -95,7 +93,21 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
   };
 
   if (error) {
-    return <></>;
+    return (
+      <>
+        <Container
+          maxWidth="sm"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            flexDirection: 'column',
+          }}
+        >
+          <Typography textAlign={'center'}>Error</Typography>
+        </Container>
+      </>
+    );
   }
 
   return (
