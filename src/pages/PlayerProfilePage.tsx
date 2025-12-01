@@ -20,16 +20,23 @@ import {
 import qrcode from '../qrcode.svg';
 
 export interface PlayerProfilePageProps {
-  name?: string;
-  money?: string;
+  id?: string
 }
 
-export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, money }) => {
+export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
+    const [playerName, setPlayerName] = useState();
+  const [playerScore, setPlayerScore] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [inGame, setInGame] = useState(false);
+  const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await fetch(
-          'http://localhost:8080/get_user/ddcc3eb1-949e-41db-a70d-a99118eb5ada'
+          `http://localhost:8080/get_user/${id}`
         );
 
         const user = await response.json();
@@ -44,15 +51,9 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ name, mone
     };
 
     fetchUser(); // Call the async function
-  }, []); // Empty array to run the effect only once (on mount)
+  }, [inGame]); // Empty array to run the effect only once (on mount)
 
-  const [playerName, setPlayerName] = useState();
-  const [playerScore, setPlayerScore] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const [inGame, setInGame] = useState(false);
-  const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
 
   const onClickLeaveGame = () => {
     setOpenLeaveDialog(true);
