@@ -10,11 +10,36 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 export const RegisterPage: React.FC = () => {
+  const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const createNumbers = (length: number) => {
     return Array.from({ length: length }, (_, index) => index + 1);
+  };
+
+  const handleRegister = async () => {
+    try {
+        setLoading(true)
+        
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: userName }),
+        };
+        const response = await fetch(`http://localhost:8080/create_user`, requestOptions);
+
+        const user = await response.json();
+
+        console.log(user.user.user_name);
+        console.log(user.user.password);
+
+      } catch (error: any) {
+      } finally {
+        setLoading(false)
+      }    
   };
 
   return (
@@ -32,12 +57,19 @@ export const RegisterPage: React.FC = () => {
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
             <Grid container spacing={2}>
-              <Grid size={6}>
-                <TextField fullWidth variant="outlined" label="First Name" />
+              <Grid size={12}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  label="Name"
+                  onChange={event => {
+                    setUserName(event.target.value);
+                  }}
+                />
               </Grid>
-              <Grid size={6}>
+              {/* <Grid size={6}>
                 <TextField fullWidth variant="outlined" label="Last Name" />
-              </Grid>
+              </Grid> */}
               <Grid size={4}>
                 <TextField fullWidth select variant="outlined" label="Year">
                   {createNumbers(10).map(option => (
@@ -68,7 +100,7 @@ export const RegisterPage: React.FC = () => {
             </Grid>
           </CardContent>
           <CardActions>
-            <Button fullWidth size="large" variant="contained">
+            <Button fullWidth size="large" variant="contained" onClick={handleRegister} loading={loading}>
               Register
             </Button>
           </CardActions>
