@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router';
 import { Scoreboard } from './pages/Scoreboard';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { AdminPanel } from './components/AdminPanel';
+import { RegisterPage } from './pages/RegisterPage';
 
 export const Router = () => {
   const { token } = useAuth();
@@ -16,6 +17,10 @@ export const Router = () => {
   }
 
   const unauthenticatedRoutes = [
+    {
+      path: '/register',
+      element: <RegisterPage />,
+    },
     {
       path: '/login',
       element: <LoginPage />,
