@@ -41,6 +41,7 @@ export const RegisterPage: React.FC = () => {
 
       navigate('/login');
     } catch (error: any) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
