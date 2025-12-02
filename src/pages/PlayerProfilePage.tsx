@@ -25,6 +25,7 @@ import qrcode from '../qrcode.svg';
 import { Label, Scoreboard } from '@mui/icons-material';
 import { useAuth } from '../components/auth/AuthProvider';
 import { UsersPage } from './UsersPage';
+import { EnvironmentVariables } from '../config';
 
 export interface PlayerProfilePageProps {
   id?: string;
@@ -52,7 +53,9 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/get_user/${id}`);
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT
+        const port = EnvironmentVariables.ZIKEEPER_PORT
+        const response = await fetch(`http://${addr}:${port}/get_user/${id}`);
 
         const user = await response.json();
 

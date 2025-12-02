@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { EnvironmentVariables } from '../config';
 
 export const RegisterPage: React.FC = () => {
   const [userName, setUserName] = useState('');
@@ -23,13 +24,16 @@ export const RegisterPage: React.FC = () => {
   const handleRegister = async () => {
     try {
         setLoading(true)
-        
+
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: userName }),
         };
-        const response = await fetch(`http://localhost:8080/create_user`, requestOptions);
+
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT
+        const port = EnvironmentVariables.ZIKEEPER_PORT
+        const response = await fetch(`http://${addr}:${port}/create_user`, requestOptions);
 
         const user = await response.json();
 
