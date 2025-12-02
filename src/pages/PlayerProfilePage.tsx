@@ -56,7 +56,6 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT
         const port = EnvironmentVariables.ZIKEEPER_PORT
 
-        console.log(addr)
         const response = await fetch(`http://${addr}:${port}/get_user/${id}`);
 
         const user = await response.json();
