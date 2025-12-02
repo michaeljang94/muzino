@@ -28,15 +28,21 @@ export const LoginPage: React.FC = () => {
     try {
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-      const response = await fetch(`https://${addr}/get_user/${userName}`);
+      const response = await fetch(`https://${addr}/auth`, {
+        method: "POST",
+        body: JSON.stringify({
+            username: userName,
+            password: password
+        })
+      });
 
-      const user = await response.json();
+      const res = await response.json();
 
-      if (user.user.password !== password) {
+      if (!response.ok || res.status != "OK") {
         throw 'wrong password';
       }
 
-      setToken(user.user.username);
+      setToken(userName);
       navigate('/player'); // Redirect to the dashboard
     } catch (error: any) {
       console.error(error);
