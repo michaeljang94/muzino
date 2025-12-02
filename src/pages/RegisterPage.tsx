@@ -12,8 +12,10 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { EnvironmentVariables } from '../config';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage: React.FC = () => {
+  const navigate = useNavigate();
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -23,27 +25,28 @@ export const RegisterPage: React.FC = () => {
 
   const handleRegister = async () => {
     try {
-        setLoading(true)
+      setLoading(true);
 
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: userName }),
-        };
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: userName }),
+      };
 
-        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT
-        const port = EnvironmentVariables.ZIKEEPER_PORT
-        const response = await fetch(`http://${addr}:${port}/create_user`, requestOptions);
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+      const port = EnvironmentVariables.ZIKEEPER_PORT;
+      const response = await fetch(`http://${addr}:${port}/create_user`, requestOptions);
 
-        const user = await response.json();
+      const user = await response.json();
 
-        console.log(user.user.username);
-        console.log(user.user.password);
+      console.log(user.user.username);
+      console.log(user.user.password);
 
-      } catch (error: any) {
-      } finally {
-        setLoading(false)
-      }    
+      navigate('/login');
+    } catch (error: any) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -104,7 +107,13 @@ export const RegisterPage: React.FC = () => {
             </Grid>
           </CardContent>
           <CardActions>
-            <Button fullWidth size="large" variant="contained" onClick={handleRegister} loading={loading}>
+            <Button
+              fullWidth
+              size="large"
+              variant="contained"
+              onClick={handleRegister}
+              loading={loading}
+            >
               Register
             </Button>
           </CardActions>

@@ -12,7 +12,7 @@ import { RegisterPage } from './pages/RegisterPage';
 export const Router = () => {
   const { token } = useAuth();
 
-  if (token) {
+  if (token === 'admin') {
     return <AdminPanel></AdminPanel>;
   }
 

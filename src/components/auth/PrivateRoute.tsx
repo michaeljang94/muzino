@@ -14,8 +14,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  console.log('priv');
-
   // Otherwise, render the protected component
   return <Outlet />;
 };

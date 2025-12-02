@@ -26,21 +26,21 @@ export const LoginPage: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT
-        const port = EnvironmentVariables.ZIKEEPER_PORT
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+      const port = EnvironmentVariables.ZIKEEPER_PORT;
 
-        const response = await fetch(`http://${addr}:${port}/get_user/${userName}`);
+      const response = await fetch(`http://${addr}:${port}/get_user/${userName}`);
 
-        const user = await response.json();
+      const user = await response.json();
 
-        if(user.user.password !== password) {
-            throw "wrong password"
-        }
+      if (user.user.password !== password) {
+        throw 'wrong password';
+      }
 
-        setToken(user.user.username)
-        navigate('/player'); // Redirect to the dashboard
+      setToken(user.user.username);
+      navigate('/player'); // Redirect to the dashboard
     } catch (error: any) {
-        console.error(error)
+      console.error(error);
     } finally {
     }
   };
@@ -72,7 +72,13 @@ export const LoginPage: React.FC = () => {
                 setUserName(event.target.value);
               }}
             />
-            <TextField fullWidth type="password" variant="outlined" label="password" onChange={event => setPassword(event.target.value)}/>
+            <TextField
+              fullWidth
+              type="password"
+              variant="outlined"
+              label="password"
+              onChange={event => setPassword(event.target.value)}
+            />
             {/* <MuiOtpInput marginTop={1} display="flex" gap={1} TextFieldsProps={{ placeholder: '-' }} value={otp} length={6} onChange={handleChange}></MuiOtpInput> */}
           </CardContent>
           <CardActions>
