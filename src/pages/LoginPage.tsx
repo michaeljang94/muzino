@@ -12,22 +12,37 @@ import { MuiOtpInput } from 'mui-one-time-password-input';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/auth/AuthProvider';
+import { EnvironmentVariables } from '../config';
+import { error } from 'console';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = React.useState('');
 
   const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
   const { setToken } = useAuth();
 
-  const handleLogin = () => {
-    if (userName === 'muone') {
-      setToken('1cb4a8ea-3cfb-4283-b400-2e21b7668266'); // Authenticate the user
-      console.log(userName);
-    }
+  const handleLogin = async () => {
+    try {
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT
+        const port = EnvironmentVariables.ZIKEEPER_PORT
 
-    navigate('/player'); // Redirect to the dashboard
+        const response = await fetch(`http://${addr}:${port}/get_user/${userName}`);
+
+        const user = await response.json();
+
+        if(user.user.password !== password) {
+            throw "wrong password"
+        }
+
+        setToken(user.user.username)
+        navigate('/player'); // Redirect to the dashboard
+    } catch (error: any) {
+        console.error(error)
+    } finally {
+    }
   };
 
   const handleChange = (newValue: string) => {
@@ -57,7 +72,7 @@ export const LoginPage: React.FC = () => {
                 setUserName(event.target.value);
               }}
             />
-            <TextField fullWidth type="password" variant="outlined" label="password" />
+            <TextField fullWidth type="password" variant="outlined" label="password" onChange={event => setPassword(event.target.value)}/>
             {/* <MuiOtpInput marginTop={1} display="flex" gap={1} TextFieldsProps={{ placeholder: '-' }} value={otp} length={6} onChange={handleChange}></MuiOtpInput> */}
           </CardContent>
           <CardActions>

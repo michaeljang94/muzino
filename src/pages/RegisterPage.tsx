@@ -37,7 +37,7 @@ export const RegisterPage: React.FC = () => {
 
         const user = await response.json();
 
-        console.log(user.user.user_name);
+        console.log(user.user.username);
         console.log(user.user.password);
 
       } catch (error: any) {
