@@ -27,9 +27,8 @@ export const LoginPage: React.FC = () => {
   const handleLogin = async () => {
     try {
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-      const port = EnvironmentVariables.ZIKEEPER_PORT;
 
-      const response = await fetch(`http://${addr}:${port}/get_user/${userName}`);
+      const response = await fetch(`http://${addr}/get_user/${userName}`);
 
       const user = await response.json();
 
