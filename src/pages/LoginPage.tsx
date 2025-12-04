@@ -1,10 +1,13 @@
 import {
+  Alert,
+  AlertTitle,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   Container,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -22,6 +25,8 @@ export const LoginPage: React.FC = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
+  const [snackbarShow, setSnackbarShow] = useState(false);
+
   const { setToken } = useAuth();
 
   const handleLogin = async () => {
@@ -29,17 +34,18 @@ export const LoginPage: React.FC = () => {
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
       const response = await fetch(`https://${addr}/api/auth/login`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
-            username: userName,
-            password: password
-        })
+          username: userName,
+          password: password,
+        }),
       });
 
       const res = await response.json();
 
-      if (!response.ok || res.status != "OK") {
-        throw 'wrong password';
+      if (!response.ok || res.status != 'OK') {
+        setSnackbarShow(true);
+        throw 'login failed';
       }
 
       setToken(userName);
@@ -65,6 +71,19 @@ export const LoginPage: React.FC = () => {
           minHeight: '100vh',
         }}
       >
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbarShow}
+          autoHideDuration={2500}
+          onClose={() => {
+            setSnackbarShow(false);
+          }}
+        >
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Wrong username or password.
+          </Alert>
+        </Snackbar>
         <Card>
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
