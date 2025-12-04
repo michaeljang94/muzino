@@ -1,3 +1,3 @@
 export const EnvironmentVariables = {
-  ZIKEEPER_ENDPOINT: process.env.REACT_APP_ZIKEEPER_ENDPOINT || 'zikeeper-lzkhr.ondigitalocean.app',
+  ZIKEEPER_ENDPOINT: process.env.REACT_APP_ZIKEEPER_ENDPOINT || 'api.zikeeper.com',
 };
