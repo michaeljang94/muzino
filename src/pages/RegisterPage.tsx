@@ -34,7 +34,7 @@ export const RegisterPage: React.FC = () => {
       };
 
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-      const response = await fetch(`https://${addr}/create_user`, requestOptions);
+      const response = await fetch(`https://${addr}/api/create_user`, requestOptions);
 
       const user = await response.json();
 
