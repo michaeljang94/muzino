@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertTitle,
   Button,
   Card,
   CardActions,
@@ -7,17 +9,23 @@ import {
   Container,
   Grid,
   MenuItem,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { EnvironmentVariables } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { PostRegisterDetailsPage } from './PostRegisterDetailsPage';
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const [reg, setReg] = useState(false);
+  const [snackbarShow, setSnackbarShow] = useState(false);
 
   const createNumbers = (length: number) => {
     return Array.from({ length: length }, (_, index) => index + 1);
@@ -36,15 +44,32 @@ export const RegisterPage: React.FC = () => {
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
       const response = await fetch(`https://${addr}/api/create_user`, requestOptions);
 
-      const user = await response.json();
+      const res = await response.json();
 
-      navigate('/login');
+      if (!response.ok) {
+        setSnackbarShow(true);
+        throw 'signup failed';
+      }
+
+      setReg(true);
+      setUserName(res.user.username);
+      setPassword(res.user.password);
+
+      // navigate('/login');
     } catch (error: any) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
+
+  if (reg) {
+    return (
+      <>
+        <PostRegisterDetailsPage username={userName} password={password} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -57,6 +82,19 @@ export const RegisterPage: React.FC = () => {
           minHeight: '100vh',
         }}
       >
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbarShow}
+          autoHideDuration={2500}
+          onClose={() => {
+            setSnackbarShow(false);
+          }}
+        >
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Sign-up failed.
+          </Alert>
+        </Snackbar>
         <Card>
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
