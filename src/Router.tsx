@@ -1,9 +1,8 @@
 import React from 'react';
 import { useAuth } from './components/auth/AuthProvider';
 import { LoginPage } from './pages/LoginPage';
-import { createHashRouter } from 'react-router-dom';
 import { PlayerProfilePage } from './pages/PlayerProfilePage';
-import { RouterProvider } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import { Scoreboard } from './pages/Scoreboard';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { AdminPanel } from './components/AdminPanel';
@@ -12,9 +11,12 @@ import { RegisterPage } from './pages/RegisterPage';
 export const Router = () => {
   const { token } = useAuth();
 
-  if (token === 'admin') {
-    return <AdminPanel></AdminPanel>;
-  }
+  const adminRoutes = [
+    {
+      path: '/admin',
+      element: <AdminPanel/>,
+    }
+  ];
 
   const unauthenticatedRoutes = [
     {
@@ -52,9 +54,10 @@ export const Router = () => {
     },
   ];
 
-  const router = createHashRouter([
+  const router = createBrowserRouter([
     ...authenticatedRoutes,
     ...(!token ? unauthenticatedRoutes : []),
+    ...adminRoutes,
   ]);
 
   return <RouterProvider router={router}></RouterProvider>;
