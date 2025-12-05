@@ -7,15 +7,23 @@ import { Scoreboard } from './pages/Scoreboard';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { AdminPanel } from './components/AdminPanel';
 import { RegisterPage } from './pages/RegisterPage';
+import { TablePage } from './pages/TablePage';
 
 export const Router = () => {
   const { token } = useAuth();
+
+  const tableRoutes = [
+    {
+      path: '/table',
+      element: <TablePage />,
+    }
+  ]
 
   const adminRoutes = [
     {
       path: '/admin',
       element: <AdminPanel/>,
-    }
+    },
   ];
 
   const unauthenticatedRoutes = [
@@ -58,6 +66,7 @@ export const Router = () => {
     ...authenticatedRoutes,
     ...(!token ? unauthenticatedRoutes : []),
     ...adminRoutes,
+    ...tableRoutes
   ]);
 
   return <RouterProvider router={router}></RouterProvider>;
