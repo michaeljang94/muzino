@@ -8,7 +8,6 @@ export const TablePage: React.FC = () => {
 
     const [tableName, setTableName] = useState("")
 
-
     useEffect(() => {
         const fetchTableDetails = async () => {
         try {
@@ -17,8 +16,6 @@ export const TablePage: React.FC = () => {
         const response = await fetch(`${addr}/api/table/${id}`);
 
         const table = await response.json();
-
-        console.log(table);
 
         setTableName(table.table.name);
         } catch (error: any) {
