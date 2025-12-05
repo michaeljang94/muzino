@@ -9,56 +9,42 @@ import {
   Container,
   Snackbar,
   TextField,
-  Typography,
 } from '@mui/material';
-import { MuiOtpInput } from 'mui-one-time-password-input';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/auth/AuthProvider';
-import { EnvironmentVariables } from '../config';
-import { error } from 'console';
+import { LoginPagePincode } from './LoginPagePincode';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const [otp, setOtp] = React.useState('');
 
-  const [userName, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPincodePage, setShowPincodePage] = useState(false);
 
   const [snackbarShow, setSnackbarShow] = useState(false);
 
-  const { setToken } = useAuth();
-
-  const handleLogin = async () => {
-    try {
-      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-
-      const response = await fetch(`https://${addr}/api/auth/login`, {
-        method: 'POST',
-        body: JSON.stringify({
-          username: userName,
-          password: password,
-        }),
-      });
-
-      const res = await response.json();
-
-      if (!response.ok || res.status != 'OK') {
-        setSnackbarShow(true);
-        throw 'login failed';
-      }
-
-      setToken(userName);
-      navigate('/player'); // Redirect to the dashboard
-    } catch (error: any) {
-      console.error(error);
-    } finally {
+  const handleLogin = () => {
+    if (!isValidUsername()) {
+      setSnackbarShow(true);
+      return;
     }
+    setShowPincodePage(true);
   };
 
-  const handleChange = (newValue: string) => {
-    setOtp(newValue);
+  const isValidUsername = () => {
+    if (username === '') {
+      return false;
+    }
+    return true;
   };
+
+  if (showPincodePage) {
+    return (
+      <>
+        <LoginPagePincode username={username} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -81,7 +67,7 @@ export const LoginPage: React.FC = () => {
         >
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            Wrong username or password.
+            Username error.
           </Alert>
         </Snackbar>
         <Card>
@@ -93,17 +79,16 @@ export const LoginPage: React.FC = () => {
               label="username"
               margin="normal"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setUserName(event.target.value);
+                setUsername(event.target.value);
               }}
             />
-            <TextField
+            {/* <TextField
               fullWidth
               type="password"
               variant="outlined"
               label="password"
               onChange={event => setPassword(event.target.value)}
-            />
-            {/* <MuiOtpInput marginTop={1} display="flex" gap={1} TextFieldsProps={{ placeholder: '-' }} value={otp} length={6} onChange={handleChange}></MuiOtpInput> */}
+            /> */}
           </CardContent>
           <CardActions>
             <Button

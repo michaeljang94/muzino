@@ -55,11 +55,13 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-        const response = await fetch(`https://${addr}/api/get_user/${id}`);
+        const response = await fetch(`https://${addr}/api/user/${id}`);
 
         const user = await response.json();
 
-        setPlayerName(user.user.name);
+        console.log(user)
+
+        setPlayerName(user.user.username);
         setPlayerScore(user.user.score);
       } catch (error: any) {
         setError(error);

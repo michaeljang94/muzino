@@ -9,6 +9,7 @@ import {
   Container,
   Grid,
   MenuItem,
+  MobileStepper,
   Snackbar,
   TextField,
   Typography,
@@ -16,60 +17,76 @@ import {
 import React, { useState } from 'react';
 import { EnvironmentVariables } from '../config';
 import { useNavigate } from 'react-router-dom';
-import { PostRegisterDetailsPage } from './PostRegisterDetailsPage';
+import { MuiOtpInput } from 'mui-one-time-password-input';
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pincode, setPincode] = useState('');
 
-  const [reg, setReg] = useState(false);
   const [snackbarShow, setSnackbarShow] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const createNumbers = (length: number) => {
     return Array.from({ length: length }, (_, index) => index + 1);
+  };
+
+  const isValidPincode = () => {
+    if (pincode.length < 5) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const isValidUsername = () => {
+    if (userName === '') {
+      return false;
+    }
+    return true;
   };
 
   const handleRegister = async () => {
     try {
       setLoading(true);
 
+      if (!isValidUsername()) {
+        setSnackbarShow(true);
+        setSnackbarMessage('Invalid Username');
+        throw 'invalid username';
+      }
+
+      if (!isValidPincode()) {
+        setSnackbarShow(true);
+        setSnackbarMessage('Invalid Pincode');
+        throw 'invalid pincode';
+      }
+
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: userName }),
+        body: JSON.stringify({ username: userName, pincode: pincode }),
       };
 
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-      const response = await fetch(`https://${addr}/api/create_user`, requestOptions);
+      const response = await fetch(`https://${addr}/api/auth/signup`, requestOptions);
 
       const res = await response.json();
 
       if (!response.ok) {
         setSnackbarShow(true);
+        setSnackbarMessage('Sign-up Failed');
         throw 'signup failed';
       }
 
-      setReg(true);
-      setUserName(res.user.username);
-      setPassword(res.user.password);
-
-      // navigate('/login');
+      navigate('/login');
     } catch (error: any) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
-
-  if (reg) {
-    return (
-      <>
-        <PostRegisterDetailsPage username={userName} password={password} />
-      </>
-    );
-  }
 
   return (
     <>
@@ -92,15 +109,21 @@ export const RegisterPage: React.FC = () => {
         >
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            Sign-up failed.
+            {snackbarMessage}
           </Alert>
         </Snackbar>
         <Card>
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
+            <MobileStepper
+              backButton={<Button>asd</Button>}
+              nextButton={undefined}
+              steps={0}
+            ></MobileStepper>
             <Grid container spacing={2}>
               <Grid size={12}>
                 <TextField
+                  // error={!isValidUsername()}
                   fullWidth
                   variant="outlined"
                   label="Name"
@@ -138,6 +161,17 @@ export const RegisterPage: React.FC = () => {
                     </MenuItem>
                   ))}
                 </TextField>
+              </Grid>
+              <Grid size={12}>
+                <MuiOtpInput
+                  gap={1}
+                  TextFieldsProps={{ placeholder: '-' }}
+                  length={5}
+                  value={pincode}
+                  onChange={value => {
+                    setPincode(value);
+                  }}
+                />
               </Grid>
             </Grid>
           </CardContent>
