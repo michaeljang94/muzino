@@ -59,7 +59,7 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
 
         const user = await response.json();
 
-        console.log(user)
+        console.log(user);
 
         setPlayerName(user.user.username);
         setPlayerScore(user.user.score);

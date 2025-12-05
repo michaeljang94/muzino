@@ -8,6 +8,7 @@ import {
   CardHeader,
   Container,
   Grid,
+  IconButton,
   MenuItem,
   MobileStepper,
   Snackbar,
@@ -18,6 +19,7 @@ import React, { useState } from 'react';
 import { EnvironmentVariables } from '../config';
 import { useNavigate } from 'react-router-dom';
 import { MuiOtpInput } from 'mui-one-time-password-input';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
@@ -113,13 +115,15 @@ export const RegisterPage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Card>
+          <IconButton
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
-            <MobileStepper
-              backButton={<Button>asd</Button>}
-              nextButton={undefined}
-              steps={0}
-            ></MobileStepper>
             <Grid container spacing={2}>
               <Grid size={12}>
                 <TextField

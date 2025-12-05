@@ -32,7 +32,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
   const navigate = useNavigate();
 
   const isValidPincode = () => {
-    console.log(pincode)
+    console.log(pincode);
     if (pincode.length < 5) {
       return false;
     }
@@ -41,7 +41,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
   };
 
   const handleLogin = async (value: string) => {
-    console.log(value)
+    console.log(value);
     if (!isValidPincode()) {
       setSnackbarShow(true);
       setSnackbarMessage('Pincode Invalid');
@@ -101,9 +101,13 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
           </Alert>
         </Snackbar>
         <Card>
-        <IconButton onClick={() => {
-            navigate("/")
-        }}><ArrowBackIcon/></IconButton>
+          <IconButton
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
             <MuiOtpInput
@@ -114,13 +118,20 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
               onChange={value => {
                 setPincode(value);
               }}
-              onComplete={event => {handleLogin(event)}}
+              onComplete={event => {
+                handleLogin(event);
+              }}
             />
           </CardContent>
           <CardActions>
-            <Button fullWidth size="large" variant="contained" onClick={() => {
-                handleLogin(pincode)
-            }}>
+            <Button
+              fullWidth
+              size="large"
+              variant="contained"
+              onClick={() => {
+                handleLogin(pincode);
+              }}
+            >
               Login
             </Button>
             {/* <Button fullWidth size="large" variant="contained" onClick={handleLogin}>
