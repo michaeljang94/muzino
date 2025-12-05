@@ -72,7 +72,7 @@ export const RegisterPage: React.FC = () => {
       };
 
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-      const response = await fetch(`https://${addr}/api/auth/signup`, requestOptions);
+      const response = await fetch(`${addr}/api/auth/signup`, requestOptions);
 
       const res = await response.json();
 

@@ -51,7 +51,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
     try {
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-      const response = await fetch(`https://${addr}/api/auth/login`, {
+      const response = await fetch(`${addr}/api/auth/login`, {
         method: 'POST',
         body: JSON.stringify({
           username: username,

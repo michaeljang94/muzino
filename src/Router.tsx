@@ -7,14 +7,14 @@ import { Scoreboard } from './pages/Scoreboard';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { AdminPanel } from './components/AdminPanel';
 import { RegisterPage } from './pages/RegisterPage';
-import { TablePage } from './pages/TablePage';
+import { TablePage } from './pages/table/TablePage';
 
 export const Router = () => {
   const { token } = useAuth();
 
   const tableRoutes = [
     {
-      path: '/table',
+      path: '/table/:id',
       element: <TablePage />,
     }
   ]

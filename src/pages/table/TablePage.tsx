@@ -1,8 +1,34 @@
 import { Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { EnvironmentVariables } from '../../config'
 
 export const TablePage: React.FC = () => {
-    const tableName = "Table 1"
+    const { id } = useParams()
+
+    const [tableName, setTableName] = useState("")
+
+
+    useEffect(() => {
+        const fetchTableDetails = async () => {
+        try {
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+        const response = await fetch(`${addr}/api/table/${id}`);
+
+        const table = await response.json();
+
+        console.log(table);
+
+        setTableName(table.table.name);
+        } catch (error: any) {
+        } finally {
+        }
+    }
+
+    fetchTableDetails()
+    }, [])
+
     const tableHeaders = ["Name", "Bet", "Turn"]
     const tablePlayers = [
         {
