@@ -7,6 +7,8 @@ export const TablePage: React.FC = () => {
     const { id } = useParams()
 
     const [tableName, setTableName] = useState("")
+    const [game, setGame] = useState("")
+    const [players, setPlayers] = useState([])
 
     useEffect(() => {
         const fetchTableDetails = async () => {
@@ -18,6 +20,9 @@ export const TablePage: React.FC = () => {
         const table = await response.json();
 
         setTableName(table.table.name);
+        setGame(table.table.game);
+        setPlayers(table.table.players)
+
         } catch (error: any) {
         } finally {
         }
@@ -27,20 +32,6 @@ export const TablePage: React.FC = () => {
     }, [])
 
     const tableHeaders = ["Name", "Bet", "Turn"]
-    const tablePlayers = [
-        {
-            name: "Example 1",
-            score: "100",
-            turn: "O"
-        },
-                {
-            name: "Example 1",
-            score: "100",
-            turn: ""
-        }
-    ]
-
-    const gameName = "black jack"
 
     return <>
     <Container maxWidth="md">
@@ -52,7 +43,7 @@ export const TablePage: React.FC = () => {
             </Grid>
             <Grid size={6}>
                 <h1>
-                    {gameName}
+                    {game}
                 </h1>
             </Grid>
             <Grid size={12}>
@@ -67,12 +58,10 @@ export const TablePage: React.FC = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tablePlayers.map(player => (
+                        {players.map(player => (
                         <>
                             <TableRow hover>
-                                <TableCell>{player.name}</TableCell>
-                                <TableCell>{player.score}</TableCell>
-                                <TableCell>{player.turn}</TableCell>
+                                <TableCell>{player}</TableCell>
                             </TableRow>
                         </>
                         ))}
