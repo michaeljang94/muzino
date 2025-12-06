@@ -104,6 +104,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
           <IconButton
             onClick={() => {
               navigate('/');
+              navigate(0);
             }}
           >
             <ArrowBackIcon />

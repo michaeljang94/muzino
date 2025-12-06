@@ -40,5 +40,11 @@ export const Scoreboard: React.FC = () => {
 
   const examplePlayersMap = generateRandomPlayerMap();
 
-  return <PaginationTable tableHeaders={['Name', 'Score']} tableData={examplePlayersMap} />;
+  return (
+    <PaginationTable
+      tableHeaders={['Name', 'Score']}
+      tableData={examplePlayersMap}
+      dataType="PLAYER"
+    />
+  );
 };

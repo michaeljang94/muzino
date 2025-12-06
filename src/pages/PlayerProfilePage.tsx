@@ -26,6 +26,7 @@ import { Label, Scoreboard } from '@mui/icons-material';
 import { useAuth } from '../components/auth/AuthProvider';
 import { UsersPage } from './UsersPage';
 import { EnvironmentVariables } from '../config';
+import axios from 'axios';
 
 export interface PlayerProfilePageProps {
   id?: string;

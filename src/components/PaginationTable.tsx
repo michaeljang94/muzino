@@ -8,12 +8,15 @@ import {
   TableBody,
   TablePagination,
   Alert,
+  Button,
 } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface PaginationTableProps {
   tableHeaders: string[];
-  tableData: Player[];
+  tableData: any[];
+  dataType: string;
 }
 
 export interface Player {
@@ -21,9 +24,18 @@ export interface Player {
   score: string;
 }
 
-export const PaginationTable: React.FC<PaginationTableProps> = ({ tableHeaders, tableData }) => {
+export interface Table {
+  name: string;
+}
+
+export const PaginationTable: React.FC<PaginationTableProps> = ({
+  tableHeaders,
+  tableData,
+  dataType,
+}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const navigate = useNavigate();
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -34,13 +46,15 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({ tableHeaders, 
     setPage(0);
   };
 
-  const visibleRows = React.useMemo(
-    () =>
-      [...tableData]
-        // .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage]
-  );
+  // const visibleRows = useMemo(
+  //   () =>
+  //     [...tableData]
+  //       // .sort(getComparator(order, orderBy))
+  //       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+  //   [page, rowsPerPage]
+  // );
+
+  const visibleRows = [...tableData].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     // <div className="scoreboard">
@@ -50,19 +64,37 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({ tableHeaders, 
           <TableHead>
             <TableRow>
               {tableHeaders.map(header => (
-                <TableCell>{header}</TableCell>
+                <TableCell key={header + '-key'}>{header}</TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {visibleRows.map(player => (
-              <>
-                <TableRow hover>
-                  <TableCell>{player.name}</TableCell>
-                  <TableCell>{player.score}</TableCell>
-                </TableRow>
-              </>
-            ))}
+            {dataType === 'PLAYER' &&
+              visibleRows.map(player => (
+                <>
+                  <TableRow hover>
+                    <TableCell>{player.name}</TableCell>
+                    <TableCell>{player.score}</TableCell>
+                  </TableRow>
+                </>
+              ))}
+            {dataType === 'TABLE' &&
+              visibleRows.map(table => (
+                <>
+                  <TableRow hover>
+                    <TableCell>{table.name}</TableCell>
+                    <TableCell align="right">
+                      <Button
+                        onClick={() => {
+                          navigate(`/table/${table.name}`);
+                        }}
+                      >
+                        OPEN
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

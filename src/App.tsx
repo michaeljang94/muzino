@@ -1,4 +1,4 @@
-import { HashRouter, Route, Link, useNavigate } from 'react-router-dom';
+import { HashRouter, Route, Link, useNavigate, Router, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { Scoreboard } from './pages/Scoreboard';
 import { PlayerProfilePage } from './pages/PlayerProfilePage';
@@ -10,7 +10,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { AuthProvider } from './components/auth/AuthProvider';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { AdminPanel } from './components/AdminPanel';
-import { Router } from './Router';
+import { CustomRoutes } from './CustomRoutes';
 
 export const App = () => {
   const [value, setValue] = useState(0);
@@ -19,9 +19,16 @@ export const App = () => {
     setValue(newValue);
   };
 
+  // return (
+  //   <AuthProvider>
+  //     <Router />
+  //   </AuthProvider>
+  // );
   return (
     <AuthProvider>
-      <Router />
+      <BrowserRouter>
+        <CustomRoutes />
+      </BrowserRouter>
     </AuthProvider>
   );
 };

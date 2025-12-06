@@ -1,5 +1,5 @@
 import {
-    Box,
+  Box,
   Container,
   Grid,
   Tab,
@@ -20,7 +20,7 @@ interface Player {
 }
 
 interface Session {
-    session_id: string
+  session_id: string;
 }
 
 export const TablePage: React.FC = () => {
@@ -31,7 +31,7 @@ export const TablePage: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [sessions, setSessions] = useState<Session[]>([]);
 
-    const [sessionValue, setSessionValue] = React.useState(0);
+  const [sessionValue, setSessionValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setSessionValue(newValue);
@@ -72,12 +72,12 @@ export const TablePage: React.FC = () => {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
         const response = await fetch(`${addr}/api/table/${id}/sessions`);
         const sessions = await response.json();
-        
-        setSessions(sessions.table_sessions)
+
+        setSessions(sessions.table_sessions);
       } catch (error: any) {
       } finally {
       }
-    }
+    };
 
     fetchTableDetails();
     fetchSessionsForTable();
@@ -98,14 +98,14 @@ export const TablePage: React.FC = () => {
           </Grid>
           <Grid size={6}>
             <h1>Session</h1>
-             <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={sessionValue} variant="scrollable" onChange={handleChange}>
-                {sessions?.map(session => (
+            <Box sx={{ width: '100%' }}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={sessionValue} variant="scrollable" onChange={handleChange}>
+                  {sessions?.map(session => (
                     <Tab label={session?.session_id} value={session?.session_id}></Tab>
-                ))}
-            </Tabs>
-            </Box>
+                  ))}
+                </Tabs>
+              </Box>
             </Box>
           </Grid>
           <Grid size={12}>
