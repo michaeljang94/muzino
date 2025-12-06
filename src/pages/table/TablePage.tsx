@@ -1,12 +1,15 @@
 import {
+    Box,
   Container,
   Grid,
+  Tab,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Tabs,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,12 +19,23 @@ interface Player {
   name: string;
 }
 
+interface Session {
+    session_id: string
+}
+
 export const TablePage: React.FC = () => {
   const { id } = useParams();
 
   const [tableName, setTableName] = useState('');
   const [game, setGame] = useState('');
   const [players, setPlayers] = useState<Player[]>([]);
+  const [sessions, setSessions] = useState<Session[]>([]);
+
+    const [sessionValue, setSessionValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setSessionValue(newValue);
+  };
 
   useEffect(() => {
     const fetchTableDetails = async () => {
@@ -41,9 +55,9 @@ export const TablePage: React.FC = () => {
 
     const fetchGameSessionPlayers = async () => {
       try {
-        const sessionId = '655a793b-3aa8-403f-b9f0-a010031b0c4d';
+        const sessionId = sessionValue;
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const response = await fetch(`${addr}/api/game_session/${sessionId}/get_players`);
+        const response = await fetch(`${addr}/api/table/${id}/session/${sessionId}/players`);
 
         const players = await response.json();
 
@@ -53,9 +67,22 @@ export const TablePage: React.FC = () => {
       }
     };
 
+    const fetchSessionsForTable = async () => {
+      try {
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+        const response = await fetch(`${addr}/api/table/${id}/sessions`);
+        const sessions = await response.json();
+        
+        setSessions(sessions.table_sessions)
+      } catch (error: any) {
+      } finally {
+      }
+    }
+
     fetchTableDetails();
+    fetchSessionsForTable();
     fetchGameSessionPlayers();
-  }, []);
+  }, [sessionValue]);
 
   const tableHeaders = ['Name', 'Bet', 'Turn'];
 
@@ -68,6 +95,18 @@ export const TablePage: React.FC = () => {
           </Grid>
           <Grid size={6}>
             <h1>{game}</h1>
+          </Grid>
+          <Grid size={6}>
+            <h1>Session</h1>
+             <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={sessionValue} variant="scrollable" onChange={handleChange}>
+                {sessions?.map(session => (
+                    <Tab label={session?.session_id} value={session?.session_id}></Tab>
+                ))}
+            </Tabs>
+            </Box>
+            </Box>
           </Grid>
           <Grid size={12}>
             <h1>Players</h1>
