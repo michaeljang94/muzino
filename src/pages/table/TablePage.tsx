@@ -41,13 +41,13 @@ export const TablePage: React.FC = () => {
 
     const fetchGameSessionPlayers = async () => {
       try {
-        const sessionId = '3564dc6f-b8d1-422e-b02d-1465f7acdc75';
+        const sessionId = '655a793b-3aa8-403f-b9f0-a010031b0c4d';
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
         const response = await fetch(`${addr}/api/game_session/${sessionId}/get_players`);
 
         const players = await response.json();
 
-        setPlayers(players.Players);
+        setPlayers(players.players);
       } catch (error: any) {
       } finally {
       }
@@ -81,7 +81,7 @@ export const TablePage: React.FC = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {players.map(player => (
+                  {players?.map(player => (
                     <>
                       <TableRow hover>
                         <TableCell>{player.name}</TableCell>
