@@ -16,13 +16,13 @@ export const Router = () => {
     {
       path: '/table/:id',
       element: <TablePage />,
-    }
-  ]
+    },
+  ];
 
   const adminRoutes = [
     {
       path: '/admin',
-      element: <AdminPanel/>,
+      element: <AdminPanel />,
     },
   ];
 
@@ -66,7 +66,7 @@ export const Router = () => {
     ...authenticatedRoutes,
     ...(!token ? unauthenticatedRoutes : []),
     ...adminRoutes,
-    ...tableRoutes
+    ...tableRoutes,
   ]);
 
   return <RouterProvider router={router}></RouterProvider>;

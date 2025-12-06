@@ -1,18 +1,31 @@
-import { Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { EnvironmentVariables } from '../../config'
+import {
+  Container,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { EnvironmentVariables } from '../../config';
+
+interface Player {
+  name: string;
+}
 
 export const TablePage: React.FC = () => {
-    const { id } = useParams()
+  const { id } = useParams();
 
-    const [tableName, setTableName] = useState("")
-    const [game, setGame] = useState("")
-    const [players, setPlayers] = useState([])
+  const [tableName, setTableName] = useState('');
+  const [game, setGame] = useState('');
+  const [players, setPlayers] = useState<Player[]>([]);
 
-    useEffect(() => {
-        const fetchTableDetails = async () => {
-        try {
+  useEffect(() => {
+    const fetchTableDetails = async () => {
+      try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
         const response = await fetch(`${addr}/api/table/${id}`);
@@ -21,55 +34,66 @@ export const TablePage: React.FC = () => {
 
         setTableName(table.table.name);
         setGame(table.table.game);
-        setPlayers(table.table.players)
+      } catch (error: any) {
+      } finally {
+      }
+    };
 
-        } catch (error: any) {
-        } finally {
-        }
-    }
+    const fetchGameSessionPlayers = async () => {
+      try {
+        const sessionId = '3564dc6f-b8d1-422e-b02d-1465f7acdc75';
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+        const response = await fetch(`${addr}/api/game_session/${sessionId}/get_players`);
 
-    fetchTableDetails()
-    }, [])
+        const players = await response.json();
 
-    const tableHeaders = ["Name", "Bet", "Turn"]
+        setPlayers(players.Players);
+      } catch (error: any) {
+      } finally {
+      }
+    };
 
-    return <>
-    <Container maxWidth="md">
+    fetchTableDetails();
+    fetchGameSessionPlayers();
+  }, []);
+
+  const tableHeaders = ['Name', 'Bet', 'Turn'];
+
+  return (
+    <>
+      <Container maxWidth="md">
         <Grid container spacing={2}>
-            <Grid size={6}>
-                <h1>
-                    {tableName}
-                </h1>
-            </Grid>
-            <Grid size={6}>
-                <h1>
-                    {game}
-                </h1>
-            </Grid>
-            <Grid size={12}>
-                <h1>Players</h1>
-                <TableContainer>
-                    <Table>
-                    <TableHead>
-                        <TableRow>
-                        {tableHeaders.map(header => (
-                            <TableCell>{header}</TableCell>
-                        ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {players.map(player => (
-                        <>
-                            <TableRow hover>
-                                <TableCell>{player}</TableCell>
-                            </TableRow>
-                        </>
-                        ))}
-                    </TableBody>
-                    </Table>
-                </TableContainer>
-            </Grid>
+          <Grid size={6}>
+            <h1>{tableName}</h1>
+          </Grid>
+          <Grid size={6}>
+            <h1>{game}</h1>
+          </Grid>
+          <Grid size={12}>
+            <h1>Players</h1>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {tableHeaders.map(header => (
+                      <TableCell>{header}</TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {players.map(player => (
+                    <>
+                      <TableRow hover>
+                        <TableCell>{player.name}</TableCell>
+                      </TableRow>
+                    </>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
         </Grid>
-    </Container>
+      </Container>
     </>
-}
+  );
+};
