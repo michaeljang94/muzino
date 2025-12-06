@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { EnvironmentVariables } from '../../config';
-import { Container, Grid } from '@mui/material';
+import { Button, Container, Grid } from '@mui/material';
 import { PaginationTable } from '../../components/PaginationTable';
+import axios from 'axios';
 
 interface Table {
   name: string;
@@ -9,6 +10,13 @@ interface Table {
 
 export const TablesPage: React.FC = () => {
   const [tables, setTables] = useState<Table[]>([]);
+
+  const handleCreateTable = (tableName: string) => {
+    const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+    axios.post(`${addr}/api/table/create`, {
+      name: tableName,
+    });
+  };
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -39,6 +47,9 @@ export const TablesPage: React.FC = () => {
         <Grid container>
           <Grid size={12}>
             <h1>Tables</h1>
+          </Grid>
+          <Grid size={12}>
+            <Button>Create Table</Button>
           </Grid>
           <Grid size={12}>
             <PaginationTable tableHeaders={[]} tableData={tables} dataType="TABLE" />

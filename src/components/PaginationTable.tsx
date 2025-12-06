@@ -21,7 +21,7 @@ export interface PaginationTableProps {
 
 export interface Player {
   name: string;
-  score: string;
+  score: number;
 }
 
 export interface Table {
@@ -73,6 +73,7 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
               visibleRows.map(player => (
                 <>
                   <TableRow hover>
+                    <TableCell>{player.username}</TableCell>
                     <TableCell>{player.name}</TableCell>
                     <TableCell>{player.score}</TableCell>
                   </TableRow>

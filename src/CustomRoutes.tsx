@@ -8,6 +8,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { useAuth } from './components/auth/AuthProvider';
 import { TablesPage } from './pages/table/TablesPage';
 import { TablePage } from './pages/table/TablePage';
+import { UsersPage } from './pages/UsersPage';
 
 export const CustomRoutes: React.FC = () => {
   const { token } = useAuth();
@@ -20,6 +21,7 @@ export const CustomRoutes: React.FC = () => {
           <>
             <Route path="/tables" element={<TablesPage />} />
             <Route path="/table/:id" element={<TablePage />} />
+            <Route path="/users" element={<UsersPage />} />
           </>
         )}
 

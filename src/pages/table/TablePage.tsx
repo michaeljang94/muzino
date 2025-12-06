@@ -2,6 +2,11 @@ import {
   Box,
   Container,
   Grid,
+  List,
+  ListItemButton,
+  ListItemText,
+  Menu,
+  MenuItem,
   Tab,
   Table,
   TableBody,
@@ -31,10 +36,22 @@ export const TablePage: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [sessions, setSessions] = useState<Session[]>([]);
 
-  const [sessionValue, setSessionValue] = React.useState(0);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [sessionValue, setSessionValue] = React.useState('');
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSessionValue(newValue);
+  const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+
+  const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
+    setSelectedIndex(index);
+    setAnchorEl(null);
+    setSessionValue(sessions[index]?.session_id);
   };
 
   useEffect(() => {
@@ -73,7 +90,8 @@ export const TablePage: React.FC = () => {
         const response = await fetch(`${addr}/api/table/${id}/sessions`);
         const sessions = await response.json();
 
-        setSessions(sessions.table_sessions);
+        setSessions(sessions?.table_sessions);
+        setSessionValue(sessions?.table_sessions[selectedIndex]?.session_id);
       } catch (error: any) {
       } finally {
       }
@@ -96,17 +114,43 @@ export const TablePage: React.FC = () => {
           <Grid size={6}>
             <h1>{game}</h1>
           </Grid>
-          <Grid size={6}>
+          <Grid size={12}>
             <h1>Session</h1>
-            <Box sx={{ width: '100%' }}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={sessionValue} variant="scrollable" onChange={handleChange}>
-                  {sessions?.map(session => (
-                    <Tab label={session?.session_id} value={session?.session_id}></Tab>
-                  ))}
-                </Tabs>
-              </Box>
-            </Box>
+            <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
+              <ListItemButton
+                id="lock-button"
+                aria-haspopup="listbox"
+                aria-controls="lock-menu"
+                aria-label="Session ID"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClickListItem}
+              >
+                <ListItemText
+                  primary="Session ID"
+                  secondary={sessions && sessions[selectedIndex]?.session_id}
+                />
+              </ListItemButton>
+            </List>
+            <Menu
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              slotProps={{
+                list: {
+                  'aria-labelledby': 'lock-button',
+                  role: 'listbox',
+                },
+              }}
+            >
+              {sessions?.map((session, index) => (
+                <MenuItem
+                  selected={index === selectedIndex}
+                  onClick={event => handleMenuItemClick(event, index)}
+                >
+                  {session?.session_id}
+                </MenuItem>
+              ))}
+            </Menu>
           </Grid>
           <Grid size={12}>
             <h1>Players</h1>

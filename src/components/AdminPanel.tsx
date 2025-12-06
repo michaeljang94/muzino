@@ -31,7 +31,12 @@ export const AdminPanel = () => {
             }}
           />
           <Tab label="Scoreboard" />
-          <Tab label="Users" />
+          <Tab
+            label="Users"
+            onClick={() => {
+              navigate('/users');
+            }}
+          />
           <Tab
             label="Tables"
             onClick={() => {

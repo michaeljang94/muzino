@@ -17,17 +17,17 @@ export const Scoreboard: React.FC = () => {
     const examplePlayersMap: Player[] = [
       {
         name: 'Muone',
-        score: '1000',
+        score: 1000,
       },
       {
         name: 'Babo',
-        score: '1000',
+        score: 1000,
       },
     ];
 
     for (let i = 0; i < 100; i++) {
       const playerName = 'Player ' + i;
-      const playerMoney = '1000';
+      const playerMoney = 1000;
 
       examplePlayersMap.push({
         name: playerName,
