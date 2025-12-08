@@ -77,9 +77,10 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                     <TableCell>{player.name}</TableCell>
                     <TableCell>{player.score}</TableCell>
                     <TableCell align="right">
-                      <Button onClick={() => {
-                        navigate(`/user/${player.username}/edit`)
-                      }}
+                      <Button
+                        onClick={() => {
+                          navigate(`/user/${player.username}/edit`);
+                        }}
                       >
                         OPEN
                       </Button>

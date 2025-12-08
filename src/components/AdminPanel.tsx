@@ -30,9 +30,12 @@ export const AdminPanel = () => {
               navigate('/');
             }}
           />
-          <Tab label="Scoreboard" onClick={() => {
-            navigate("/scoreboard")
-          }}/>
+          <Tab
+            label="Scoreboard"
+            onClick={() => {
+              navigate('/scoreboard');
+            }}
+          />
           <Tab
             label="Users"
             onClick={() => {

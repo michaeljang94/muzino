@@ -50,8 +50,8 @@ export const PlayerProfilePage: React.FC = () => {
     const fetchUser = async () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const decoded = jwtDecode<TokenPayload>(token || "")
-        const username = decoded.username
+        const decoded = jwtDecode<TokenPayload>(token || '');
+        const username = decoded.username;
 
         const response = await fetch(`${addr}/api/user/${username}`, {
           headers: {

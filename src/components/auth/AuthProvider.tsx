@@ -8,7 +8,7 @@ interface TokenContext {
   setToken: (newToken: string) => void;
 }
 
-interface TokenPayload extends JwtPayload{
+interface TokenPayload extends JwtPayload {
   username: string;
   role: string;
 }
@@ -39,12 +39,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       localStorage.setItem('token', token);
 
-      const decoded = jwtDecode<TokenPayload>(token)
-      const isExpired = (Date.now() > (decoded?.exp || 0))
+      const decoded = jwtDecode<TokenPayload>(token);
+      const isExpired = Date.now() > (decoded?.exp || 0);
 
-      if(isExpired) {
+      if (isExpired) {
         localStorage.removeItem('token');
-        setToken_(null)
+        setToken_(null);
       }
     } else {
       localStorage.removeItem('token');

@@ -65,7 +65,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
         setSnackbarMessage('Login Failed');
         throw 'login failed';
       }
-      
+
       setToken(res.token);
       navigate('/player', {
         state: {

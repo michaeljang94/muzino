@@ -30,8 +30,8 @@ export const UsersPage: React.FC = () => {
 
         const usersList = await response.json();
 
-        if(usersList.error) {
-          throw usersList.error
+        if (usersList.error) {
+          throw usersList.error;
         }
 
         setUsers(usersList.users);
@@ -50,20 +50,22 @@ export const UsersPage: React.FC = () => {
     return <>{error}</>;
   }
 
-  return <>
-  <Container maxWidth="md">
-    <Grid container>
-      <Grid size={12}>
-        <h1>Users</h1>
-      </Grid>
-      <Grid size={12}>
-             <PaginationTable
-      tableHeaders={['Username', 'Name', 'Score']}
-      tableData={users}
-      dataType="PLAYER"
-    />
-      </Grid>
-    </Grid>
-  </Container>
-  </>
+  return (
+    <>
+      <Container maxWidth="md">
+        <Grid container>
+          <Grid size={12}>
+            <h1>Users</h1>
+          </Grid>
+          <Grid size={12}>
+            <PaginationTable
+              tableHeaders={['Username', 'Name', 'Score']}
+              tableData={users}
+              dataType="PLAYER"
+            />
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
 };

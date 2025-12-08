@@ -35,9 +35,9 @@ export const CustomRoutes: React.FC = () => {
             <Route path="/table/:id" element={<TablePage />} />
             <Route path="/users" element={<UsersPage />} />
 
-            <Route path="/user/:id/edit" element={<EditUserPage />}/>
+            <Route path="/user/:id/edit" element={<EditUserPage />} />
 
-            <Route path="/scoreboard" element={<Scoreboard />}/>
+            <Route path="/scoreboard" element={<Scoreboard />} />
           </>
         )}
 

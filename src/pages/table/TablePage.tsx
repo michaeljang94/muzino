@@ -132,9 +132,7 @@ export const TablePage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <h1>Session</h1>
-            <Button variant="contained">
-                Create Session
-            </Button>
+            <Button variant="contained">Create Session</Button>
             <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
               <ListItemButton
                 id="lock-button"
