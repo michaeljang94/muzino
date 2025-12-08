@@ -27,12 +27,15 @@ import { useAuth } from '../components/auth/AuthProvider';
 import { UsersPage } from './UsersPage';
 import { EnvironmentVariables } from '../config';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { useJwt } from 'react-jwt';
 
-export interface PlayerProfilePageProps {
-  id?: string;
+interface TokenPayload {
+  username: string
+  role: string
 }
 
-export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
+export const PlayerProfilePage: React.FC = () => {
   const [playerName, setPlayerName] = useState();
   const [playerScore, setPlayerScore] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -48,22 +51,26 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
   };
 
   const { token } = useAuth();
-
-  id = id || token || '';
+  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || "")
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-
-        const response = await fetch(`${addr}/api/user/${id}`);
+        const username = decodedToken?.username
+        
+        const response = await fetch(`${addr}/api/user/${username}`, {
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        });
 
         const user = await response.json();
 
-        console.log(user);
-
         setPlayerName(user.user.username);
         setPlayerScore(user.user.score);
+        
+        setError(null)
       } catch (error: any) {
         setError(error);
       } finally {
@@ -72,7 +79,7 @@ export const PlayerProfilePage: React.FC<PlayerProfilePageProps> = ({ id }) => {
     };
 
     fetchUser(); // Call the async function
-  }, [inGame]); // Empty array to run the effect only once (on mount)
+  }, [inGame, decodedToken]); // Empty array to run the effect only once (on mount)
 
   const onClickLeaveGame = () => {
     setOpenLeaveDialog(true);

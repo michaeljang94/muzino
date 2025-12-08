@@ -3,13 +3,16 @@ import { EnvironmentVariables } from '../../config';
 import { Button, Container, Grid } from '@mui/material';
 import { PaginationTable } from '../../components/PaginationTable';
 import axios from 'axios';
+import { useAuth } from '../../components/auth/AuthProvider';
 
 interface Table {
   name: string;
 }
 
 export const TablesPage: React.FC = () => {
+    const {token} = useAuth()
   const [tables, setTables] = useState<Table[]>([]);
+    const [error, setError] = useState("")
 
   const handleCreateTable = (tableName: string) => {
     const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
@@ -23,13 +26,15 @@ export const TablesPage: React.FC = () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-        const response = await fetch(`${addr}/api/tables`);
+        const response = await fetch(`${addr}/api/tables`, {
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        });
 
         const tablesList = await response.json();
 
-        setTables(tablesList.tables);
-
-        console.log(tablesList.tables);
+        setTables(tablesList.tables ?? []);
       } catch (error: any) {
         console.error(error);
       } finally {
@@ -39,7 +44,10 @@ export const TablesPage: React.FC = () => {
     fetchTables();
   }, []);
 
-  console.log(tables);
+
+  if (error != "") {
+    return <></>
+  }
 
   return (
     <>

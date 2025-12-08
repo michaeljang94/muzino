@@ -9,10 +9,18 @@ import { useAuth } from './components/auth/AuthProvider';
 import { TablesPage } from './pages/table/TablesPage';
 import { TablePage } from './pages/table/TablePage';
 import { UsersPage } from './pages/UsersPage';
+import { useJwt } from 'react-jwt';
+
+interface TokenPayload {
+  username: string
+  role: string
+}
 
 export const CustomRoutes: React.FC = () => {
   const { token } = useAuth();
-  const isAdmin = token === 'admin';
+  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || "")
+    
+  const isAdmin = decodedToken?.role === 'admin';
   return (
     <>
       {isAdmin && <AdminPanel />}

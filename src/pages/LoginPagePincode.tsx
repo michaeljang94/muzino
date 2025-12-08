@@ -32,7 +32,6 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
   const navigate = useNavigate();
 
   const isValidPincode = () => {
-    console.log(pincode);
     if (pincode.length < 5) {
       return false;
     }
@@ -41,7 +40,6 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
   };
 
   const handleLogin = async (value: string) => {
-    console.log(value);
     if (!isValidPincode()) {
       setSnackbarShow(true);
       setSnackbarMessage('Pincode Invalid');
@@ -68,8 +66,12 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
         throw 'login failed';
       }
 
-      setToken(username);
-      navigate('/player'); // Redirect to the dashboard
+      setToken(res.token);
+      navigate('/player', {
+        state: {
+            id: username
+        }
+      }); // Redirect to the dashboard
     } catch (error: any) {
       console.error(error);
     } finally {
