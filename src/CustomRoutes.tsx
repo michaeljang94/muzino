@@ -8,9 +8,11 @@ import { AdminPanel } from './components/AdminPanel';
 import { useAuth } from './components/auth/AuthProvider';
 import { TablesPage } from './pages/table/TablesPage';
 import { TablePage } from './pages/table/TablePage';
-import { UsersPage } from './pages/UsersPage';
+import { UsersPage } from './pages/user/UsersPage';
 import { useJwt } from 'react-jwt';
 import { CreateTablePage } from './pages/table/CreateTablePage';
+import { EditUserPage } from './pages/user/EditUserPage';
+import { Scoreboard } from './pages/Scoreboard';
 
 interface TokenPayload {
   username: string;
@@ -32,6 +34,10 @@ export const CustomRoutes: React.FC = () => {
             <Route path="/table/create" element={<CreateTablePage />} />
             <Route path="/table/:id" element={<TablePage />} />
             <Route path="/users" element={<UsersPage />} />
+
+            <Route path="/user/:id/edit" element={<EditUserPage />}/>
+
+            <Route path="/scoreboard" element={<Scoreboard />}/>
           </>
         )}
 

@@ -4,7 +4,7 @@ import { Scoreboard } from './pages/Scoreboard';
 import { PlayerProfilePage } from './pages/PlayerProfilePage';
 import { Tabs, Tab, Container, Box } from '@mui/material';
 import { useState } from 'react';
-import { UsersPage } from './pages/UsersPage';
+import { UsersPage } from './pages/user/UsersPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { AuthProvider } from './components/auth/AuthProvider';

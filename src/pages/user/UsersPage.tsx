@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Scoreboard } from './Scoreboard';
-import { PaginationTable } from '../components/PaginationTable';
-import { EnvironmentVariables } from '../config';
-import { useAuth } from '../components/auth/AuthProvider';
+import { Scoreboard } from '../Scoreboard';
+import { PaginationTable } from '../../components/PaginationTable';
+import { EnvironmentVariables } from '../../config';
+import { useAuth } from '../../components/auth/AuthProvider';
 import { Container, Grid } from '@mui/material';
 
 interface User {
@@ -30,6 +30,10 @@ export const UsersPage: React.FC = () => {
 
         const usersList = await response.json();
 
+        if(usersList.error) {
+          throw usersList.error
+        }
+
         setUsers(usersList.users);
         setError(null);
       } catch (error: any) {
@@ -43,7 +47,7 @@ export const UsersPage: React.FC = () => {
   }, []);
 
   if (error) {
-    return <>Error</>;
+    return <>{error}</>;
   }
 
   return <>

@@ -1,9 +1,16 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import { useJwt } from 'react-jwt';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 interface TokenContext {
   token: string | null;
   setToken: (newToken: string) => void;
+}
+
+interface TokenPayload extends JwtPayload{
+  username: string;
+  role: string;
 }
 
 const AuthContext = createContext<TokenContext>({
@@ -30,10 +37,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
       localStorage.setItem('token', token);
+
+      const decoded = jwtDecode<TokenPayload>(token)
+      const isExpired = (Date.now() > (decoded?.exp || 0))
+
+      if(isExpired) {
+        localStorage.removeItem('token');
+        setToken_(null)
+      }
     } else {
-      delete axios.defaults.headers.common['Authorization'];
       localStorage.removeItem('token');
     }
   }, [token]);

@@ -24,11 +24,12 @@ import {
 import qrcode from '../qrcode.svg';
 import { Label, Scoreboard } from '@mui/icons-material';
 import { useAuth } from '../components/auth/AuthProvider';
-import { UsersPage } from './UsersPage';
+import { UsersPage } from './user/UsersPage';
 import { EnvironmentVariables } from '../config';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useJwt } from 'react-jwt';
+import { jwtDecode } from 'jwt-decode';
 
 interface TokenPayload {
   username: string;
@@ -38,26 +39,19 @@ interface TokenPayload {
 export const PlayerProfilePage: React.FC = () => {
   const [playerName, setPlayerName] = useState();
   const [playerScore, setPlayerScore] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [inGame, setInGame] = useState(false);
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
 
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
   const { token } = useAuth();
-  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || '');
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const username = decodedToken?.username;
+        const decoded = jwtDecode<TokenPayload>(token || "")
+        const username = decoded.username
 
         const response = await fetch(`${addr}/api/user/${username}`, {
           headers: {
@@ -74,12 +68,11 @@ export const PlayerProfilePage: React.FC = () => {
       } catch (error: any) {
         setError(error);
       } finally {
-        setIsLoading(false);
       }
     };
 
     fetchUser(); // Call the async function
-  }, [inGame, decodedToken]); // Empty array to run the effect only once (on mount)
+  }, [inGame]); // Empty array to run the effect only once (on mount)
 
   const onClickLeaveGame = () => {
     setOpenLeaveDialog(true);

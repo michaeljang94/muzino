@@ -40,8 +40,8 @@ export const TablesPage: React.FC = () => {
     fetchTables();
   }, []);
 
-  if (error != '') {
-    return <></>;
+  if (error) {
+    return <>{error}</>;
   }
 
   return (

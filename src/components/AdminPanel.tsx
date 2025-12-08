@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { PlayerProfilePage } from '../pages/PlayerProfilePage';
-import { UsersPage } from '../pages/UsersPage';
+import { UsersPage } from '../pages/user/UsersPage';
 import { Scoreboard } from '../pages/Scoreboard';
 import { TablesPage } from '../pages/table/TablesPage';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,9 @@ export const AdminPanel = () => {
               navigate('/');
             }}
           />
-          <Tab label="Scoreboard" />
+          <Tab label="Scoreboard" onClick={() => {
+            navigate("/scoreboard")
+          }}/>
           <Tab
             label="Users"
             onClick={() => {
