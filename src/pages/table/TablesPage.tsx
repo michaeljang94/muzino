@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { EnvironmentVariables } from '../../config';
-import { Button, Container, Grid } from '@mui/material';
+import { Button, Container, Divider, Grid } from '@mui/material';
 import { PaginationTable } from '../../components/PaginationTable';
 import axios from 'axios';
 import { useAuth } from '../../components/auth/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 interface Table {
   name: string;
 }
 
 export const TablesPage: React.FC = () => {
-    const {token} = useAuth()
+  const { token } = useAuth();
   const [tables, setTables] = useState<Table[]>([]);
-    const [error, setError] = useState("")
+  const [error, setError] = useState('');
 
-  const handleCreateTable = (tableName: string) => {
-    const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-    axios.post(`${addr}/api/table/create`, {
-      name: tableName,
-    });
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -28,8 +24,8 @@ export const TablesPage: React.FC = () => {
 
         const response = await fetch(`${addr}/api/tables`, {
           headers: {
-            "Authorization": "Bearer " + token
-          }
+            Authorization: 'Bearer ' + token,
+          },
         });
 
         const tablesList = await response.json();
@@ -44,9 +40,8 @@ export const TablesPage: React.FC = () => {
     fetchTables();
   }, []);
 
-
-  if (error != "") {
-    return <></>
+  if (error != '') {
+    return <></>;
   }
 
   return (
@@ -57,10 +52,22 @@ export const TablesPage: React.FC = () => {
             <h1>Tables</h1>
           </Grid>
           <Grid size={12}>
-            <Button>Create Table</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate('/table/create');
+              }}
+            >
+              Create Table
+            </Button>
+          </Grid>
+          <Grid size={12} marginBottom={2} marginTop={2}>
+            <Divider></Divider>
           </Grid>
           <Grid size={12}>
-            <PaginationTable tableHeaders={[]} tableData={tables} dataType="TABLE" />
+            {tables.length > 0 && (
+              <PaginationTable tableHeaders={[]} tableData={tables} dataType="TABLE" />
+            )}
           </Grid>
         </Grid>
       </Container>

@@ -31,8 +31,8 @@ import { useLocation } from 'react-router-dom';
 import { useJwt } from 'react-jwt';
 
 interface TokenPayload {
-  username: string
-  role: string
+  username: string;
+  role: string;
 }
 
 export const PlayerProfilePage: React.FC = () => {
@@ -51,26 +51,26 @@ export const PlayerProfilePage: React.FC = () => {
   };
 
   const { token } = useAuth();
-  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || "")
+  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || '');
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const username = decodedToken?.username
-        
+        const username = decodedToken?.username;
+
         const response = await fetch(`${addr}/api/user/${username}`, {
           headers: {
-            "Authorization": "Bearer " + token
-          }
+            Authorization: 'Bearer ' + token,
+          },
         });
 
         const user = await response.json();
 
         setPlayerName(user.user.username);
         setPlayerScore(user.user.score);
-        
-        setError(null)
+
+        setError(null);
       } catch (error: any) {
         setError(error);
       } finally {

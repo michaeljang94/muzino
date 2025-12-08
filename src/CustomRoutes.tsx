@@ -10,16 +10,17 @@ import { TablesPage } from './pages/table/TablesPage';
 import { TablePage } from './pages/table/TablePage';
 import { UsersPage } from './pages/UsersPage';
 import { useJwt } from 'react-jwt';
+import { CreateTablePage } from './pages/table/CreateTablePage';
 
 interface TokenPayload {
-  username: string
-  role: string
+  username: string;
+  role: string;
 }
 
 export const CustomRoutes: React.FC = () => {
   const { token } = useAuth();
-  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || "")
-    
+  const { decodedToken, isExpired } = useJwt<TokenPayload>(token || '');
+
   const isAdmin = decodedToken?.role === 'admin';
   return (
     <>
@@ -28,6 +29,7 @@ export const CustomRoutes: React.FC = () => {
         {isAdmin && (
           <>
             <Route path="/tables" element={<TablesPage />} />
+            <Route path="/table/create" element={<CreateTablePage />} />
             <Route path="/table/:id" element={<TablePage />} />
             <Route path="/users" element={<UsersPage />} />
           </>

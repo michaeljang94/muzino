@@ -13,8 +13,8 @@ interface User {
 
 export const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState(null)
-  const {token} = useAuth()
+  const [error, setError] = useState(null);
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchTables = async () => {
@@ -23,17 +23,17 @@ export const UsersPage: React.FC = () => {
 
         const response = await fetch(`${addr}/api/users`, {
           headers: {
-            "Authorization": "Bearer " + token
-          }
+            Authorization: 'Bearer ' + token,
+          },
         });
 
         const usersList = await response.json();
 
         setUsers(usersList.users);
-        setError(null)
+        setError(null);
       } catch (error: any) {
         console.error(error);
-        setError(error)
+        setError(error);
       } finally {
       }
     };
@@ -42,7 +42,7 @@ export const UsersPage: React.FC = () => {
   }, []);
 
   if (error) {
-    return <>Error</>
+    return <>Error</>;
   }
 
   return (

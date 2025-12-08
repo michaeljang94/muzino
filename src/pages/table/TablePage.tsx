@@ -19,6 +19,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
+import { useAuth } from '../../components/auth/AuthProvider';
 
 interface Player {
   name: string;
@@ -30,6 +31,8 @@ interface Session {
 
 export const TablePage: React.FC = () => {
   const { id } = useParams();
+
+  const { token } = useAuth();
 
   const [tableName, setTableName] = useState('');
   const [game, setGame] = useState('');
@@ -59,7 +62,11 @@ export const TablePage: React.FC = () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-        const response = await fetch(`${addr}/api/table/${id}`);
+        const response = await fetch(`${addr}/api/table/${id}`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        });
 
         const table = await response.json();
 
@@ -74,7 +81,11 @@ export const TablePage: React.FC = () => {
       try {
         const sessionId = sessionValue;
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const response = await fetch(`${addr}/api/table/${id}/session/${sessionId}/players`);
+        const response = await fetch(`${addr}/api/table/${id}/session/${sessionId}/players`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        });
 
         const players = await response.json();
 
@@ -87,7 +98,11 @@ export const TablePage: React.FC = () => {
     const fetchSessionsForTable = async () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const response = await fetch(`${addr}/api/table/${id}/sessions`);
+        const response = await fetch(`${addr}/api/table/${id}/sessions`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        });
         const sessions = await response.json();
 
         setSessions(sessions?.table_sessions);

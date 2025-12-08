@@ -69,8 +69,8 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
       setToken(res.token);
       navigate('/player', {
         state: {
-            id: username
-        }
+          id: username,
+        },
       }); // Redirect to the dashboard
     } catch (error: any) {
       console.error(error);
