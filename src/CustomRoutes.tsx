@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
 import { PrivateRoute } from './components/auth/PrivateRoute';
@@ -13,6 +13,7 @@ import { useJwt } from 'react-jwt';
 import { CreateTablePage } from './pages/table/CreateTablePage';
 import { EditUserPage } from './pages/user/EditUserPage';
 import { Scoreboard } from './pages/Scoreboard';
+import { MissingRoute } from './pages/MissingRoute';
 
 interface TokenPayload {
   username: string;
@@ -57,7 +58,7 @@ export const CustomRoutes: React.FC = () => {
           </Route>
         )}
 
-        <Route path="*" element={<></>} />
+        <Route path="*" element={<MissingRoute />} />
       </Routes>
     </>
   );
