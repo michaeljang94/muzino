@@ -26,28 +26,32 @@ export const CreateTablePage: React.FC = () => {
 
   return (
     <>
-      <Container>
+      <Container maxWidth="md">
         <Grid container>
           <Grid size={12}>
             <h1>Create Table</h1>
           </Grid>
           <Grid size={12}>
-            <TextField
-              variant="outlined"
-              label="name"
-              margin="normal"
-              onChange={e => setTableName(e.target.value)}
-            />
-          </Grid>
-          <Grid size={12}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                handleCreateTable();
-              }}
-            >
-              Create
-            </Button>
+            <Container maxWidth="md">
+              <Grid size={12}>
+                <TextField
+                  variant="outlined"
+                  label="name"
+                  margin="normal"
+                  onChange={e => setTableName(e.target.value)}
+                />
+              </Grid>
+              <Grid size={12}>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    handleCreateTable();
+                  }}
+                >
+                  Create
+                </Button>
+              </Grid>
+            </Container>
           </Grid>
         </Grid>
       </Container>
