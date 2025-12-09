@@ -15,7 +15,11 @@ export const EditUserPage: React.FC = () => {
   const { id } = useParams();
   const { token } = useAuth();
   const [user, setUser] = useState<User>();
+
+  const [userId, setUserId] = useState('');
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [score, setScore] = useState('');
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,9 +32,13 @@ export const EditUserPage: React.FC = () => {
           },
         });
 
-        const user = await response.json();
-        setUser(user.user);
-        setUsername('asdasdad');
+        const res = await response.json();
+        setUser(res.user);
+
+        setUserId(res.user.id);
+        setName(res.user.name);
+        setUsername(res.user.username);
+        setScore(res.user.score);
       } catch (error: any) {
       } finally {
       }
@@ -46,14 +54,36 @@ export const EditUserPage: React.FC = () => {
           <Grid size={12}>
             <h1>{id}</h1>
           </Grid>
-          <Grid size={6}>
-            <TextField fullWidth label="username" placeholder={user?.username} />
+          <Grid size={12}>
+            <TextField fullWidth label="user id" value={userId} disabled />
           </Grid>
           <Grid size={6}>
-            <TextField fullWidth label="name" placeholder={user?.name} />
+            <TextField
+              fullWidth
+              label="username"
+              value={username}
+              onChange={event => {
+                setUsername(event.target.value);
+              }}
+            />
+          </Grid>
+          <Grid size={6}>
+            <TextField
+              fullWidth
+              label="name"
+              value={name}
+              onChange={event => {
+                setName(event.target.value);
+              }}
+            />
           </Grid>
           <Grid size={12}>
-            <TextField fullWidth label="score" placeholder={user?.score.toString()} />
+            <TextField
+              fullWidth
+              label="score"
+              value={score}
+              onChange={event => setScore(event.target.value)}
+            />
           </Grid>
           <Grid size={6}>
             <Button fullWidth variant="contained" style={{ height: 75 }}>

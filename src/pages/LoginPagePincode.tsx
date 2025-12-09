@@ -119,7 +119,11 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
               length={5}
               value={pincode}
               onChange={value => {
-                setPincode(value);
+                setPincode(value.toUpperCase());
+              }}
+              validateChar={(value, index) => {
+                const validCode = /^[a-zA-Z0-9]+$/;
+                return validCode.test(value);
               }}
               onComplete={event => {
                 handleLogin(event);

@@ -23,12 +23,17 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
+
+  const [name, setName] = useState('');
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(false);
   const [pincode, setPincode] = useState('');
 
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const [initialSelectUsername, setInitialSelectUsername] = useState(true);
+  const [initialSelectName, setInitialSelectName] = useState(true);
 
   const createNumbers = (length: number) => {
     return Array.from({ length: length }, (_, index) => index + 1);
@@ -43,9 +48,15 @@ export const RegisterPage: React.FC = () => {
   };
 
   const isValidUsername = () => {
-    if (userName === '') {
+    const validUsername = /^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    return validUsername.test(userName);
+  };
+
+  const isValidFullName = () => {
+    if (name === '') {
       return false;
     }
+
     return true;
   };
 
@@ -54,21 +65,21 @@ export const RegisterPage: React.FC = () => {
       setLoading(true);
 
       if (!isValidUsername()) {
-        setSnackbarShow(true);
-        setSnackbarMessage('Invalid Username');
-        throw 'invalid username';
+        throw 'Invalid Username';
       }
 
       if (!isValidPincode()) {
-        setSnackbarShow(true);
-        setSnackbarMessage('Invalid Pincode');
-        throw 'invalid pincode';
+        throw 'Invalid Pincode';
+      }
+
+      if (!isValidFullName()) {
+        throw 'Invalid Name';
       }
 
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: userName, pincode: pincode }),
+        body: JSON.stringify({ username: userName, pincode: pincode, name: name }),
       };
 
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
@@ -77,14 +88,17 @@ export const RegisterPage: React.FC = () => {
       const res = await response.json();
 
       if (!response.ok) {
-        setSnackbarShow(true);
-        setSnackbarMessage('Sign-up Failed');
-        throw 'signup failed';
+        if (res === 'duplicate entry') {
+          throw 'Username already taken.';
+        }
+        throw 'Signup Failed';
       }
 
       navigate('/login');
     } catch (error: any) {
       console.error(error);
+      setSnackbarShow(true);
+      setSnackbarMessage(error);
     } finally {
       setLoading(false);
     }
@@ -127,12 +141,33 @@ export const RegisterPage: React.FC = () => {
             <Grid container spacing={2}>
               <Grid size={12}>
                 <TextField
-                  // error={!isValidUsername()}
+                  error={!initialSelectUsername && !isValidUsername()}
+                  helperText={
+                    !initialSelectUsername && !isValidUsername() ? 'Enter a valid username' : ''
+                  }
                   fullWidth
                   variant="outlined"
-                  label="Name"
+                  label="Username"
                   onChange={event => {
                     setUserName(event.target.value);
+                  }}
+                  onBlur={() => {
+                    setInitialSelectUsername(false);
+                  }}
+                />
+              </Grid>
+              <Grid size={12}>
+                <TextField
+                  error={!initialSelectName && !isValidFullName()}
+                  helperText={!initialSelectName && !isValidFullName() ? 'Enter a valid name' : ''}
+                  fullWidth
+                  variant="outlined"
+                  label="Full Name"
+                  onChange={event => {
+                    setName(event.target.value);
+                  }}
+                  onBlur={() => {
+                    setInitialSelectName(false);
                   }}
                 />
               </Grid>
@@ -173,7 +208,11 @@ export const RegisterPage: React.FC = () => {
                   length={5}
                   value={pincode}
                   onChange={value => {
-                    setPincode(value);
+                    setPincode(value.toUpperCase());
+                  }}
+                  validateChar={(value, index) => {
+                    const validCode = /^[a-zA-Z0-9]+$/;
+                    return validCode.test(value);
                   }}
                 />
               </Grid>
