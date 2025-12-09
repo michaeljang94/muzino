@@ -1,8 +1,9 @@
-import { Button, Container, Grid, TextField } from '@mui/material';
+import { Button, Container, Grid, IconButton, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { EnvironmentVariables } from '../../config';
 import { useAuth } from '../../components/auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const CreateTablePage: React.FC = () => {
   const [tableName, setTableName] = useState('');
@@ -28,13 +29,23 @@ export const CreateTablePage: React.FC = () => {
     <>
       <Container maxWidth="md">
         <Grid container>
-          <Grid size={12}>
+          <IconButton
+            size="large"
+            onClick={() => {
+              navigate('/tables');
+              // navigate(0);
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Grid size={11}>
             <h1>Create Table</h1>
           </Grid>
           <Grid size={12}>
             <Container maxWidth="md">
               <Grid size={12}>
                 <TextField
+                  fullWidth
                   variant="outlined"
                   label="name"
                   margin="normal"
