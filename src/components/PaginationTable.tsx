@@ -89,8 +89,6 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                       >
                         <OpenInNewSharpIcon />
                       </IconButton>
-                    </TableCell>
-                    <TableCell>
                       <IconButton
                         color="success"
                         size="large"
