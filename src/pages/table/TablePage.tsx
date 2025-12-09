@@ -51,7 +51,7 @@ export const TablePage: React.FC = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackBarSuccess, setSnackBarSuccess] = useState(true);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -134,8 +134,8 @@ export const TablePage: React.FC = () => {
       const response = await fetch(`${addr}/api/table/${tableName}/session/create`, {
         method: 'POST',
         headers: {
-            Authorization: 'Bearer ' + token,
-          }
+          Authorization: 'Bearer ' + token,
+        },
       });
 
       const res = await response.json();
@@ -144,20 +144,20 @@ export const TablePage: React.FC = () => {
         throw 'Creating session failed';
       }
 
-      setSnackBarSuccess(true)
+      setSnackBarSuccess(true);
       setSnackbarShow(true);
       setSnackbarMessage(`Successfully created session: ${res.session_id}`);
 
-      setSessionValue(res.session_id)
-      setSelectedIndex(sessions.length)
+      setSessionValue(res.session_id);
+      setSelectedIndex(sessions.length);
     } catch (error: any) {
       console.error(error);
-              setSnackBarSuccess(false)
-        setSnackbarShow(true);
-        setSnackbarMessage('Creating session failed');
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage('Creating session failed');
     } finally {
     }
-  }
+  };
 
   const handleDeleteSession = async () => {
     try {
@@ -167,20 +167,20 @@ export const TablePage: React.FC = () => {
         throw 'no available sessions';
       }
 
-      const sesh = sessions[selectedIndex]?.session_id
+      const sesh = sessions[selectedIndex]?.session_id;
 
-      if (sesh === "" || sesh === undefined) {
+      if (sesh === '' || sesh === undefined) {
         throw 'invalid session id';
       }
 
       const response = await fetch(`${addr}/api/table/${tableName}/session/delete`, {
         method: 'POST',
         headers: {
-            Authorization: 'Bearer ' + token,
-          },
-          body: JSON.stringify({
-            session_id: sesh
-          })
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+          session_id: sesh,
+        }),
       });
 
       const res = await response.json();
@@ -189,21 +189,21 @@ export const TablePage: React.FC = () => {
         throw 'Deleting session failed';
       }
 
-      setSnackBarSuccess(true)
+      setSnackBarSuccess(true);
       setSnackbarShow(true);
       setSnackbarMessage(`Successfully removed session: ${sesh}`);
 
       // Figure out a way to refresh this page after deleting..
-      setSessionValue(sessions[selectedIndex+1]?.session_id)
+      setSessionValue(sessions[selectedIndex + 1]?.session_id);
       // setSelectedIndex(sessions.length-1)
     } catch (error: any) {
       console.error(error);
-          setSnackBarSuccess(false)
-        setSnackbarShow(true);
-        setSnackbarMessage('Deleting session failed');
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage('Deleting session failed');
     } finally {
     }
-  }
+  };
 
   const tableHeaders = ['Name', 'Bet', 'Turn'];
 
@@ -211,18 +211,18 @@ export const TablePage: React.FC = () => {
     <>
       <Container maxWidth="md">
         <Snackbar
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              open={snackbarShow}
-              autoHideDuration={2500}
-              onClose={() => {
-                setSnackbarShow(false);
-              }}
-            >
-              <Alert severity={snackBarSuccess ? "success" : "error"}>
-                <AlertTitle>{snackBarSuccess ? "Success" : "Error"}</AlertTitle>
-                {snackbarMessage}
-              </Alert>
-            </Snackbar>
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbarShow}
+          autoHideDuration={2500}
+          onClose={() => {
+            setSnackbarShow(false);
+          }}
+        >
+          <Alert severity={snackBarSuccess ? 'success' : 'error'}>
+            <AlertTitle>{snackBarSuccess ? 'Success' : 'Error'}</AlertTitle>
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
         <Grid container spacing={2}>
           <Grid size={6}>
             <h1>{tableName}</h1>
@@ -232,8 +232,16 @@ export const TablePage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <h1>Session</h1>
-            <Button variant="contained" onClick={handleCreateSession}>Create Session</Button>
-            <Button variant="contained" onClick={handleDeleteSession} style={{ marginLeft: "10px" }}>Delete Session</Button>
+            <Button variant="contained" onClick={handleCreateSession}>
+              Create Session
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleDeleteSession}
+              style={{ marginLeft: '10px' }}
+            >
+              Delete Session
+            </Button>
             <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
               <ListItemButton
                 id="lock-button"
