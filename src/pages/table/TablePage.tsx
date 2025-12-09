@@ -4,7 +4,9 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   Grid,
+  IconButton,
   List,
   ListItemButton,
   ListItemText,
@@ -24,6 +26,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
 import { useAuth } from '../../components/auth/AuthProvider';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface Player {
   name: string;
@@ -224,83 +227,100 @@ export const TablePage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container spacing={2}>
-          <Grid size={6}>
+          <IconButton
+            size="large"
+            onClick={() => {
+              navigate('/tables');
+              // navigate(0);
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Grid size={11}>
             <h1>{tableName}</h1>
-          </Grid>
-          <Grid size={6}>
-            <h1>{game}</h1>
+            <h3>{game}</h3>
           </Grid>
           <Grid size={12}>
-            <h1>Session</h1>
-            <Button variant="contained" onClick={handleCreateSession}>
-              Create Session
-            </Button>
-            <Button
-              variant="contained"
-              onClick={handleDeleteSession}
-              style={{ marginLeft: '10px' }}
-            >
-              Delete Session
-            </Button>
-            <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
-              <ListItemButton
-                id="lock-button"
-                aria-haspopup="listbox"
-                aria-controls="lock-menu"
-                aria-label="Session ID"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClickListItem}
+            <Divider />
+          </Grid>
+          <Container maxWidth="md">
+            <Grid size={12}>
+              <h1>Session</h1>
+              <Button variant="contained" onClick={handleCreateSession}>
+                Create Session
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleDeleteSession}
+                style={{ marginLeft: '10px' }}
+                color="error"
               >
-                <ListItemText
-                  primary="Session ID"
-                  secondary={sessions && sessions[selectedIndex]?.session_id}
-                />
-              </ListItemButton>
-            </List>
-            <Menu
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              slotProps={{
-                list: {
-                  'aria-labelledby': 'lock-button',
-                  role: 'listbox',
-                },
-              }}
-            >
-              {sessions?.map((session, index) => (
-                <MenuItem
-                  selected={index === selectedIndex}
-                  onClick={event => handleMenuItemClick(event, index)}
+                Delete Session
+              </Button>
+              <List
+                component="nav"
+                aria-label="Device settings"
+                sx={{ bgcolor: 'background.paper' }}
+              >
+                <ListItemButton
+                  id="lock-button"
+                  aria-haspopup="listbox"
+                  aria-controls="lock-menu"
+                  aria-label="Session ID"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClickListItem}
                 >
-                  {session?.session_id}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Grid>
-          <Grid size={12}>
-            <h1>Players</h1>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    {tableHeaders.map(header => (
-                      <TableCell>{header}</TableCell>
+                  <ListItemText
+                    primary="Session ID"
+                    secondary={sessions && sessions[selectedIndex]?.session_id}
+                  />
+                </ListItemButton>
+              </List>
+              <Menu
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                slotProps={{
+                  list: {
+                    'aria-labelledby': 'lock-button',
+                    role: 'listbox',
+                  },
+                }}
+              >
+                {sessions?.map((session, index) => (
+                  <MenuItem
+                    selected={index === selectedIndex}
+                    onClick={event => handleMenuItemClick(event, index)}
+                  >
+                    {session?.session_id}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Grid>
+            <Grid size={12}>
+              <h1>Players</h1>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {tableHeaders.map(header => (
+                        <TableCell>{header}</TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {players?.map(player => (
+                      <>
+                        <TableRow hover>
+                          <TableCell>{player.name}</TableCell>
+                        </TableRow>
+                      </>
                     ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {players?.map(player => (
-                    <>
-                      <TableRow hover>
-                        <TableCell>{player.name}</TableCell>
-                      </TableRow>
-                    </>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Container>
         </Grid>
       </Container>
     </>

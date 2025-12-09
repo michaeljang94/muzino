@@ -1,8 +1,9 @@
-import { Button, Container, Grid, TextField } from '@mui/material';
+import { Button, Container, Grid, IconButton, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
 import { useAuth } from '../../components/auth/AuthProvider';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface User {
   id: string;
@@ -53,7 +54,15 @@ export const EditUserPage: React.FC = () => {
     <>
       <Container maxWidth="md">
         <Grid container spacing={2}>
-          <Grid size={12}>
+          <IconButton
+            size="large"
+            onClick={() => {
+              navigate('/users');
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Grid size={11}>
             <h1>{id}</h1>
           </Grid>
           <Grid size={12}>
