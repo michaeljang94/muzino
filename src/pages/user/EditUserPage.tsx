@@ -1,4 +1,4 @@
-import { Container, Grid, TextField } from '@mui/material';
+import { Button, Container, Grid, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
@@ -42,18 +42,28 @@ export const EditUserPage: React.FC = () => {
   return (
     <>
       <Container maxWidth="md">
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid size={12}>
             <h1>{id}</h1>
           </Grid>
+          <Grid size={6}>
+            <TextField fullWidth label="username" placeholder={user?.username} />
+          </Grid>
+          <Grid size={6}>
+            <TextField fullWidth label="name" placeholder={user?.name} />
+          </Grid>
           <Grid size={12}>
-            <TextField label="username" placeholder={user?.username} />
+            <TextField fullWidth label="score" placeholder={user?.score.toString()} />
           </Grid>
-          <Grid size={12} marginTop={2}>
-            <TextField label="name" placeholder={user?.name} />
+          <Grid size={6}>
+            <Button fullWidth variant="contained" style={{ height: 75 }}>
+              Cancel
+            </Button>
           </Grid>
-          <Grid size={12} marginTop={2}>
-            <TextField label="score" placeholder={user?.score.toString()} />
+          <Grid size={6}>
+            <Button fullWidth variant="contained" color="error" style={{ height: 75 }}>
+              Save
+            </Button>
           </Grid>
         </Grid>
       </Container>
