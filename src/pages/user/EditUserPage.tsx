@@ -1,6 +1,6 @@
 import { Button, Container, Grid, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
 import { useAuth } from '../../components/auth/AuthProvider';
 
@@ -20,6 +20,8 @@ export const EditUserPage: React.FC = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [score, setScore] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -86,7 +88,14 @@ export const EditUserPage: React.FC = () => {
             />
           </Grid>
           <Grid size={6}>
-            <Button fullWidth variant="contained" style={{ height: 75 }}>
+            <Button
+              fullWidth
+              variant="contained"
+              style={{ height: 75 }}
+              onClick={() => {
+                navigate('/users');
+              }}
+            >
               Cancel
             </Button>
           </Grid>

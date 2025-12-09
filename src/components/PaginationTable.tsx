@@ -34,7 +34,7 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
   dataType,
 }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const navigate = useNavigate();
 
   const handleChangePage = (event: unknown, newPage: number) => {
