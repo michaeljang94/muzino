@@ -22,6 +22,7 @@ export const LoginPage: React.FC = () => {
   const [showPincodePage, setShowPincodePage] = useState(false);
 
   const [snackbarShow, setSnackbarShow] = useState(false);
+  const [initialSelectUsername, setInitialSelectUsername] = useState(true);
 
   const handleLogin = () => {
     if (!isValidUsername()) {
@@ -32,10 +33,8 @@ export const LoginPage: React.FC = () => {
   };
 
   const isValidUsername = () => {
-    if (username === '') {
-      return false;
-    }
-    return true;
+    const validUsername = /^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+    return validUsername.test(username);
   };
 
   if (showPincodePage) {
@@ -80,6 +79,13 @@ export const LoginPage: React.FC = () => {
               margin="normal"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setUsername(event.target.value);
+              }}
+              error={!initialSelectUsername && !isValidUsername()}
+              helperText={
+                !initialSelectUsername && !isValidUsername() ? 'Enter a valid username' : ''
+              }
+              onBlur={() => {
+                setInitialSelectUsername(false);
               }}
             />
             {/* <TextField
