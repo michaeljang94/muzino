@@ -9,9 +9,12 @@ import {
   TablePagination,
   Alert,
   Button,
+  IconButton,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import OpenInNewSharpIcon from '@mui/icons-material/OpenInNewSharp';
 
 export interface PaginationTableProps {
   tableHeaders: string[];
@@ -77,13 +80,27 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                     <TableCell>{player.name}</TableCell>
                     <TableCell>{player.score}</TableCell>
                     <TableCell align="right">
-                      <Button
+                      <IconButton
+                        color="primary"
+                        size="large"
                         onClick={() => {
                           navigate(`/user/${player.username}/edit`);
                         }}
                       >
-                        OPEN
-                      </Button>
+                        <OpenInNewSharpIcon />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton
+                        color="success"
+                        size="large"
+                        onClick={() => {
+                          // navigate('/tables');
+                          // navigate(0);
+                        }}
+                      >
+                        <CurrencyExchangeIcon />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 </>
