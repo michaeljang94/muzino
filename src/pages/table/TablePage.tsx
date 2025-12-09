@@ -149,7 +149,7 @@ export const TablePage: React.FC = () => {
       setSnackbarMessage(`Successfully created session: ${res.session_id}`);
 
       setSessionValue(res.session_id);
-      setSelectedIndex(sessions.length);
+      setSelectedIndex(sessions ? sessions.length : 0);
     } catch (error: any) {
       console.error(error);
       setSnackBarSuccess(false);
@@ -194,8 +194,8 @@ export const TablePage: React.FC = () => {
       setSnackbarMessage(`Successfully removed session: ${sesh}`);
 
       // Figure out a way to refresh this page after deleting..
-      setSessionValue(sessions[selectedIndex + 1]?.session_id);
-      // setSelectedIndex(sessions.length-1)
+      setSessionValue('');
+      setSelectedIndex(0);
     } catch (error: any) {
       console.error(error);
       setSnackBarSuccess(false);
