@@ -77,16 +77,16 @@ export const CreateTablePage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container>
-          <IconButton
-            size="large"
-            onClick={() => {
-              navigate('/tables');
-              // navigate(0);
-            }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Grid size={11}>
+          <Grid container>
+            <IconButton
+              size="large"
+              onClick={() => {
+                navigate('/tables');
+                // navigate(0);
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
             <h1>Create Table</h1>
           </Grid>
           <Grid size={12}>
