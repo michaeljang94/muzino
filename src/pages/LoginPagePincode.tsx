@@ -32,11 +32,8 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
   const navigate = useNavigate();
 
   const isValidPincode = () => {
-    if (pincode.length < 5) {
-      return false;
-    }
-
-    return true;
+    const validPincode = /^[a-zA-Z0-9]{5}$/;
+    return validPincode.test(pincode);
   };
 
   const handleLogin = async (value: string) => {
@@ -124,9 +121,6 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
               validateChar={(value, index) => {
                 const validCode = /^[a-zA-Z0-9]+$/;
                 return validCode.test(value);
-              }}
-              onComplete={event => {
-                handleLogin(event);
               }}
             />
           </CardContent>
