@@ -77,7 +77,7 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                 <>
                   <TableRow hover>
                     <TableCell>{player.username}</TableCell>
-                    <TableCell>{player.name}</TableCell>
+                    {/* <TableCell>{player.name}</TableCell> */}
                     <TableCell>{player.score}</TableCell>
                     <TableCell align="right">
                       <IconButton

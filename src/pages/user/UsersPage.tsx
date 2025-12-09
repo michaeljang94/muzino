@@ -59,7 +59,7 @@ export const UsersPage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <PaginationTable
-              tableHeaders={['Username', 'Name', 'Score']}
+              tableHeaders={['Username', 'Score']}
               tableData={users}
               dataType="PLAYER"
             />
