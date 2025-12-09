@@ -89,8 +89,6 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                       >
                         <OpenInNewSharpIcon />
                       </IconButton>
-                    </TableCell>
-                    <TableCell>
                       <IconButton
                         color="success"
                         size="large"
@@ -111,13 +109,15 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                   <TableRow hover>
                     <TableCell>{table.name}</TableCell>
                     <TableCell align="right">
-                      <Button
+                      <IconButton
+                        color="primary"
+                        size="large"
                         onClick={() => {
                           navigate(`/table/${table.name}`);
                         }}
                       >
-                        OPEN
-                      </Button>
+                        <OpenInNewSharpIcon />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 </>
