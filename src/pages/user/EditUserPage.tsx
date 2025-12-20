@@ -3,8 +3,16 @@ import {
   AlertTitle,
   Button,
   Container,
+  FormControl,
+  FormControlLabel,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectChangeEvent,
   Snackbar,
   TextField,
 } from '@mui/material';
@@ -30,6 +38,7 @@ export const EditUserPage: React.FC = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [score, setScore] = useState('');
+  const [role, setRole] = useState('');
 
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
@@ -54,6 +63,7 @@ export const EditUserPage: React.FC = () => {
         setName(res.user.name);
         setUsername(res.user.username);
         setScore(res.user.score);
+        setRole(res.user.role);
       } catch (error: any) {
       } finally {
       }
@@ -73,6 +83,7 @@ export const EditUserPage: React.FC = () => {
         },
         body: JSON.stringify({
           score: parseInt(score),
+          role: role,
         }),
       });
 
@@ -122,6 +133,22 @@ export const EditUserPage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <TextField fullWidth label="user id" value={userId} disabled />
+          </Grid>
+          <Grid size={12}>
+            <FormControl fullWidth>
+              <InputLabel id="user-role-select-label">Role</InputLabel>
+              <Select
+                label="Role"
+                value={role}
+                onChange={(event: SelectChangeEvent) => {
+                  setRole(event.target.value);
+                }}
+              >
+                <MenuItem value={'user'}>Player</MenuItem>
+                <MenuItem value={'dealer'}>Dealer</MenuItem>
+                <MenuItem value={'admin'}>Admin</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid size={6}>
             <TextField

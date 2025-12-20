@@ -10,6 +10,7 @@ interface User {
   name: string;
   score: number;
   username: string;
+  role: string;
 }
 
 export const UsersPage: React.FC = () => {
@@ -59,7 +60,7 @@ export const UsersPage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <PaginationTable
-              tableHeaders={['Username', 'Score']}
+              tableHeaders={['Username', 'Score', 'Role']}
               tableData={users}
               dataType="PLAYER"
             />

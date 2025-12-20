@@ -42,7 +42,7 @@ export const Scoreboard: React.FC = () => {
           throw usersList.error;
         }
 
-        setUsers(usersList.Users);
+        setUsers(usersList.users);
         setError(null);
       } catch (error: any) {
         console.error(error);

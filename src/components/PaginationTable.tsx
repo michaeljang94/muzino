@@ -25,6 +25,7 @@ export interface PaginationTableProps {
 export interface Player {
   name: string;
   score: number;
+  role: string;
 }
 
 export interface Table {
@@ -69,8 +70,8 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                 <>
                   <TableRow hover>
                     <TableCell>{player.username}</TableCell>
-                    {/* <TableCell>{player.name}</TableCell> */}
                     <TableCell>{player.score}</TableCell>
+                    <TableCell>{player.role}</TableCell>
                     <TableCell align="right">
                       <IconButton
                         color="primary"
