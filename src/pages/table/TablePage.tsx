@@ -229,26 +229,22 @@ export const TablePage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container spacing={2}>
-          <Grid size={1} alignContent={'center'}>
-            <IconButton
-              size="large"
-              onClick={() => {
-                navigate('/tables');
-                // navigate(0);
-              }}
-            >
-              <ArrowBackIcon />
-            </IconButton>
-          </Grid>
-          <Grid size={1}>
+          <IconButton
+            size="large"
+            onClick={() => {
+              navigate('/tables');
+              // navigate(0);
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Grid size={10}>
             <h1>{tableName}</h1>
             <h3>{game}</h3>
           </Grid>
-          <Grid size={10} alignContent={'center'}>
-            <IconButton size="large" style={{ float: 'right' }} color="error">
-              <DeleteIcon />
-            </IconButton>
-          </Grid>
+          <IconButton size="large" style={{ float: 'right' }} color="error">
+            <DeleteIcon />
+          </IconButton>
           <Grid size={12}>
             <Divider />
           </Grid>
