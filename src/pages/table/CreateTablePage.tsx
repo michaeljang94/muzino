@@ -4,8 +4,13 @@ import {
   Button,
   Container,
   Divider,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Snackbar,
   TextField,
 } from '@mui/material';
@@ -17,6 +22,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const CreateTablePage: React.FC = () => {
   const [tableName, setTableName] = useState('');
+  const [tableGame, setTableGame] = useState('black_jack');
   const { token } = useAuth();
   const navigate = useNavigate();
 
@@ -40,6 +46,7 @@ export const CreateTablePage: React.FC = () => {
         method: 'POST',
         body: JSON.stringify({
           name: tableName,
+          game: tableGame,
         }),
         headers: {
           Authorization: 'Bearer ' + token,
@@ -100,7 +107,7 @@ export const CreateTablePage: React.FC = () => {
                 <TextField
                   fullWidth
                   variant="outlined"
-                  label="name"
+                  label="Name"
                   margin="normal"
                   onChange={e => setTableName(e.target.value)}
                   error={!initialSelected && !isValidTableName()}
@@ -111,11 +118,26 @@ export const CreateTablePage: React.FC = () => {
                 />
               </Grid>
               <Grid size={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="table-game-select-label">Game</InputLabel>
+                  <Select
+                    label="Game"
+                    value={tableGame}
+                    onChange={(event: SelectChangeEvent) => {
+                      setTableGame(event.target.value);
+                    }}
+                  >
+                    <MenuItem value={'black_jack'}>Black Jack</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid size={12} marginTop={2}>
                 <Button
                   variant="contained"
                   onClick={() => {
                     handleCreateTable();
                   }}
+                  style={{ float: 'right' }}
                 >
                   Create
                 </Button>
