@@ -118,7 +118,7 @@ export const CreateTablePage: React.FC = () => {
                 />
               </Grid>
               <Grid size={12}>
-                <FormControl fullWidth>
+                <FormControl fullWidth margin="dense">
                   <InputLabel id="table-game-select-label">Game</InputLabel>
                   <Select
                     label="Game"
