@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import Alert from '@mui/material/Alert';
 
-import './PlayerProfilePage.css';
 import {
   Box,
   Button,
@@ -136,7 +135,10 @@ export const PlayerProfilePage: React.FC = () => {
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
-          <Grid size={6}>
+          <Grid size={2}>
+            <h1>#1</h1>
+          </Grid>
+          <Grid size={5}>
             <h1
               style={{
                 textAlign: 'center',
@@ -145,7 +147,7 @@ export const PlayerProfilePage: React.FC = () => {
               {playerName}
             </h1>
           </Grid>
-          <Grid size={6}>
+          <Grid size={5}>
             <h1
               style={{
                 textAlign: 'center',
