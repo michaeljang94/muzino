@@ -85,7 +85,7 @@ export const CreateTablePage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container spacing={2}>
-          <Grid size={1} alignContent={'center'}>
+          <Grid size={2} alignContent={'center'}>
             <IconButton
               size="large"
               onClick={() => {
@@ -95,7 +95,7 @@ export const CreateTablePage: React.FC = () => {
               <ArrowBackIcon />
             </IconButton>
           </Grid>
-          <Grid size={11}>
+          <Grid size={10}>
             <h1>Create Table</h1>
           </Grid>
           <Grid size={12}>

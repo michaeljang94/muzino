@@ -118,7 +118,7 @@ export const EditUserPage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container spacing={2}>
-          <Grid size={1} alignContent={'center'}>
+          <Grid size={2} alignContent={'center'}>
             <IconButton
               size="large"
               onClick={() => {
@@ -128,7 +128,7 @@ export const EditUserPage: React.FC = () => {
               <ArrowBackIcon />
             </IconButton>
           </Grid>
-          <Grid size={11}>
+          <Grid size={10}>
             <h1>{id}</h1>
           </Grid>
           <Grid size={12}>
