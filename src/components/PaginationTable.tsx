@@ -82,16 +82,14 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
                       >
                         <OpenInNewSharpIcon />
                       </IconButton>
-                      <IconButton
+                      {/* <IconButton
                         color="success"
                         size="large"
                         onClick={() => {
-                          // navigate('/tables');
-                          // navigate(0);
                         }}
                       >
                         <CurrencyExchangeIcon />
-                      </IconButton>
+                      </IconButton> */}
                     </TableCell>
                   </TableRow>
                 </>
