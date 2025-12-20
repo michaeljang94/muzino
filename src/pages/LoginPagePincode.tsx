@@ -27,7 +27,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const { setToken } = useAuth();
+  const { token, setToken } = useAuth();
 
   const navigate = useNavigate();
 
@@ -64,6 +64,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
       }
 
       setToken(res.token);
+      console.log(res.token);
       navigate('/player', {
         state: {
           id: username,

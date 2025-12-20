@@ -49,14 +49,6 @@ export const PaginationTable: React.FC<PaginationTableProps> = ({
     setPage(0);
   };
 
-  // const visibleRows = useMemo(
-  //   () =>
-  //     [...tableData]
-  //       // .sort(getComparator(order, orderBy))
-  //       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-  //   [page, rowsPerPage]
-  // );
-
   const visibleRows = [...tableData].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
