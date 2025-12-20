@@ -3,6 +3,7 @@ import {
   AlertTitle,
   Button,
   Container,
+  Divider,
   Grid,
   IconButton,
   Snackbar,
@@ -76,18 +77,22 @@ export const CreateTablePage: React.FC = () => {
             {snackBarMessage}
           </Alert>
         </Snackbar>
-        <Grid container>
-          <Grid container>
+        <Grid container spacing={2}>
+          <Grid size={1} alignContent={'center'}>
             <IconButton
               size="large"
               onClick={() => {
                 navigate('/tables');
-                // navigate(0);
               }}
             >
               <ArrowBackIcon />
             </IconButton>
+          </Grid>
+          <Grid size={11}>
             <h1>Create Table</h1>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
           </Grid>
           <Grid size={12}>
             <Container maxWidth="md">

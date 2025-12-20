@@ -13,6 +13,7 @@ import {
   Menu,
   MenuItem,
   Snackbar,
+  Stack,
   Tab,
   Table,
   TableBody,
@@ -27,6 +28,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
 import { useAuth } from '../../components/auth/AuthProvider';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Player {
   name: string;
@@ -227,7 +229,7 @@ export const TablePage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container spacing={2}>
-          <Grid container>
+          <Grid size={1} alignContent={'center'}>
             <IconButton
               size="large"
               onClick={() => {
@@ -237,10 +239,15 @@ export const TablePage: React.FC = () => {
             >
               <ArrowBackIcon />
             </IconButton>
-            <Grid>
-              <h1>{tableName}</h1>
-              <h3>{game}</h3>
-            </Grid>
+          </Grid>
+          <Grid size={1}>
+            <h1>{tableName}</h1>
+            <h3>{game}</h3>
+          </Grid>
+          <Grid size={10} alignContent={'center'}>
+            <IconButton size="large" style={{ float: 'right' }} color="error">
+              <DeleteIcon />
+            </IconButton>
           </Grid>
           <Grid size={12}>
             <Divider />
