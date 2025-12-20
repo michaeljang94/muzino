@@ -1,4 +1,13 @@
-import { Button, Container, Grid, IconButton, TextField } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  Snackbar,
+  TextField,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EnvironmentVariables } from '../../config';
@@ -21,6 +30,9 @@ export const EditUserPage: React.FC = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [score, setScore] = useState('');
+
+  const [snackbarShow, setSnackbarShow] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -50,9 +62,50 @@ export const EditUserPage: React.FC = () => {
     fetchUser(); // Call the async function
   }, []);
 
+  const handleOnSave = async () => {
+    try {
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+      const response = await fetch(`${addr}/api/user/${id}/update`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+          score: parseInt(score),
+        }),
+      });
+
+      const res = await response.json();
+
+      if (!response.ok) {
+        throw 'Failed to save user';
+      }
+
+      navigate('/users');
+    } catch (error: any) {
+      setSnackbarShow(true);
+      setSnackBarMessage(error);
+    } finally {
+    }
+  };
+
   return (
     <>
       <Container maxWidth="md">
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbarShow}
+          autoHideDuration={2500}
+          onClose={() => {
+            setSnackbarShow(false);
+          }}
+        >
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
         <Grid container spacing={2}>
           <Grid size={12}>
             <Grid container>
@@ -111,7 +164,13 @@ export const EditUserPage: React.FC = () => {
             </Button>
           </Grid>
           <Grid size={6}>
-            <Button fullWidth variant="contained" color="error" style={{ height: 75 }}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="error"
+              style={{ height: 75 }}
+              onClick={handleOnSave}
+            >
               Save
             </Button>
           </Grid>
