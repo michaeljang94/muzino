@@ -107,18 +107,18 @@ export const EditUserPage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Grid container spacing={2}>
-          <Grid size={12}>
-            <Grid container>
-              <IconButton
-                size="large"
-                onClick={() => {
-                  navigate('/users');
-                }}
-              >
-                <ArrowBackIcon />
-              </IconButton>
-              <h1>{id}</h1>
-            </Grid>
+          <Grid size={1} alignContent={'center'}>
+            <IconButton
+              size="large"
+              onClick={() => {
+                navigate('/users');
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          </Grid>
+          <Grid size={11}>
+            <h1>{id}</h1>
           </Grid>
           <Grid size={12}>
             <TextField fullWidth label="user id" value={userId} disabled />
