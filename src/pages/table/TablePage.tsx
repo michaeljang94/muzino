@@ -198,7 +198,6 @@ export const TablePage: React.FC = () => {
       setSnackbarShow(true);
       setSnackbarMessage(`Successfully removed session: ${sesh}`);
 
-      // Figure out a way to refresh this page after deleting..
       setSessionValue('');
       setSelectedIndex(0);
     } catch (error: any) {
@@ -207,6 +206,15 @@ export const TablePage: React.FC = () => {
       setSnackbarShow(true);
       setSnackbarMessage('Deleting session failed');
     } finally {
+    }
+  };
+
+  const handleDeleteTable = () => {
+    if (sessions && sessions.length != 0) {
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage(`Cannot delete table. Delete all sessions before deleting.`);
+      return;
     }
   };
 
@@ -245,7 +253,12 @@ export const TablePage: React.FC = () => {
             <h3>{game}</h3>
           </Grid>
           <Grid size={8} alignContent={'center'}>
-            <IconButton size="large" style={{ float: 'right' }} color="error">
+            <IconButton
+              size="large"
+              style={{ float: 'right' }}
+              color="error"
+              onClick={handleDeleteTable}
+            >
               <DeleteIcon />
             </IconButton>
           </Grid>

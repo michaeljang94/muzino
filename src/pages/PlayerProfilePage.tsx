@@ -43,6 +43,8 @@ export const PlayerProfilePage: React.FC = () => {
   const [inGame, setInGame] = useState(false);
   const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
 
+  const [playerRank, setPlayerRank] = useState();
+
   const { token } = useAuth();
 
   useEffect(() => {
@@ -70,7 +72,31 @@ export const PlayerProfilePage: React.FC = () => {
       }
     };
 
+    const fetchRank = async () => {
+      try {
+        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+        const decoded = jwtDecode<TokenPayload>(token || '');
+        const username = decoded.username;
+
+        const response = await fetch(`${addr}/api/user/${username}/rank`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        });
+
+        const user = await response.json();
+
+        setPlayerRank(user.user.rank);
+
+        setError(null);
+      } catch (error: any) {
+        setError(error);
+      } finally {
+      }
+    };
+
     fetchUser(); // Call the async function
+    fetchRank();
   }, [inGame]); // Empty array to run the effect only once (on mount)
 
   const onClickLeaveGame = () => {
@@ -136,7 +162,7 @@ export const PlayerProfilePage: React.FC = () => {
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={2}>
-            <h1>#1</h1>
+            <h1>#{playerRank}</h1>
           </Grid>
           <Grid size={5}>
             <h1
