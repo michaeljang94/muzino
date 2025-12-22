@@ -30,6 +30,7 @@ import { useAuth } from '../../components/auth/AuthProvider';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import AddBoxIcon from '@mui/icons-material/AddBox';
 interface Player {
   name: string;
 }
@@ -265,84 +266,89 @@ export const TablePage: React.FC = () => {
           <Grid size={12}>
             <Divider />
           </Grid>
-          <Container maxWidth="md">
-            <Grid size={12}>
-              <h1>Session</h1>
-              <Button variant="contained" onClick={handleCreateSession}>
-                Create Session
-              </Button>
-              <Button
-                variant="contained"
-                onClick={handleDeleteSession}
-                style={{ marginLeft: '10px' }}
-                color="error"
+          {/* <Container maxWidth="md"> */}
+          <Grid size={10}>
+            <h1>Session</h1>
+          </Grid>
+          <Grid size={2} alignContent={'center'}>
+            <IconButton
+              color="primary"
+              size="large"
+              style={{ float: 'right' }}
+              onClick={handleCreateSession}
+            >
+              <AddBoxIcon />
+            </IconButton>
+          </Grid>
+          <Grid size={10}>
+            <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
+              <ListItemButton
+                id="lock-button"
+                aria-haspopup="listbox"
+                aria-controls="lock-menu"
+                aria-label="Session ID"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClickListItem}
               >
-                Delete Session
-              </Button>
-              <List
-                component="nav"
-                aria-label="Device settings"
-                sx={{ bgcolor: 'background.paper' }}
-              >
-                <ListItemButton
-                  id="lock-button"
-                  aria-haspopup="listbox"
-                  aria-controls="lock-menu"
-                  aria-label="Session ID"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClickListItem}
+                <ListItemText
+                  primary="Session ID"
+                  secondary={sessions && sessions[selectedIndex]?.session_id}
+                />
+              </ListItemButton>
+            </List>
+            <Menu
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              slotProps={{
+                list: {
+                  'aria-labelledby': 'lock-button',
+                  role: 'listbox',
+                },
+              }}
+            >
+              {sessions?.map((session, index) => (
+                <MenuItem
+                  selected={index === selectedIndex}
+                  onClick={event => handleMenuItemClick(event, index)}
                 >
-                  <ListItemText
-                    primary="Session ID"
-                    secondary={sessions && sessions[selectedIndex]?.session_id}
-                  />
-                </ListItemButton>
-              </List>
-              <Menu
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                slotProps={{
-                  list: {
-                    'aria-labelledby': 'lock-button',
-                    role: 'listbox',
-                  },
-                }}
-              >
-                {sessions?.map((session, index) => (
-                  <MenuItem
-                    selected={index === selectedIndex}
-                    onClick={event => handleMenuItemClick(event, index)}
-                  >
-                    {session?.session_id}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Grid>
-            <Grid size={12}>
-              <h1>Players</h1>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      {tableHeaders.map(header => (
-                        <TableCell>{header}</TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {players?.map(player => (
-                      <>
-                        <TableRow hover>
-                          <TableCell>{player.name}</TableCell>
-                        </TableRow>
-                      </>
+                  {session?.session_id}
+                </MenuItem>
+              ))}
+            </Menu>
+          </Grid>
+          <Grid size={2} alignContent={'center'}>
+            <IconButton onClick={handleDeleteSession} style={{ float: 'right' }} color="error">
+              <DeleteIcon />
+            </IconButton>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
+          </Grid>
+          <Grid size={12}>
+            <h1>Players</h1>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {tableHeaders.map(header => (
+                      <TableCell>{header}</TableCell>
                     ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Grid>
-          </Container>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {players?.map(player => (
+                    <>
+                      <TableRow hover>
+                        <TableCell>{player.name}</TableCell>
+                      </TableRow>
+                    </>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+          {/* </Container> */}
         </Grid>
       </Container>
     </>
