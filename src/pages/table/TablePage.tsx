@@ -219,6 +219,8 @@ export const TablePage: React.FC = () => {
     }
   };
 
+  const handleAddPlayerToSession = () => {};
+
   const tableHeaders = ['Name', 'Bet', 'Turn'];
 
   return (
@@ -325,8 +327,20 @@ export const TablePage: React.FC = () => {
           <Grid size={12}>
             <Divider />
           </Grid>
-          <Grid size={12}>
+          <Grid size={10}>
             <h1>Players</h1>
+          </Grid>
+          <Grid size={2} alignContent={'center'}>
+            <IconButton
+              size="large"
+              color="primary"
+              style={{ float: 'right' }}
+              onClick={handleAddPlayerToSession}
+            >
+              <AddBoxIcon />
+            </IconButton>
+          </Grid>
+          <Grid size={12}>
             <TableContainer>
               <Table>
                 <TableHead>
