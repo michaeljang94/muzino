@@ -45,6 +45,8 @@ export const PlayerProfilePage: React.FC = () => {
 
   const [playerRank, setPlayerRank] = useState();
 
+  const [playerRole, setPlayerRole] = useState('');
+
   const { token } = useAuth();
 
   useEffect(() => {
@@ -53,6 +55,8 @@ export const PlayerProfilePage: React.FC = () => {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
         const decoded = jwtDecode<TokenPayload>(token || '');
         const username = decoded.username;
+
+        setPlayerRole(decoded.role);
 
         const response = await fetch(`${addr}/api/user/${username}`, {
           headers: {
@@ -77,6 +81,12 @@ export const PlayerProfilePage: React.FC = () => {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
         const decoded = jwtDecode<TokenPayload>(token || '');
         const username = decoded.username;
+
+        setPlayerRole(decoded.role);
+
+        if (decoded.role !== 'user') {
+          return;
+        }
 
         const response = await fetch(`${addr}/api/user/${username}/rank`, {
           headers: {
@@ -162,7 +172,8 @@ export const PlayerProfilePage: React.FC = () => {
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={2}>
-            <h1>#{playerRank}</h1>
+            {playerRole === 'user' && <h1>#{playerRank}</h1>}
+            {playerRole !== 'user' && <h1>-</h1>}
           </Grid>
           <Grid size={5}>
             <h1
