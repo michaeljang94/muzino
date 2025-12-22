@@ -13,6 +13,7 @@ import {
   DialogTitle,
   Divider,
   Grid,
+  IconButton,
   LinearProgress,
   Stack,
   Tab,
@@ -29,6 +30,8 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useJwt } from 'react-jwt';
 import { jwtDecode } from 'jwt-decode';
+
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 interface TokenPayload {
   username: string;
@@ -170,24 +173,29 @@ export const PlayerProfilePage: React.FC = () => {
     // <div className="player-default-div">
     <>
       <Container maxWidth="sm">
-        <Grid container spacing={2}>
-          <Grid size={2}>
-            {playerRole === 'user' && <h1>#{playerRank}</h1>}
+        <Grid container spacing={0}>
+          <Grid size={4}>
+            {playerRole === 'user' && <h1 style={{ textAlign: 'left' }}>#{playerRank}</h1>}
             {playerRole !== 'user' && <h1>-</h1>}
           </Grid>
-          <Grid size={5}>
+          <Grid size={8}>
             <h1
               style={{
-                textAlign: 'center',
+                textAlign: 'right',
               }}
             >
               {playerName}
             </h1>
           </Grid>
-          <Grid size={5}>
+          <Grid size={2} alignContent={'center'}>
+            <IconButton color="inherit" size="large">
+              <AccountBalanceIcon />
+            </IconButton>
+          </Grid>
+          <Grid size={10}>
             <h1
               style={{
-                textAlign: 'center',
+                textAlign: 'right',
               }}
             >
               {playerScore}
