@@ -31,6 +31,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { AddPlayerToSessionModal } from './AddPlayerToSessionModal';
 interface Player {
   name: string;
 }
@@ -56,6 +57,8 @@ export const TablePage: React.FC = () => {
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackBarSuccess, setSnackBarSuccess] = useState(true);
+
+  const [addPlayerToSessionDialogOpen, setAddPlayerToSessionDialogOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -131,7 +134,7 @@ export const TablePage: React.FC = () => {
     fetchTableDetails();
     fetchSessionsForTable();
     fetchGameSessionPlayers();
-  }, [sessionValue]);
+  }, [sessionValue, addPlayerToSessionDialogOpen]);
 
   const handleCreateSession = async () => {
     try {
@@ -219,7 +222,50 @@ export const TablePage: React.FC = () => {
     }
   };
 
-  const handleAddPlayerToSession = () => {};
+  const handleAddPlayerToSession = () => {
+    setAddPlayerToSessionDialogOpen(true);
+  };
+
+  const handleAddPlayerToSessionOnClose = () => {
+    setAddPlayerToSessionDialogOpen(false);
+  };
+
+  const handleRemovePlayerFromSession = async (username: string) => {
+    try {
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+      const response = await fetch(
+        `${addr}/api/table/${tableName}/session/${sessionValue}/player/delete`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+          body: JSON.stringify({
+            username: username,
+          }),
+        }
+      );
+
+      const res = await response.json();
+
+      if (!response.ok) {
+        throw 'Removing player from session failed';
+      }
+
+      setSnackBarSuccess(true);
+      setSnackbarShow(true);
+      setSnackbarMessage(`Successfully removed ${username} from session`);
+
+      setSessionValue('');
+    } catch (error: any) {
+      console.error(error);
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage('Removing player from session failed');
+    } finally {
+    }
+  };
 
   const tableHeaders = ['Name', 'Bet', 'Turn'];
 
@@ -355,6 +401,18 @@ export const TablePage: React.FC = () => {
                     <>
                       <TableRow hover>
                         <TableCell>{player.name}</TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell
+                          align="right"
+                          onClick={() => {
+                            handleRemovePlayerFromSession(player.name);
+                          }}
+                        >
+                          <IconButton color="error">
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     </>
                   ))}
@@ -365,6 +423,14 @@ export const TablePage: React.FC = () => {
           {/* </Container> */}
         </Grid>
       </Container>
+      {
+        <AddPlayerToSessionModal
+          open={addPlayerToSessionDialogOpen}
+          onClose={handleAddPlayerToSessionOnClose}
+          tableName={tableName}
+          sessionId={sessionValue}
+        />
+      }
     </>
   );
 };

@@ -126,27 +126,27 @@ export const PlayerProfilePage: React.FC = () => {
         <DialogTitle>Leave Game</DialogTitle>
         <DialogContent>
           <DialogContentText>Are you sure you want to leave the current game?</DialogContentText>
-          <DialogActions>
-            <Button
-              variant="contained"
-              onClick={() => {
-                setOpenLeaveDialog(false);
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => {
-                setOpenLeaveDialog(false);
-                setInGame(false);
-              }}
-            >
-              Accept
-            </Button>
-          </DialogActions>
         </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setOpenLeaveDialog(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              setOpenLeaveDialog(false);
+              setInGame(false);
+            }}
+          >
+            Accept
+          </Button>
+        </DialogActions>
       </Dialog>
     );
   };
