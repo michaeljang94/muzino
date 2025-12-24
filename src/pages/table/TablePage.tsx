@@ -403,13 +403,13 @@ export const TablePage: React.FC = () => {
                         <TableCell>{player.name}</TableCell>
                         <TableCell></TableCell>
                         <TableCell></TableCell>
-                        <TableCell
-                          align="right"
-                          onClick={() => {
-                            handleRemovePlayerFromSession(player.name);
-                          }}
-                        >
-                          <IconButton color="error">
+                        <TableCell align="right">
+                          <IconButton
+                            color="error"
+                            onClick={() => {
+                              handleRemovePlayerFromSession(player.name);
+                            }}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </TableCell>
