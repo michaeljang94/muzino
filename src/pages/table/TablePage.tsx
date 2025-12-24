@@ -213,12 +213,38 @@ export const TablePage: React.FC = () => {
     }
   };
 
-  const handleDeleteTable = () => {
-    if (sessions && sessions.length != 0) {
+  const handleDeleteTable = async () => {
+    try {
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+      if (sessions && sessions.length != 0) {
+        throw 'Cannot delete table. Delete all sessions before deleting.';
+      }
+
+      const response = await fetch(`${addr}/api/table/delete`, {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+          name: tableName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw 'Deleting table failed.';
+      }
+
+      setSnackBarSuccess(true);
+      setSnackbarShow(true);
+      setSnackbarMessage(`Successfully deleted table ${tableName}`);
+
+      navigate('/tables');
+    } catch (error: any) {
       setSnackBarSuccess(false);
       setSnackbarShow(true);
-      setSnackbarMessage(`Cannot delete table. Delete all sessions before deleting.`);
-      return;
+      setSnackbarMessage(error);
+    } finally {
     }
   };
 
