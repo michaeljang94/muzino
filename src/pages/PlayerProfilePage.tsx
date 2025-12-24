@@ -33,7 +33,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
-interface TokenPayload {
+export interface TokenPayload {
   username: string;
   role: string;
 }
@@ -42,9 +42,6 @@ export const PlayerProfilePage: React.FC = () => {
   const [playerName, setPlayerName] = useState();
   const [playerScore, setPlayerScore] = useState();
   const [error, setError] = useState(null);
-
-  const [inGame, setInGame] = useState(false);
-  const [openLeaveDialog, setOpenLeaveDialog] = useState(false);
 
   const [playerRank, setPlayerRank] = useState();
 
@@ -101,70 +98,9 @@ export const PlayerProfilePage: React.FC = () => {
       }
     };
 
-    const fetchSessionInfo = async () => {
-      try {
-        const response = await fetch(`${addr}/api/user/${username}/session`, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        });
-
-        if (response.ok) {
-          const sessionInfo = await response.json();
-          setInGame(true);
-          console.log(sessionInfo);
-        }
-
-        setError(null);
-      } catch (error: any) {
-        setError(error);
-      } finally {
-      }
-    };
-
     fetchUser(); // Call the async function
     fetchRank();
-    fetchSessionInfo();
-  }, [inGame]); // Empty array to run the effect only once (on mount)
-
-  const onClickLeaveGame = () => {
-    setOpenLeaveDialog(true);
-  };
-
-  const onClickJoinGame = () => {
-    setInGame(true);
-  };
-
-  const showLeaveDialog = () => {
-    return (
-      <Dialog open={openLeaveDialog}>
-        <DialogTitle>Leave Game</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Are you sure you want to leave the current game?</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setOpenLeaveDialog(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => {
-              setOpenLeaveDialog(false);
-              setInGame(false);
-            }}
-          >
-            Accept
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  };
+  }, []); // Empty array to run the effect only once (on mount)
 
   if (error) {
     return (
@@ -217,8 +153,9 @@ export const PlayerProfilePage: React.FC = () => {
             </h1>
           </Grid>
         </Grid>
-        {!inGame && <Divider></Divider>}
-        {inGame && <LinearProgress color="warning" />}
+        <Grid size={12}>
+          <Divider />
+        </Grid>
         <Grid container spacing={2}>
           <Grid size={12}>
             <Container
@@ -232,35 +169,8 @@ export const PlayerProfilePage: React.FC = () => {
               <img src={qrcode} alt="logo" width={350} height={350} />
             </Container>
           </Grid>
-          <Grid size={12}>
-            <Container maxWidth="sm">
-              <Stack spacing={2}>
-                {!inGame && (
-                  <Button
-                    onClick={onClickJoinGame}
-                    color={'primary'}
-                    variant={'contained'}
-                    style={{ height: 100 }}
-                  >
-                    Join Game
-                  </Button>
-                )}
-                {inGame && (
-                  <Button
-                    onClick={onClickLeaveGame}
-                    color={'error'}
-                    variant={'contained'}
-                    style={{ height: 100 }}
-                  >
-                    Leave Game
-                  </Button>
-                )}
-              </Stack>
-            </Container>
-          </Grid>
         </Grid>
       </Container>
-      {showLeaveDialog()}
     </>
     // </div>
   );

@@ -10,7 +10,7 @@ export const SettingsPage: React.FC = () => {
   };
   return (
     <>
-      <Container>
+      <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={12}>
             <h1>Settings</h1>

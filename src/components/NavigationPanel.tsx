@@ -59,6 +59,12 @@ export const NavigationPanel: React.FC<NavigationPanelProps> = ({ isAdmin }) => 
             />
           )}
           <Tab
+            label="Game"
+            onClick={() => {
+              navigate('/game');
+            }}
+          />
+          <Tab
             label="Settings"
             onClick={() => {
               navigate('/settings');
