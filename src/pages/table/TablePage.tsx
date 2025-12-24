@@ -39,6 +39,7 @@ interface Player {
 
 interface Session {
   session_id: string;
+  dealer: string;
 }
 
 export const TablePage: React.FC = () => {
@@ -398,6 +399,26 @@ export const TablePage: React.FC = () => {
           <Grid size={2} alignContent={'center'}>
             <IconButton onClick={handleDeleteSession} style={{ float: 'right' }} color="error">
               <DeleteIcon />
+            </IconButton>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
+          </Grid>
+          <Grid size={5}>
+            <h1>Dealer</h1>
+          </Grid>
+          <Grid size={5}>
+            {!sessions[selectedIndex]?.dealer && <h1>N/A</h1>}
+            {sessions[selectedIndex]?.dealer && <h1>{sessions[selectedIndex]?.dealer}</h1>}
+          </Grid>
+          <Grid size={2} alignContent={'center'}>
+            <IconButton
+              size="large"
+              color={!sessions[selectedIndex]?.dealer ? 'primary' : 'error'}
+              style={{ float: 'right' }}
+            >
+              {!sessions[selectedIndex]?.dealer && <AddBoxIcon />}
+              {sessions[selectedIndex]?.dealer && <DeleteIcon />}
             </IconButton>
           </Grid>
           <Grid size={12}>
