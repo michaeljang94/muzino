@@ -27,6 +27,7 @@ export const CustomRoutes: React.FC = () => {
   const { decodedToken, isExpired } = useJwt<TokenPayload>(token || '');
 
   const isAdmin = decodedToken?.role === 'admin';
+  const username = decodedToken?.username || '';
   return (
     <>
       {token && <NavigationPanel isAdmin={isAdmin} />}
@@ -50,7 +51,7 @@ export const CustomRoutes: React.FC = () => {
             <Route path="/" element={<PlayerProfilePage />} />
             <Route path="/player" element={<PlayerProfilePage />} />
             <Route path="/game" element={<GamePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/settings" element={<SettingsPage username={username} />} />
           </Route>
         )}
 
