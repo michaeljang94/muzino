@@ -90,9 +90,7 @@ export const GamePage: React.FC = () => {
     setOpenLeaveDialog(true);
   };
 
-  const onClickJoinGame = () => {
-    setInGame(true);
-  };
+  const onClickJoinGame = () => {};
 
   const showLeaveDialog = () => {
     return (
