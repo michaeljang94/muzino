@@ -57,13 +57,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ username }) => {
             <Divider />
           </Grid>
           <Grid size={12}>
-            <TextField fullWidth disabled value={userInfo?.id} label="id"></TextField>
+            <TextField fullWidth disabled label="id" value={userInfo?.id || ''} />
           </Grid>
           <Grid size={6}>
-            <TextField fullWidth disabled value={userInfo?.username} label="username"></TextField>
+            <TextField fullWidth disabled label="username" value={userInfo?.username || ''} />
           </Grid>
           <Grid size={6}>
-            <TextField fullWidth disabled value={userInfo?.name} label="name"></TextField>
+            <TextField fullWidth disabled label="name" value={userInfo?.name || ''} />
           </Grid>
           <Grid size={12}>
             <Divider />
