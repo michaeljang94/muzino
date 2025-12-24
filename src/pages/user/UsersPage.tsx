@@ -3,7 +3,7 @@ import { Scoreboard } from '../Scoreboard';
 import { PaginationTable } from '../../components/PaginationTable';
 import { EnvironmentVariables } from '../../config';
 import { useAuth } from '../../components/auth/AuthProvider';
-import { Container, Grid } from '@mui/material';
+import { Container, Divider, Grid } from '@mui/material';
 
 interface User {
   id: string;
@@ -57,6 +57,9 @@ export const UsersPage: React.FC = () => {
         <Grid container>
           <Grid size={12}>
             <h1>Users</h1>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
           </Grid>
           <Grid size={12}>
             <PaginationTable

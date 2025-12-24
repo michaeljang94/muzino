@@ -4,7 +4,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { PlayerProfilePage } from './pages/PlayerProfilePage';
-import { AdminPanel } from './components/AdminPanel';
+import { NavigationPanel } from './components/NavigationPanel';
 import { useAuth } from './components/auth/AuthProvider';
 import { TablesPage } from './pages/table/TablesPage';
 import { TablePage } from './pages/table/TablePage';
@@ -14,6 +14,7 @@ import { CreateTablePage } from './pages/table/CreateTablePage';
 import { EditUserPage } from './pages/user/EditUserPage';
 import { Scoreboard } from './pages/Scoreboard';
 import { MissingRoute } from './pages/MissingRoute';
+import { SettingsPage } from './pages/SettingsPage';
 
 interface TokenPayload {
   username: string;
@@ -27,7 +28,7 @@ export const CustomRoutes: React.FC = () => {
   const isAdmin = decodedToken?.role === 'admin';
   return (
     <>
-      {isAdmin && <AdminPanel />}
+      {token && <NavigationPanel isAdmin={isAdmin} />}
       <Routes>
         {isAdmin && (
           <>
@@ -47,6 +48,7 @@ export const CustomRoutes: React.FC = () => {
             <Route index element={<PlayerProfilePage />} />
             <Route path="/" element={<PlayerProfilePage />} />
             <Route path="/player" element={<PlayerProfilePage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Route>
         )}
 

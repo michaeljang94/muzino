@@ -1,14 +1,13 @@
-import React from 'react';
 import { useAuth } from './components/auth/AuthProvider';
 import { LoginPage } from './pages/LoginPage';
 import { PlayerProfilePage } from './pages/PlayerProfilePage';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router';
 import { Scoreboard } from './pages/Scoreboard';
 import { PrivateRoute } from './components/auth/PrivateRoute';
-import { AdminPanel } from './components/AdminPanel';
 import { RegisterPage } from './pages/RegisterPage';
 import { TablePage } from './pages/table/TablePage';
 import { TablesPage } from './pages/table/TablesPage';
+import { NavigationPanel } from './components/NavigationPanel';
 
 export const Router = () => {
   const { token } = useAuth();
@@ -29,7 +28,7 @@ export const Router = () => {
       path: '/admin',
       element: (
         <>
-          <AdminPanel />
+          <NavigationPanel isAdmin={true} />
           <Outlet />
         </>
       ),

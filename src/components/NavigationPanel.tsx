@@ -6,7 +6,11 @@ import { Scoreboard } from '../pages/Scoreboard';
 import { TablesPage } from '../pages/table/TablesPage';
 import { useNavigate } from 'react-router-dom';
 
-export const AdminPanel = () => {
+export interface NavigationPanelProps {
+  isAdmin: boolean;
+}
+
+export const NavigationPanel: React.FC<NavigationPanelProps> = ({ isAdmin }) => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
@@ -30,32 +34,38 @@ export const AdminPanel = () => {
               navigate('/');
             }}
           />
+          {isAdmin && (
+            <Tab
+              label="Scoreboard"
+              onClick={() => {
+                navigate('/scoreboard');
+              }}
+            />
+          )}
+          {isAdmin && (
+            <Tab
+              label="Users"
+              onClick={() => {
+                navigate('/users');
+              }}
+            />
+          )}
+          {isAdmin && (
+            <Tab
+              label="Tables"
+              onClick={() => {
+                navigate('/tables');
+              }}
+            />
+          )}
           <Tab
-            label="Scoreboard"
+            label="Settings"
             onClick={() => {
-              navigate('/scoreboard');
-            }}
-          />
-          <Tab
-            label="Users"
-            onClick={() => {
-              navigate('/users');
-            }}
-          />
-          <Tab
-            label="Tables"
-            onClick={() => {
-              navigate('/tables');
+              navigate('/settings');
             }}
           />
         </Tabs>
       </Box>
-
-      {/* 
-      {value === 0 && <PlayerProfilePage />}
-      {value === 1 && <Scoreboard />}
-      {value === 2 && <UsersPage />}
-      {value === 3 && <TablesPage />} */}
     </Box>
   );
 };

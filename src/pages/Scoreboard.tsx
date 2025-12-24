@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Container,
+  Divider,
   Grid,
   Table,
   TableBody,
@@ -64,6 +65,9 @@ export const Scoreboard: React.FC = () => {
         <Grid container>
           <Grid size={12}>
             <h1>Scoreboard</h1>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
           </Grid>
           <Grid size={12}>
             <Container maxWidth="sm">

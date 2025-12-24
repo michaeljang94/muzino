@@ -53,14 +53,13 @@ export const PlayerProfilePage: React.FC = () => {
   const { token } = useAuth();
 
   useEffect(() => {
+    const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+    const decoded = jwtDecode<TokenPayload>(token || '');
+    const username = decoded.username;
+    setPlayerRole(decoded.role);
+
     const fetchUser = async () => {
       try {
-        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const decoded = jwtDecode<TokenPayload>(token || '');
-        const username = decoded.username;
-
-        setPlayerRole(decoded.role);
-
         const response = await fetch(`${addr}/api/user/${username}`, {
           headers: {
             Authorization: 'Bearer ' + token,
@@ -81,12 +80,6 @@ export const PlayerProfilePage: React.FC = () => {
 
     const fetchRank = async () => {
       try {
-        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-        const decoded = jwtDecode<TokenPayload>(token || '');
-        const username = decoded.username;
-
-        setPlayerRole(decoded.role);
-
         if (decoded.role !== 'user') {
           return;
         }
@@ -108,8 +101,30 @@ export const PlayerProfilePage: React.FC = () => {
       }
     };
 
+    const fetchSessionInfo = async () => {
+      try {
+        const response = await fetch(`${addr}/api/user/${username}/session`, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        });
+
+        if (response.ok) {
+          const sessionInfo = await response.json();
+          setInGame(true);
+          console.log(sessionInfo);
+        }
+
+        setError(null);
+      } catch (error: any) {
+        setError(error);
+      } finally {
+      }
+    };
+
     fetchUser(); // Call the async function
     fetchRank();
+    fetchSessionInfo();
   }, [inGame]); // Empty array to run the effect only once (on mount)
 
   const onClickLeaveGame = () => {
