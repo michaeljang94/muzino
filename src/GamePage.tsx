@@ -80,7 +80,10 @@ export const GamePage: React.FC = () => {
     };
 
     fetchSessionInfo();
-    fetchTableInfo();
+
+    if (sessionInfo?.table_name) {
+      fetchTableInfo();
+    }
   }, [inGame]);
 
   const onClickLeaveGame = () => {
