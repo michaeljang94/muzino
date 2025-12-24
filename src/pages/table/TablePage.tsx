@@ -32,6 +32,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { AddPlayerToSessionModal } from './AddPlayerToSessionModal';
+import { RemovePlayerFromSessionModal } from './RemovePlayerFromSessionModal';
 interface Player {
   name: string;
 }
@@ -59,6 +60,8 @@ export const TablePage: React.FC = () => {
   const [snackBarSuccess, setSnackBarSuccess] = useState(true);
 
   const [addPlayerToSessionDialogOpen, setAddPlayerToSessionDialogOpen] = useState(false);
+  const [removePlayerFromSessionDialogOpen, setRemovePlayerFromSessionDialogOpen] = useState(false);
+  const [playerToRemove, setPlayerToRemove] = useState('');
 
   const navigate = useNavigate();
 
@@ -284,6 +287,7 @@ export const TablePage: React.FC = () => {
       setSnackbarMessage(`Successfully removed ${username} from session`);
 
       setSessionValue('');
+      setRemovePlayerFromSessionDialogOpen(false);
     } catch (error: any) {
       console.error(error);
       setSnackBarSuccess(false);
@@ -433,7 +437,9 @@ export const TablePage: React.FC = () => {
                           <IconButton
                             color="error"
                             onClick={() => {
-                              handleRemovePlayerFromSession(player.name);
+                              // handleRemovePlayerFromSession(player.name);
+                              setRemovePlayerFromSessionDialogOpen(true);
+                              setPlayerToRemove(player.name);
                             }}
                           >
                             <DeleteIcon />
@@ -455,6 +461,18 @@ export const TablePage: React.FC = () => {
           onClose={handleAddPlayerToSessionOnClose}
           tableName={tableName}
           sessionId={sessionValue}
+        />
+      }
+      {
+        <RemovePlayerFromSessionModal
+          open={removePlayerFromSessionDialogOpen}
+          onClose={() => {
+            setRemovePlayerFromSessionDialogOpen(false);
+          }}
+          onClick={() => {
+            handleRemovePlayerFromSession(playerToRemove);
+          }}
+          username={playerToRemove}
         />
       }
     </>

@@ -65,6 +65,7 @@ export const AddPlayerToSessionModal: React.FunctionComponent<AddPlayerToSession
       setSnackBarSuccess(true);
       setSnackbarShow(true);
       setSnackbarMessage(`Successfully added ${username} to session`);
+      setUsername('');
       onClose();
     } catch (error: any) {
       console.error(error);
@@ -115,7 +116,15 @@ export const AddPlayerToSessionModal: React.FunctionComponent<AddPlayerToSession
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={onClose} color="primary" size="large">
+          <Button
+            variant="contained"
+            onClick={() => {
+              setUsername('');
+              onClose();
+            }}
+            color="primary"
+            size="large"
+          >
             Cancel
           </Button>
           <Button variant="contained" size="large" onClick={handleOnClick}>
