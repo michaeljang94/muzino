@@ -61,7 +61,7 @@ export const Scoreboard: React.FC = () => {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <Grid container>
           <Grid size={12}>
             <h1>Scoreboard</h1>

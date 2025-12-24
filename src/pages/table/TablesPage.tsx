@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { EnvironmentVariables } from '../../config';
-import { Button, Container, Divider, Grid } from '@mui/material';
+import { Button, Container, Divider, Grid, IconButton } from '@mui/material';
 import { PaginationTable } from '../../components/PaginationTable';
 import axios from 'axios';
 import { useAuth } from '../../components/auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 interface Table {
   name: string;
@@ -46,20 +47,22 @@ export const TablesPage: React.FC = () => {
 
   return (
     <>
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <Grid container>
-          <Grid size={12}>
+          <Grid size={10}>
             <h1>Tables</h1>
           </Grid>
-          <Grid size={12}>
-            <Button
-              variant="contained"
+          <Grid size={2} alignContent="center">
+            <IconButton
+              color="primary"
+              size="large"
+              style={{ float: 'right' }}
               onClick={() => {
                 navigate('/table/create');
               }}
             >
-              Create Table
-            </Button>
+              <AddBoxIcon />
+            </IconButton>
           </Grid>
           <Grid size={12} marginBottom={2} marginTop={2}>
             <Divider></Divider>
