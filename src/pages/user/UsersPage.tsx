@@ -105,6 +105,7 @@ export const UsersPage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <DataGrid
+              showToolbar
               rows={users}
               columns={columns}
               initialState={{
