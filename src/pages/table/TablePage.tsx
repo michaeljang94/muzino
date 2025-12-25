@@ -33,6 +33,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { AddPlayerToSessionModal } from './AddPlayerToSessionModal';
 import { RemovePlayerFromSessionModal } from './RemovePlayerFromSessionModal';
+import { AddDealerToSessionModal } from './AddDealerToSessionModal';
+import { RemoveDealerFromSessionModal } from './RemoveDealerFromSessionModal';
 interface Player {
   name: string;
 }
@@ -61,7 +63,9 @@ export const TablePage: React.FC = () => {
   const [snackBarSuccess, setSnackBarSuccess] = useState(true);
 
   const [addPlayerToSessionDialogOpen, setAddPlayerToSessionDialogOpen] = useState(false);
+  const [addDealerToSessionDialogOpen, setAddDealerToSessionDialogOpen] = useState(false);
   const [removePlayerFromSessionDialogOpen, setRemovePlayerFromSessionDialogOpen] = useState(false);
+  const [removeDealerFromSessionDialogOpen, setRemoveDealerFromSessionDialogOpen] = useState(false);
   const [playerToRemove, setPlayerToRemove] = useState('');
 
   const navigate = useNavigate();
@@ -138,7 +142,12 @@ export const TablePage: React.FC = () => {
     fetchTableDetails();
     fetchSessionsForTable();
     fetchGameSessionPlayers();
-  }, [sessionValue, addPlayerToSessionDialogOpen]);
+  }, [
+    sessionValue,
+    addPlayerToSessionDialogOpen,
+    addDealerToSessionDialogOpen,
+    removeDealerFromSessionDialogOpen,
+  ]);
 
   const handleCreateSession = async () => {
     try {
@@ -298,6 +307,39 @@ export const TablePage: React.FC = () => {
     }
   };
 
+  const handleRemoveDealerFromSession = async () => {
+    try {
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+      const response = await fetch(
+        `${addr}/api/table/${tableName}/session/${sessionValue}/dealer/remove`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw 'Removing dealer from session failed';
+      }
+
+      setSnackBarSuccess(true);
+      setSnackbarShow(true);
+      setSnackbarMessage(
+        `Successfully removed dealer ${sessions[selectedIndex]?.dealer} from session`
+      );
+
+      setRemoveDealerFromSessionDialogOpen(false);
+    } catch (error: any) {
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage(error);
+    } finally {
+    }
+  };
+
   const tableHeaders = ['Name', 'Bet', 'Turn'];
 
   return (
@@ -416,6 +458,15 @@ export const TablePage: React.FC = () => {
               size="large"
               color={!sessions[selectedIndex]?.dealer ? 'primary' : 'error'}
               style={{ float: 'right' }}
+              onClick={
+                sessions[selectedIndex]?.dealer
+                  ? () => {
+                      setRemoveDealerFromSessionDialogOpen(true);
+                    }
+                  : () => {
+                      setAddDealerToSessionDialogOpen(true);
+                    }
+              }
             >
               {!sessions[selectedIndex]?.dealer && <AddBoxIcon />}
               {sessions[selectedIndex]?.dealer && <DeleteIcon />}
@@ -494,6 +545,26 @@ export const TablePage: React.FC = () => {
             handleRemovePlayerFromSession(playerToRemove);
           }}
           username={playerToRemove}
+        />
+      }
+      {
+        <AddDealerToSessionModal
+          open={addDealerToSessionDialogOpen}
+          onClose={() => {
+            setAddDealerToSessionDialogOpen(false);
+          }}
+          tableName={tableName}
+          sessionId={sessionValue}
+        />
+      }
+      {
+        <RemoveDealerFromSessionModal
+          open={removeDealerFromSessionDialogOpen}
+          onClose={() => {
+            setRemoveDealerFromSessionDialogOpen(false);
+          }}
+          onClick={handleRemoveDealerFromSession}
+          username={sessions[selectedIndex]?.dealer}
         />
       }
     </>

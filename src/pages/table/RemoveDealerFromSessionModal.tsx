@@ -14,14 +14,14 @@ import {
 import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-export interface RemovePlayerFromSessionModalProps {
+export interface RemoveDealerFromSessionModalProps {
   open: boolean;
   onClose: () => void;
   onClick: () => void;
   username: string;
 }
 
-export const RemovePlayerFromSessionModal: React.FC<RemovePlayerFromSessionModalProps> = ({
+export const RemoveDealerFromSessionModal: React.FC<RemoveDealerFromSessionModalProps> = ({
   open,
   onClose,
   onClick,
