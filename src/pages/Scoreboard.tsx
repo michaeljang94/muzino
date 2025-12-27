@@ -12,6 +12,9 @@ import {
 } from '@mui/material';
 import { EnvironmentVariables } from '../config';
 import { useAuth } from '../components/auth/AuthProvider';
+import { ScoreboardFirstPlace } from '../components/ScoreboardFirstPlace';
+
+import './Scoreboard.css';
 
 interface User {
   id: string;
@@ -62,12 +65,15 @@ export const Scoreboard: React.FC = () => {
   return (
     <>
       <Container maxWidth="sm">
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid size={12}>
             <h1>Scoreboard</h1>
           </Grid>
           <Grid size={12}>
             <Divider />
+          </Grid>
+          <Grid size={12} alignContent="center" justifyContent="center" display="flex">
+            <ScoreboardFirstPlace />
           </Grid>
           <Grid size={12}>
             <Container maxWidth="sm">
@@ -82,7 +88,7 @@ export const Scoreboard: React.FC = () => {
                   </TableHead>
                   <TableBody>
                     {users?.map(user => (
-                      <TableRow>
+                      <TableRow style={{ backgroundColor: user.rank === 1 ? 'gold' : 'white' }}>
                         <TableCell align="center">{user.rank}</TableCell>
                         <TableCell align="center">{user.username}</TableCell>
                         <TableCell align="center">{user.score}</TableCell>

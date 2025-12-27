@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Alert from '@mui/material/Alert';
+import './PlayerProfilePage.css';
 
 import {
   Box,
@@ -121,7 +122,52 @@ export const PlayerProfilePage: React.FC = () => {
   }
 
   return (
-    // <div className="player-default-div">
+    <>
+      <Container maxWidth="sm">
+        <Grid
+          container
+          spacing={0}
+          minHeight="75vh"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid size={12}>
+            <div className="card">
+              <div className="content">
+                <div className="name">{playerName}</div>
+                <div className="handle">
+                  <IconButton color="inherit" size="small">
+                    <AccountBalanceIcon />
+                  </IconButton>
+                  {Number(playerScore).toLocaleString()}
+                </div>
+                <Grid container>
+                  <Grid size={6}>
+                    <div className="title">
+                      {playerRole === 'user' && (
+                        <h1 style={{ textAlign: 'left' }}>#{playerRank}</h1>
+                      )}
+                      {playerRole !== 'user' && <h1>-</h1>}
+                    </div>
+                  </Grid>
+                  <Grid size={6} alignContent="end" justifyContent={'right'} display="flex">
+                    <img src={qrcode} alt="logo" width={100} height={100} />
+                  </Grid>
+                </Grid>
+              </div>
+              <div className="dots orange-dots"></div>
+              <div className="dots pink-dots"></div>
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+
+  return (
+    // <div classNameName="player-default-div">
     <>
       <Container maxWidth="sm">
         <Grid container spacing={0}>
