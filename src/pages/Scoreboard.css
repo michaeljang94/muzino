@@ -1,21 +1,9 @@
 .cards {
   position: relative;
-  height: 150px;
+  height: 270px;
   transition-duration: 0.5s;
   background: none;
   overflow: hidden;
-}
-
-.cards:hover {
-  height: 270px;
-}
-
-.cards:hover .outlinePage {
-  box-shadow: 0 10px 15px #b1985e;
-}
-
-.cards:hover .detailPage {
-  display: flex;
 }
 
 .outlinePage {
@@ -26,14 +14,15 @@
   border-radius: 25px;
   transition-duration: 0.5s;
   z-index: 2;
+  box-shadow: 0 10px 15px #b1985e;
 }
 
 .detailPage {
   position: relative;
-  display: none;
+  display: flex;
   width: 300px;
   height: 120px;
-  background: white;
+  background: black;
   top: -20px;
   z-index: 1;
   transition-duration: 1s;
@@ -122,7 +111,7 @@
   position: relative;
   display: block;
   margin-left: 60px;
-  color: #424c50;
+  color: white;
   letter-spacing: 6px;
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 20px;
