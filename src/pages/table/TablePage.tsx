@@ -116,7 +116,7 @@ export const TablePage: React.FC = () => {
 
         const players = await response.json();
 
-        setPlayers(players.players);
+        setPlayers(players.players || []);
       } catch (error: any) {
       } finally {
       }
@@ -132,7 +132,7 @@ export const TablePage: React.FC = () => {
         });
         const sessions = await response.json();
 
-        setSessions(sessions?.table_sessions);
+        setSessions(sessions?.table_sessions || []);
         setSessionValue(sessions?.table_sessions[selectedIndex]?.session_id);
       } catch (error: any) {
       } finally {
