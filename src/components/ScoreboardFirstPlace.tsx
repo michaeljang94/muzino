@@ -133,7 +133,7 @@ export const ScoreboardFirstPlace: React.FC<ScoreboardFirstPlaceProps> = ({ scor
             ></path>
           </svg>
           <p className="gradesBoxLabel">SCORE</p>
-          <p className="gradesBoxNum">{score}</p>
+          <p className="gradesBoxNum">{Number(score).toLocaleString()}</p>
         </div>
       </div>
     </div>

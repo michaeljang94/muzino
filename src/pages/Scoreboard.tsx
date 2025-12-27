@@ -107,7 +107,7 @@ export const Scoreboard: React.FC = () => {
                       <TableRow style={{ backgroundColor: getRankColor(user.rank) }}>
                         <TableCell align="center">{user.rank}</TableCell>
                         <TableCell align="center">{user.username}</TableCell>
-                        <TableCell align="center">{user.score}</TableCell>
+                        <TableCell align="center">{Number(user.score).toLocaleString()}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
