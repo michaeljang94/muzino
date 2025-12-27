@@ -59,17 +59,17 @@ export const Scoreboard: React.FC = () => {
   }, []);
 
   const getRankColor = (rank: Number) => {
-    switch(rank) {
+    switch (rank) {
       case 1:
-        return "gold"
+        return 'gold';
       case 2:
-        return "silver"
+        return 'silver';
       case 3:
-        return "#B87333"
+        return '#B87333';
       default:
-        return "white"
+        return 'white';
     }
-  }
+  };
 
   if (error) {
     return <>{error}</>;

@@ -123,15 +123,17 @@ export const PlayerProfilePage: React.FC = () => {
 
   return (
     <>
-      <Container maxWidth="sm">
-        <Grid
-          container
-          minHeight="75vh"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+      <Container
+        maxWidth="sm"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+        }}
+      >
+        <Grid container>
           <Grid size={12}>
             <div className="card">
               <div className="content">
