@@ -59,7 +59,7 @@ export const CreateTablePage: React.FC = () => {
         throw `Creating table failed: ${res}`;
       }
 
-      navigate('/tables');
+      navigate(`/table/${tableName}`);
     } catch (error: any) {
       console.error(error);
       setSnackbarShow(true);
