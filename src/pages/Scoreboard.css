@@ -22,7 +22,7 @@
   display: flex;
   width: 300px;
   height: 120px;
-  background: black;
+  background: linear-gradient(45deg, #fffbf0, #ffdd87);
   top: -20px;
   z-index: 1;
   transition-duration: 1s;
@@ -111,7 +111,7 @@
   position: relative;
   display: block;
   margin-left: 60px;
-  color: white;
+  color: black;
   letter-spacing: 6px;
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 20px;
