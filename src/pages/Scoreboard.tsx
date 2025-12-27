@@ -58,6 +58,19 @@ export const Scoreboard: React.FC = () => {
     fetchScoreboard();
   }, []);
 
+  const getRankColor = (rank: Number) => {
+    switch(rank) {
+      case 1:
+        return "gold"
+      case 2:
+        return "silver"
+      case 3:
+        return "#B87333"
+      default:
+        return "white"
+    }
+  }
+
   if (error) {
     return <>{error}</>;
   }
@@ -88,7 +101,7 @@ export const Scoreboard: React.FC = () => {
                   </TableHead>
                   <TableBody>
                     {users?.map(user => (
-                      <TableRow style={{ backgroundColor: user.rank === 1 ? 'gold' : 'white' }}>
+                      <TableRow style={{ backgroundColor: getRankColor(user.rank) }}>
                         <TableCell align="center">{user.rank}</TableCell>
                         <TableCell align="center">{user.username}</TableCell>
                         <TableCell align="center">{user.score}</TableCell>

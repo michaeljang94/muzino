@@ -126,7 +126,6 @@ export const PlayerProfilePage: React.FC = () => {
       <Container maxWidth="sm">
         <Grid
           container
-          spacing={0}
           minHeight="75vh"
           display="flex"
           flexDirection="column"
