@@ -86,7 +86,10 @@ export const Scoreboard: React.FC = () => {
             <Divider />
           </Grid>
           <Grid size={12} alignContent="center" justifyContent="center" display="flex">
-            <ScoreboardFirstPlace />
+            <ScoreboardFirstPlace
+              score={users?.find(e => e.rank === 1)?.score || 0}
+              name={users?.find(e => e.rank === 1)?.username || ''}
+            />
           </Grid>
           <Grid size={12}>
             <Container maxWidth="sm">
