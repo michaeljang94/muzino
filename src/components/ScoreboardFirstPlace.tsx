@@ -1,9 +1,14 @@
 export interface ScoreboardFirstPlaceProps {
   score: number;
   name: string;
+  rank: string;
 }
 
-export const ScoreboardFirstPlace: React.FC<ScoreboardFirstPlaceProps> = ({ score, name }) => {
+export const ScoreboardFirstPlace: React.FC<ScoreboardFirstPlaceProps> = ({
+  score,
+  name,
+  rank,
+}) => {
   return (
     <div className="cards">
       <div className="outlinePage">
@@ -45,7 +50,9 @@ export const ScoreboardFirstPlace: React.FC<ScoreboardFirstPlaceProps> = ({ scor
           ></path>
         </svg>
         <p className="ranking_number">
-          1<span className="ranking_word">st</span>
+          {/* 1<span className="ranking_word">st</span> */}
+          {rank}
+          <span className="ranking_word">st</span>
         </p>
         <div className="splitLine"></div>
         <svg

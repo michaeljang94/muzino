@@ -145,7 +145,11 @@ export const PlayerProfilePage: React.FC = () => {
             justifyContent="center"
             display="flex"
           >
-            <ScoreboardFirstPlace score={playerScore || 0} name={playerName || ''} />
+            <ScoreboardFirstPlace
+              score={playerScore || 0}
+              name={playerName || ''}
+              rank={playerRank || '-'}
+            />
           </Grid>
           <Grid size={12} alignContent="center" justifyContent="center" display="flex">
             <div className="card">
