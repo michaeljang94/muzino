@@ -36,6 +36,7 @@ import { jwtDecode } from 'jwt-decode';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import PaidIcon from '@mui/icons-material/Paid';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { ScoreboardFirstPlace } from '../components/ScoreboardFirstPlace';
 
 export interface TokenPayload {
   username: string;
@@ -133,11 +134,20 @@ export const PlayerProfilePage: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '100vh',
+          // minHeight: '100vh',
         }}
       >
         <Grid container>
-          <Grid size={12}>
+          <Grid
+            size={12}
+            paddingTop={5}
+            alignContent="center"
+            justifyContent="center"
+            display="flex"
+          >
+            <ScoreboardFirstPlace score={playerScore || 0} name={playerName || ''} />
+          </Grid>
+          <Grid size={12} alignContent="center" justifyContent="center" display="flex">
             <div className="card">
               <div className="content">
                 <div className="name">{playerName}</div>

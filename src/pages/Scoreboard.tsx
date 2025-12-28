@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Container,
   Divider,
   Grid,
@@ -13,8 +14,10 @@ import {
 import { EnvironmentVariables } from '../config';
 import { useAuth } from '../components/auth/AuthProvider';
 import { ScoreboardFirstPlace } from '../components/ScoreboardFirstPlace';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import './Scoreboard.css';
+import { Label } from '@mui/icons-material';
 
 interface User {
   id: string;
@@ -71,9 +74,63 @@ export const Scoreboard: React.FC = () => {
     }
   };
 
+  const renderRankRow = (user: User) => {
+    const headerByRank = (userRank: number, content: string) => {
+      switch (userRank) {
+        case 1:
+          return <h1>{content}</h1>;
+        case 2:
+          return <h2>{content}</h2>;
+        case 3:
+          return <h3>{content}</h3>;
+        default:
+          return <h4>{content}</h4>;
+      }
+    };
+
+    return (
+      <>
+        <Grid size={12} style={{ backgroundColor: 'white' }}>
+          <Grid container>
+            <Grid size={2} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <EmojiEventsIcon
+                style={{ color: getRankColor(user.rank), scale: 1.5, paddingRight: 10 }}
+              />
+              {headerByRank(user.rank, user.rank.toString())}
+            </Grid>
+            <Grid size={5} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              {headerByRank(user.rank, user.username)}
+            </Grid>
+            <Grid size={5} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              {headerByRank(user.rank, user.score.toLocaleString())}
+            </Grid>
+          </Grid>
+        </Grid>
+      </>
+    );
+  };
+
   if (error) {
     return <>{error}</>;
   }
+
+  // return (
+  //   <>
+  //     <Container maxWidth="sm">
+  //       <Grid container spacing={2}>
+  //         <Grid size={12}>
+  //           <h1>Scoreboard</h1>
+  //         </Grid>
+  //         <Grid size={12}>
+  //           <Divider />
+  //         </Grid>
+  //         {users?.map(user => (
+  //           <>{renderRankRow(user)}</>
+  //         ))}
+  //       </Grid>
+  //     </Container>
+  //   </>
+  // );
 
   return (
     <>
@@ -85,27 +142,27 @@ export const Scoreboard: React.FC = () => {
           <Grid size={12}>
             <Divider />
           </Grid>
-          <Grid size={12} alignContent="center" justifyContent="center" display="flex">
-            <ScoreboardFirstPlace
-              score={users?.find(e => e.rank === 1)?.score || 0}
-              name={users?.find(e => e.rank === 1)?.username || ''}
-            />
-          </Grid>
+
           <Grid size={12}>
             <Container maxWidth="sm">
               <TableContainer>
                 <Table>
-                  <TableHead>
+                  {/* <TableHead>
                     <TableRow>
                       <TableCell align="center">Rank</TableCell>
                       <TableCell align="center">Username</TableCell>
                       <TableCell align="center">Score</TableCell>
                     </TableRow>
-                  </TableHead>
+                  </TableHead> */}
                   <TableBody>
                     {users?.map(user => (
-                      <TableRow style={{ backgroundColor: getRankColor(user.rank) }}>
-                        <TableCell align="center">{user.rank}</TableCell>
+                      <TableRow>
+                        <TableCell align="center">
+                          <EmojiEventsIcon
+                            style={{ color: getRankColor(user.rank), scale: 1.5, paddingRight: 10 }}
+                          />
+                          {user.rank}
+                        </TableCell>
                         <TableCell align="center">{user.username}</TableCell>
                         <TableCell align="center">{Number(user.score).toLocaleString()}</TableCell>
                       </TableRow>
