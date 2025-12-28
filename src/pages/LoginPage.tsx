@@ -7,12 +7,15 @@ import {
   CardContent,
   CardHeader,
   Container,
+  Grid,
   Snackbar,
   TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginPagePincode } from './LoginPagePincode';
+
+import './LoginPage.css';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -69,10 +72,11 @@ export const LoginPage: React.FC = () => {
             Username error.
           </Alert>
         </Snackbar>
-        <Card>
+        <Card sx={{ border: '2px solid black', boxShadow: '4px 4px black' }}>
           <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
           <CardContent>
             <TextField
+              className="custom-input"
               fullWidth
               variant="outlined"
               label="username"
@@ -98,6 +102,7 @@ export const LoginPage: React.FC = () => {
           </CardContent>
           <CardActions>
             <Button
+              sx={{ boxShadow: '4px 4px black' }}
               fullWidth
               size="large"
               variant="contained"
@@ -107,7 +112,13 @@ export const LoginPage: React.FC = () => {
             >
               Register
             </Button>
-            <Button fullWidth size="large" variant="contained" onClick={handleLogin}>
+            <Button
+              sx={{ boxShadow: '4px 4px black' }}
+              fullWidth
+              size="large"
+              variant="contained"
+              onClick={handleLogin}
+            >
               Login
             </Button>
           </CardActions>

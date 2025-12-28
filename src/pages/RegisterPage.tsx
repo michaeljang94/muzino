@@ -128,7 +128,7 @@ export const RegisterPage: React.FC = () => {
             {snackbarMessage}
           </Alert>
         </Snackbar>
-        <Card>
+        <Card className="custom-card" sx={{ boxShadow: '4px 4px black' }}>
           <IconButton
             onClick={() => {
               navigate('/');
@@ -141,6 +141,7 @@ export const RegisterPage: React.FC = () => {
             <Grid container spacing={2}>
               <Grid size={12}>
                 <TextField
+                  className="custom-input"
                   error={!initialSelectUsername && !isValidUsername()}
                   helperText={
                     !initialSelectUsername && !isValidUsername() ? 'Enter a valid username' : ''
@@ -158,6 +159,7 @@ export const RegisterPage: React.FC = () => {
               </Grid>
               <Grid size={12}>
                 <TextField
+                  sx={{ boxShadow: '4px 4px black' }}
                   error={!initialSelectName && !isValidFullName()}
                   helperText={!initialSelectName && !isValidFullName() ? 'Enter a valid name' : ''}
                   fullWidth
@@ -175,7 +177,13 @@ export const RegisterPage: React.FC = () => {
                 <TextField fullWidth variant="outlined" label="Last Name" />
               </Grid> */}
               <Grid size={4}>
-                <TextField fullWidth select variant="outlined" label="Year">
+                <TextField
+                  sx={{ boxShadow: '4px 4px black' }}
+                  fullWidth
+                  select
+                  variant="outlined"
+                  label="Year"
+                >
                   {createNumbers(10).map(option => (
                     <MenuItem key={option} value={option}>
                       {option}
@@ -184,7 +192,13 @@ export const RegisterPage: React.FC = () => {
                 </TextField>
               </Grid>
               <Grid size={4}>
-                <TextField fullWidth select variant="outlined" label="Class">
+                <TextField
+                  sx={{ boxShadow: '4px 4px black' }}
+                  fullWidth
+                  select
+                  variant="outlined"
+                  label="Class"
+                >
                   {createNumbers(15).map(option => (
                     <MenuItem key={option} value={option}>
                       {option}
@@ -193,7 +207,13 @@ export const RegisterPage: React.FC = () => {
                 </TextField>
               </Grid>
               <Grid size={4}>
-                <TextField fullWidth select variant="outlined" label="Number">
+                <TextField
+                  sx={{ boxShadow: '4px 4px black' }}
+                  fullWidth
+                  select
+                  variant="outlined"
+                  label="Number"
+                >
                   {createNumbers(40).map(option => (
                     <MenuItem key={option} value={option}>
                       {option}
@@ -220,6 +240,8 @@ export const RegisterPage: React.FC = () => {
           </CardContent>
           <CardActions>
             <Button
+              sx={{ boxShadow: '4px 4px black' }}
+              className="flip-card__btn"
               fullWidth
               size="large"
               variant="contained"

@@ -7,6 +7,7 @@ import {
   CardContent,
   CardHeader,
   Container,
+  Grid,
   IconButton,
   Snackbar,
   TextField,
@@ -100,7 +101,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
             {snackbarMessage}
           </Alert>
         </Snackbar>
-        <Card>
+        <Card className="custom-card" sx={{ boxShadow: '4px 4px black' }}>
           <IconButton
             onClick={() => {
               navigate('/');
@@ -127,6 +128,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
           </CardContent>
           <CardActions>
             <Button
+              sx={{ boxShadow: '4px 4px black' }}
               fullWidth
               size="large"
               variant="contained"
