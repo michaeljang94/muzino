@@ -59,6 +59,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ username }) => {
           <Grid size={12}>
             <TextField fullWidth disabled label="id" value={userInfo?.id || ''} />
           </Grid>
+          <Grid size={12}>
+            <TextField fullWidth disabled label="role" value={userInfo?.role || ''} />
+          </Grid>
           <Grid size={6}>
             <TextField fullWidth disabled label="username" value={userInfo?.username || ''} />
           </Grid>

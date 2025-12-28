@@ -145,7 +145,7 @@ export const PlayerProfilePage: React.FC = () => {
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <EmojiEventsIcon sx={{ color: 'black', scale: 0.75 }} />
                     {playerRole === 'user' && Number(playerRank).toLocaleString()}
-                    {playerRole !== 'user' && "-"}
+                    {playerRole !== 'user' && '-'}
                   </Box>
                 </div>
                 <Grid container>
