@@ -1,10 +1,17 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import { AppBar, Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { PlayerProfilePage } from '../pages/PlayerProfilePage';
 import { UsersPage } from '../pages/user/UsersPage';
 import { Scoreboard } from '../pages/Scoreboard';
 import { TablesPage } from '../pages/table/TablesPage';
 import { useNavigate } from 'react-router-dom';
+
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import GroupIcon from '@mui/icons-material/Group';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export interface NavigationPanelProps {
   isAdmin: boolean;
@@ -19,59 +26,73 @@ export const NavigationPanel: React.FC<NavigationPanelProps> = ({ isAdmin }) => 
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          <Tab
-            label="My Profile"
-            onClick={() => {
-              navigate('/');
-            }}
-          />
-          {isAdmin && (
+    <AppBar position="sticky" color="inherit">
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            variant="scrollable"
+            scrollButtons="auto"
+          >
             <Tab
-              label="Scoreboard"
+              label="Profile"
               onClick={() => {
-                navigate('/scoreboard');
+                navigate('/');
               }}
+              iconPosition="top"
+              icon={<AccountBoxIcon />}
             />
-          )}
-          {isAdmin && (
+            {isAdmin && (
+              <Tab
+                label="Scoreboard"
+                onClick={() => {
+                  navigate('/scoreboard');
+                }}
+                iconPosition="top"
+                icon={<EmojiEventsIcon />}
+              />
+            )}
+            {isAdmin && (
+              <Tab
+                label="Users"
+                onClick={() => {
+                  navigate('/users');
+                }}
+                iconPosition="top"
+                icon={<GroupIcon />}
+              />
+            )}
+            {isAdmin && (
+              <Tab
+                label="Tables"
+                onClick={() => {
+                  navigate('/tables');
+                }}
+                iconPosition="top"
+                icon={<BackupTableIcon />}
+              />
+            )}
             <Tab
-              label="Users"
+              label="Game"
               onClick={() => {
-                navigate('/users');
+                navigate('/game');
               }}
+              iconPosition="top"
+              icon={<SportsEsportsIcon />}
             />
-          )}
-          {isAdmin && (
             <Tab
-              label="Tables"
+              label="Settings"
               onClick={() => {
-                navigate('/tables');
+                navigate('/settings');
               }}
+              iconPosition="top"
+              icon={<SettingsIcon />}
             />
-          )}
-          <Tab
-            label="Game"
-            onClick={() => {
-              navigate('/game');
-            }}
-          />
-          <Tab
-            label="Settings"
-            onClick={() => {
-              navigate('/settings');
-            }}
-          />
-        </Tabs>
+          </Tabs>
+        </Box>
       </Box>
-    </Box>
+    </AppBar>
   );
 };
