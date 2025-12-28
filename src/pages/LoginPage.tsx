@@ -73,7 +73,11 @@ export const LoginPage: React.FC = () => {
           </Alert>
         </Snackbar>
         <Card sx={{ border: '2px solid black', boxShadow: '4px 4px black' }}>
-          <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
+          <CardHeader
+            title="MUZINO"
+            sx={{ flexDirection: 'column' }}
+            slotProps={{ title: { fontFamily: 'emoji' } }}
+          />
           <CardContent>
             <TextField
               className="custom-input"

@@ -137,7 +137,7 @@ export const Scoreboard: React.FC = () => {
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={12}>
-            <h1>Scoreboard</h1>
+            <h1 style={{ fontFamily: 'emoji', textAlign: 'center' }}>Scoreboard</h1>
           </Grid>
           <Grid size={12}>
             <Divider />
@@ -145,7 +145,9 @@ export const Scoreboard: React.FC = () => {
 
           <Grid size={12}>
             <Container maxWidth="sm">
-              <TableContainer>
+              <TableContainer
+                sx={{ border: '2px solid black', borderRadius: '10px', boxShadow: '4px 4px black' }}
+              >
                 <Table>
                   {/* <TableHead>
                     <TableRow>
@@ -157,14 +159,18 @@ export const Scoreboard: React.FC = () => {
                   <TableBody>
                     {users?.map(user => (
                       <TableRow>
-                        <TableCell align="center">
+                        <TableCell align="center" sx={{ fontFamily: 'emoji', fontSize: '20px' }}>
                           <EmojiEventsIcon
-                            style={{ color: getRankColor(user.rank), scale: 1.5, paddingRight: 10 }}
+                            sx={{ color: getRankColor(user.rank), scale: 1.5, marginRight: 2 }}
                           />
                           {user.rank}
                         </TableCell>
-                        <TableCell align="center">{user.username}</TableCell>
-                        <TableCell align="center">{Number(user.score).toLocaleString()}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'emoji', fontSize: '20px' }}>
+                          {user.username}
+                        </TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'emoji', fontSize: '25px' }}>
+                          {Number(user.score).toLocaleString()}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

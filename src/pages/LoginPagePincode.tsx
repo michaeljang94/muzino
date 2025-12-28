@@ -110,7 +110,11 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
           >
             <ArrowBackIcon />
           </IconButton>
-          <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
+          <CardHeader
+            title="MUZINO"
+            style={{ flexDirection: 'column' }}
+            slotProps={{ title: { fontFamily: 'emoji' } }}
+          />
           <CardContent>
             <MuiOtpInput
               gap={1}

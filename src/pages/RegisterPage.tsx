@@ -136,7 +136,15 @@ export const RegisterPage: React.FC = () => {
           >
             <ArrowBackIcon />
           </IconButton>
-          <CardHeader title="MUZINO" style={{ flexDirection: 'column' }} />
+          <CardHeader
+            title="MUZINO"
+            style={{ flexDirection: 'column' }}
+            slotProps={{
+              title: {
+                fontFamily: 'emoji',
+              },
+            }}
+          />
           <CardContent>
             <Grid container spacing={2}>
               <Grid size={12}>

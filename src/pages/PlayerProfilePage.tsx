@@ -137,8 +137,8 @@ export const PlayerProfilePage: React.FC = () => {
           // minHeight: '100vh',
         }}
       >
-        <Grid container>
-          <Grid
+        <Grid container spacing={2}>
+          {/* <Grid
             size={12}
             paddingTop={5}
             alignContent="center"
@@ -150,8 +150,14 @@ export const PlayerProfilePage: React.FC = () => {
               name={playerName || ''}
               rank={playerRank || '-'}
             />
-          </Grid>
-          <Grid size={12} alignContent="center" justifyContent="center" display="flex">
+          </Grid> */}
+          <Grid
+            size={12}
+            alignContent="center"
+            justifyContent="center"
+            display="flex"
+            marginTop={10}
+          >
             <div className="card">
               <div className="content">
                 <div className="name">{playerName}</div>
@@ -182,7 +188,7 @@ export const PlayerProfilePage: React.FC = () => {
                         value={Number(playerScore).toLocaleString()}
                         sx={{
                           alignContent: 'end',
-                          input: { fontFamily: 'math', textAlign: 'right' },
+                          input: { fontFamily: 'emoji', textAlign: 'right' },
                         }}
                       />
                     </Box>
