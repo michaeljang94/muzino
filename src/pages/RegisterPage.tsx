@@ -248,7 +248,7 @@ export const RegisterPage: React.FC = () => {
           </CardContent>
           <CardActions>
             <Button
-              sx={{ boxShadow: '4px 4px black' }}
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black' }}
               className="flip-card__btn"
               fullWidth
               size="large"

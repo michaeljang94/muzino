@@ -50,8 +50,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ username }) => {
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
-          <Grid size={12}>
-            <h1>Settings</h1>
+          <Grid size={12} textAlign={'center'}>
+            <h1 style={{ fontFamily: 'emoji' }}>Settings</h1>
           </Grid>
           <Grid size={12}>
             <Divider />
@@ -72,7 +72,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ username }) => {
             <Divider />
           </Grid>
           <Grid size={12}>
-            <Button color="error" variant="contained" size="large" onClick={handleLogOut}>
+            <Button
+              color="error"
+              variant="contained"
+              size="large"
+              onClick={handleLogOut}
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black' }}
+            >
               Log Out
             </Button>
           </Grid>

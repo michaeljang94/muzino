@@ -132,7 +132,7 @@ export const LoginPagePincode: React.FC<LoginPagePincode> = ({ username }) => {
           </CardContent>
           <CardActions>
             <Button
-              sx={{ boxShadow: '4px 4px black' }}
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black' }}
               fullWidth
               size="large"
               variant="contained"
