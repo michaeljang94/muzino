@@ -12,12 +12,12 @@ import {
   Stack,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { EnvironmentVariables } from './config';
+import { EnvironmentVariables } from '../../config';
 import { jwtDecode } from 'jwt-decode';
-import { TokenPayload } from './pages/PlayerProfilePage';
-import { useAuth } from './components/auth/AuthProvider';
+import { TokenPayload } from '../PlayerProfilePage';
+import { useAuth } from '../../components/auth/AuthProvider';
 
-import './pages/game/GamePage.css';
+import { GameWaitPage } from './GameWatiPage';
 
 interface SessionInfo {
   session_id: string;
@@ -92,8 +92,6 @@ export const GamePage: React.FC = () => {
     setOpenLeaveDialog(true);
   };
 
-  const onClickJoinGame = () => {};
-
   const showLeaveDialog = () => {
     return (
       <Dialog open={openLeaveDialog}>
@@ -124,6 +122,11 @@ export const GamePage: React.FC = () => {
       </Dialog>
     );
   };
+
+  if (!inGame) {
+    return <GameWaitPage />;
+  }
+
   return (
     <>
       <Container maxWidth="sm">
@@ -134,85 +137,27 @@ export const GamePage: React.FC = () => {
             alignContent={'center'}
             justifyContent="center"
           >
-            {!inGame && <h1>Waiting...</h1>}
-            {inGame && <h1>{sessionInfo?.table_name}</h1>}
-            {inGame && <h3>{tableInfo?.game}</h3>}
-            {/* {inGame && <h4>{sessionInfo?.session_id}</h4> } */}
+            <h1>{sessionInfo?.table_name}</h1>
+            <h3>{tableInfo?.game}</h3>
           </Grid>
           <Grid size={12}>
-            {!inGame && <Divider />}
-            {inGame && <LinearProgress color="warning" />}
+            <LinearProgress color="warning" />
           </Grid>
-          {!inGame && (
-            <Grid size={12} display="flex" alignContent={'center'} justifyContent="center">
-              <div className="main">
-                <div className="dog">
-                  <div className="dog__paws">
-                    <div className="dog__bl-leg leg">
-                      <div className="dog__bl-paw paw"></div>
-                      <div className="dog__bl-top top"></div>
-                    </div>
-                    <div className="dog__fl-leg leg">
-                      <div className="dog__fl-paw paw"></div>
-                      <div className="dog__fl-top top"></div>
-                    </div>
-                    <div className="dog__fr-leg leg">
-                      <div className="dog__fr-paw paw"></div>
-                      <div className="dog__fr-top top"></div>
-                    </div>
-                  </div>
-
-                  <div className="dog__body">
-                    <div className="dog__tail"></div>
-                  </div>
-
-                  <div className="dog__head">
-                    <div className="dog__snout">
-                      <div className="dog__nose"></div>
-                      <div className="dog__eyes">
-                        <div className="dog__eye-l"></div>
-                        <div className="dog__eye-r"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="dog__head-c">
-                    <div className="dog__ear-l"></div>
-                    <div className="dog__ear-r"></div>
-                  </div>
-                </div>
-              </div>
-            </Grid>
-          )}
-          {inGame && <Grid size={12}></Grid>}
+          <Grid size={12}></Grid>
           <Grid size={12}>
-            {!inGame && <Divider />}
-            {inGame && <LinearProgress color="warning" />}
+            <LinearProgress color="warning" />
           </Grid>
           <Grid size={12}>
             <Container maxWidth="sm">
-              {!inGame && (
-                <Button
-                  onClick={onClickJoinGame}
-                  color={'primary'}
-                  variant={'contained'}
-                  style={{ height: 100 }}
-                  fullWidth
-                >
-                  Join Game
-                </Button>
-              )}
-              {inGame && (
-                <Button
-                  onClick={onClickLeaveGame}
-                  color={'error'}
-                  variant={'contained'}
-                  style={{ height: 100 }}
-                  fullWidth
-                >
-                  Leave Game
-                </Button>
-              )}
+              <Button
+                onClick={onClickLeaveGame}
+                color={'error'}
+                variant={'contained'}
+                style={{ height: 100 }}
+                fullWidth
+              >
+                Leave Game
+              </Button>
             </Container>
           </Grid>
         </Grid>

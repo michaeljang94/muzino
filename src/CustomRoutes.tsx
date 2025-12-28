@@ -15,7 +15,7 @@ import { EditUserPage } from './pages/user/EditUserPage';
 import { Scoreboard } from './pages/Scoreboard';
 import { MissingRoute } from './pages/MissingRoute';
 import { SettingsPage } from './pages/SettingsPage';
-import { GamePage } from './GamePage';
+import { GamePage } from './pages/game/GamePage';
 
 interface TokenPayload {
   username: string;
