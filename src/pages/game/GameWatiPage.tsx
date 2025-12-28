@@ -27,7 +27,7 @@ export const GameWaitPage: React.FC = () => {
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid size={12} display={'flex'} alignContent={'center'} justifyContent="center">
-            <h1>Waiting...</h1>
+            <h1 style={{ fontFamily: 'emoji' }}>Waiting...</h1>
           </Grid>
           <Grid size={12}>
             <Divider />

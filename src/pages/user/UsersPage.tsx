@@ -97,8 +97,8 @@ export const UsersPage: React.FC = () => {
     <>
       <Container maxWidth="sm">
         <Grid container>
-          <Grid size={12}>
-            <h1>Users</h1>
+          <Grid size={12} textAlign={'center'}>
+            <h1 style={{ fontFamily: 'emoji' }}>Users</h1>
           </Grid>
           <Grid size={12}>
             <Divider />
