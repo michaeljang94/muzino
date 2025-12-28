@@ -19,6 +19,7 @@ import {
   Stack,
   Tab,
   Tabs,
+  TextField,
   Typography,
 } from '@mui/material';
 
@@ -33,6 +34,8 @@ import { useJwt } from 'react-jwt';
 import { jwtDecode } from 'jwt-decode';
 
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import PaidIcon from '@mui/icons-material/Paid';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 export interface TokenPayload {
   username: string;
@@ -139,19 +142,35 @@ export const PlayerProfilePage: React.FC = () => {
               <div className="content">
                 <div className="name">{playerName}</div>
                 <div className="handle">
-                  <IconButton color="inherit" size="small">
-                    <AccountBalanceIcon />
-                  </IconButton>
-                  {Number(playerScore).toLocaleString()}
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <EmojiEventsIcon sx={{ color: 'black', scale: 0.75 }} />
+                    {Number(playerRank).toLocaleString()}
+                  </Box>
                 </div>
                 <Grid container>
-                  <Grid size={6}>
-                    <div className="title">
+                  <Grid size={6} alignContent="center" justifyContent="center">
+                    {/* <div className="title">
                       {playerRole === 'user' && (
                         <h1 style={{ textAlign: 'left' }}>#{playerRank}</h1>
                       )}
                       {playerRole !== 'user' && <h1>-</h1>}
-                    </div>
+                    </div> */}
+                    <Box
+                      sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
+                      width={200}
+                    >
+                      <PaidIcon sx={{ color: 'green', mr: 1, my: 1 }} />
+                      <TextField
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        value={Number(playerScore).toLocaleString()}
+                        sx={{
+                          alignContent: 'end',
+                          input: { fontFamily: 'math', textAlign: 'right' },
+                        }}
+                      />
+                    </Box>
                   </Grid>
                   <Grid size={6} alignContent="end" justifyContent={'right'} display="flex">
                     <img src={qrcode} alt="logo" width={100} height={100} />
