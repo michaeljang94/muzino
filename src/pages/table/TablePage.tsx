@@ -42,6 +42,7 @@ interface Player {
 interface Session {
   session_id: string;
   dealer: string;
+  status: string;
 }
 
 export const TablePage: React.FC = () => {
@@ -340,6 +341,71 @@ export const TablePage: React.FC = () => {
     }
   };
 
+  const renderSessions = () => {
+    return (
+      <>
+        <Grid size={10}>
+          <h1>Session</h1>
+        </Grid>
+        <Grid size={2} alignContent={'center'}>
+          <IconButton
+            color="primary"
+            size="large"
+            style={{ float: 'right' }}
+            onClick={handleCreateSession}
+          >
+            <AddBoxIcon />
+          </IconButton>
+        </Grid>
+        <Grid size={8}>
+          <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
+            <ListItemButton
+              id="lock-button"
+              aria-haspopup="listbox"
+              aria-controls="lock-menu"
+              aria-label="Session ID"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClickListItem}
+            >
+              <ListItemText
+                primary="Session ID"
+                secondary={sessions && sessions[selectedIndex]?.session_id}
+              />
+            </ListItemButton>
+          </List>
+          <Menu
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            slotProps={{
+              list: {
+                'aria-labelledby': 'lock-button',
+                role: 'listbox',
+              },
+            }}
+          >
+            {sessions?.map((session, index) => (
+              <MenuItem
+                selected={index === selectedIndex}
+                onClick={event => handleMenuItemClick(event, index)}
+              >
+                {session?.session_id}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Grid>
+        <Grid size={2} alignContent={'center'} textAlign={'center'}>
+          {sessions[selectedIndex]?.status}
+        </Grid>
+        <Grid size={2} alignContent={'center'}>
+          <IconButton onClick={handleDeleteSession} style={{ float: 'right' }} color="error">
+            <DeleteIcon />
+          </IconButton>
+        </Grid>
+      </>
+    );
+  };
+
   const tableHeaders = ['Name', 'Bet', 'Turn'];
 
   return (
@@ -388,61 +454,7 @@ export const TablePage: React.FC = () => {
             <Divider />
           </Grid>
           {/* <Container maxWidth="md"> */}
-          <Grid size={10}>
-            <h1>Session</h1>
-          </Grid>
-          <Grid size={2} alignContent={'center'}>
-            <IconButton
-              color="primary"
-              size="large"
-              style={{ float: 'right' }}
-              onClick={handleCreateSession}
-            >
-              <AddBoxIcon />
-            </IconButton>
-          </Grid>
-          <Grid size={10}>
-            <List component="nav" aria-label="Device settings" sx={{ bgcolor: 'background.paper' }}>
-              <ListItemButton
-                id="lock-button"
-                aria-haspopup="listbox"
-                aria-controls="lock-menu"
-                aria-label="Session ID"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClickListItem}
-              >
-                <ListItemText
-                  primary="Session ID"
-                  secondary={sessions && sessions[selectedIndex]?.session_id}
-                />
-              </ListItemButton>
-            </List>
-            <Menu
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              slotProps={{
-                list: {
-                  'aria-labelledby': 'lock-button',
-                  role: 'listbox',
-                },
-              }}
-            >
-              {sessions?.map((session, index) => (
-                <MenuItem
-                  selected={index === selectedIndex}
-                  onClick={event => handleMenuItemClick(event, index)}
-                >
-                  {session?.session_id}
-                </MenuItem>
-              ))}
-            </Menu>
-          </Grid>
-          <Grid size={2} alignContent={'center'}>
-            <IconButton onClick={handleDeleteSession} style={{ float: 'right' }} color="error">
-              <DeleteIcon />
-            </IconButton>
-          </Grid>
+          {renderSessions()}
           <Grid size={12}>
             <Divider />
           </Grid>

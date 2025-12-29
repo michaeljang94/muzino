@@ -20,8 +20,8 @@ import { useAuth } from '../../components/auth/AuthProvider';
 import { GameWaitPage } from './GameWaitPage';
 
 interface SessionInfo {
-  player_session: PlayerSessionInfo
-  table_session: TableSessionInfo
+  player_session: PlayerSessionInfo;
+  table_session: TableSessionInfo;
 }
 
 interface PlayerSessionInfo {
@@ -31,6 +31,7 @@ interface PlayerSessionInfo {
 
 interface TableSessionInfo {
   dealer: string;
+  status: string;
 }
 
 interface TableInfo {
@@ -76,11 +77,14 @@ export const GamePage: React.FC = () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-        const response = await fetch(`${addr}/api/table/${sessionInfo?.player_session.table_name}`, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        });
+        const response = await fetch(
+          `${addr}/api/table/${sessionInfo?.player_session.table_name}`,
+          {
+            headers: {
+              Authorization: 'Bearer ' + token,
+            },
+          }
+        );
 
         const table = await response.json();
 
@@ -136,23 +140,27 @@ export const GamePage: React.FC = () => {
     return <GameWaitPage />;
   }
 
-
-  console.log(sessionInfo)
+  console.log(sessionInfo);
   return (
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid
-            size={8}
+            size={12}
             display={inGame ? 'flow' : 'flex'}
             alignContent={'center'}
             justifyContent="center"
           >
             <h1>{sessionInfo?.player_session.table_name}</h1>
+          </Grid>
+          <Grid size={4} textAlign={'center'}>
             <h3>{tableInfo?.game}</h3>
           </Grid>
-          <Grid size={4}>
-            <h1>{sessionInfo?.table_session?.dealer}</h1>
+          <Grid size={4} textAlign={'center'}>
+            <h3>{sessionInfo?.table_session?.dealer}</h3>
+          </Grid>
+          <Grid size={4} textAlign={'center'}>
+            <h3>{sessionInfo?.table_session.status}</h3>
           </Grid>
           <Grid size={12}>
             <LinearProgress color="warning" />
