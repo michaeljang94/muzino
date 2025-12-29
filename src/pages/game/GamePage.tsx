@@ -32,6 +32,7 @@ interface PlayerSessionInfo {
 interface TableSessionInfo {
   dealer: string;
   status: string;
+  pool: string;
 }
 
 interface TableInfo {
@@ -165,8 +166,11 @@ export const GamePage: React.FC = () => {
           <Grid size={12}>
             <LinearProgress color="warning" />
           </Grid>
-          <Grid size={12}>
+          <Grid size={6}>
             <h4>Total Money</h4>
+          </Grid>
+          <Grid size={6} textAlign={'right'}>
+            <h4>{sessionInfo?.table_session.pool}</h4>
           </Grid>
           <Grid size={12}>
             <h4>Players</h4>
