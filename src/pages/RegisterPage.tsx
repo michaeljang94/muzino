@@ -64,6 +64,14 @@ export const RegisterPage: React.FC = () => {
     return true;
   };
 
+  const isValidStudentNumber = () => {
+    if (studentYear === '' || studentClass === '' || studentNumber === '') {
+      return false;
+    }
+
+    return true;
+  };
+
   const handleRegister = async () => {
     try {
       setLoading(true);
@@ -78,6 +86,10 @@ export const RegisterPage: React.FC = () => {
 
       if (!isValidFullName()) {
         throw 'Invalid Name';
+      }
+
+      if (!isValidStudentNumber()) {
+        throw 'Invalid Student Number';
       }
 
       const requestOptions = {
