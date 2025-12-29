@@ -21,7 +21,7 @@ export const WaitingForGameStartPage: React.FC = () => {
               marginTop: '100px',
             }}
           >
-            <h1>Waiting for game to start...</h1>
+            <h1 style={{ fontFamily: 'emoji' }}>Waiting for game to start...</h1>
           </Grid>
           <Grid
             size={12}
