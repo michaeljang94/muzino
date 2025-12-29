@@ -1,7 +1,9 @@
 import {
+  Button,
   Container,
   Divider,
   Grid,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +15,7 @@ import { EnvironmentVariables } from '../../config';
 import { jwtDecode } from 'jwt-decode';
 import { TokenPayload } from '../PlayerProfilePage';
 import { useAuth } from '../../components/auth/AuthProvider';
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 
 interface TableSession {
   session_id: string;
@@ -60,6 +63,13 @@ export const DealerGamePage: React.FC = () => {
     fetchTableSessionDetails();
   }, []);
 
+  const handleStartGame = () => {
+     try {
+      } catch (error: any) {
+      } finally {
+      }
+  }
+
   const renderNoSession = () => {
     return <></>;
   };
@@ -106,6 +116,20 @@ export const DealerGamePage: React.FC = () => {
                 </Table>
               </TableContainer>
             </Container>
+          </Grid>
+          <Grid size={12}>
+            <Divider />
+          </Grid>
+          <Grid size={12}>
+            <Button
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: "75px" }}
+              fullWidth
+              variant="contained"
+              startIcon={<PlayCircleFilledWhiteIcon />}
+              onClick={handleStartGame}
+            >
+              Start Game
+            </Button>
           </Grid>
         </Grid>
       </Container>
