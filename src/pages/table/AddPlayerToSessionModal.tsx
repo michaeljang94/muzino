@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   IconButton,
   Modal,
   Snackbar,
@@ -107,6 +108,7 @@ export const AddPlayerToSessionModal: React.FunctionComponent<AddPlayerToSession
         </IconButton>
         <DialogContent>
           <TextField
+            sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
             fullWidth
             label="username"
             value={username}
@@ -117,6 +119,7 @@ export const AddPlayerToSessionModal: React.FunctionComponent<AddPlayerToSession
         </DialogContent>
         <DialogActions>
           <Button
+            sx={{ boxShadow: '4px 4px black', border: '2px solid black' }}
             variant="contained"
             onClick={() => {
               setUsername('');
@@ -127,7 +130,12 @@ export const AddPlayerToSessionModal: React.FunctionComponent<AddPlayerToSession
           >
             Cancel
           </Button>
-          <Button variant="contained" size="large" onClick={handleOnClick}>
+          <Button
+            sx={{ boxShadow: '4px 4px black', border: '2px solid black' }}
+            variant="contained"
+            size="large"
+            onClick={handleOnClick}
+          >
             Add
           </Button>
         </DialogActions>

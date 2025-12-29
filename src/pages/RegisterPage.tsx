@@ -149,6 +149,7 @@ export const RegisterPage: React.FC = () => {
             <Grid container spacing={2}>
               <Grid size={12}>
                 <TextField
+                  sx={{ border: '2px solid black' }}
                   className="custom-input"
                   error={!initialSelectUsername && !isValidUsername()}
                   helperText={
@@ -156,7 +157,7 @@ export const RegisterPage: React.FC = () => {
                   }
                   fullWidth
                   variant="outlined"
-                  label="Username"
+                  placeholder="Username"
                   onChange={event => {
                     setUserName(event.target.value);
                   }}
@@ -167,12 +168,13 @@ export const RegisterPage: React.FC = () => {
               </Grid>
               <Grid size={12}>
                 <TextField
-                  sx={{ boxShadow: '4px 4px black' }}
+                  sx={{ border: '2px solid black' }}
+                  className="custom-input"
                   error={!initialSelectName && !isValidFullName()}
                   helperText={!initialSelectName && !isValidFullName() ? 'Enter a valid name' : ''}
                   fullWidth
                   variant="outlined"
-                  label="Full Name"
+                  placeholder="Full Name"
                   onChange={event => {
                     setName(event.target.value);
                   }}
@@ -186,7 +188,11 @@ export const RegisterPage: React.FC = () => {
               </Grid> */}
               <Grid size={4}>
                 <TextField
-                  sx={{ boxShadow: '4px 4px black' }}
+                  sx={{
+                    boxShadow: '4px 4px black',
+                    border: '2px solid black',
+                    borderRadius: '5px',
+                  }}
                   fullWidth
                   select
                   variant="outlined"
@@ -201,7 +207,11 @@ export const RegisterPage: React.FC = () => {
               </Grid>
               <Grid size={4}>
                 <TextField
-                  sx={{ boxShadow: '4px 4px black' }}
+                  sx={{
+                    boxShadow: '4px 4px black',
+                    border: '2px solid black',
+                    borderRadius: '5px',
+                  }}
                   fullWidth
                   select
                   variant="outlined"
@@ -216,7 +226,11 @@ export const RegisterPage: React.FC = () => {
               </Grid>
               <Grid size={4}>
                 <TextField
-                  sx={{ boxShadow: '4px 4px black' }}
+                  sx={{
+                    boxShadow: '4px 4px black',
+                    border: '2px solid black',
+                    borderRadius: '5px',
+                  }}
                   fullWidth
                   select
                   variant="outlined"

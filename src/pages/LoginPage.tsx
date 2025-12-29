@@ -80,10 +80,11 @@ export const LoginPage: React.FC = () => {
           />
           <CardContent>
             <TextField
+              sx={{ border: '2px solid black' }}
               className="custom-input"
               fullWidth
               variant="outlined"
-              label="username"
+              placeholder="username"
               margin="normal"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setUsername(event.target.value);
