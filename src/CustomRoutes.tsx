@@ -16,6 +16,7 @@ import { Scoreboard } from './pages/Scoreboard';
 import { MissingRoute } from './pages/MissingRoute';
 import { SettingsPage } from './pages/SettingsPage';
 import { GamePage } from './pages/game/GamePage';
+import { GamePageWrapper } from './pages/game/GamePageWrapper';
 
 interface TokenPayload {
   username: string;
@@ -50,7 +51,7 @@ export const CustomRoutes: React.FC = () => {
             <Route index element={<PlayerProfilePage />} />
             <Route path="/" element={<PlayerProfilePage />} />
             <Route path="/player" element={<PlayerProfilePage />} />
-            <Route path="/game" element={<GamePage />} />
+            <Route path="/game" element={<GamePageWrapper />} />
             <Route path="/settings" element={<SettingsPage username={username} />} />
           </Route>
         )}

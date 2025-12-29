@@ -107,6 +107,26 @@ export const PlayerProfilePage: React.FC = () => {
     fetchRank();
   }, []); // Empty array to run the effect only once (on mount)
 
+  const getCardColorFromRole = (role: string) => {
+    switch (role) {
+      case 'dealer':
+        return 'lightblue';
+      case 'admin':
+        return 'black';
+      default:
+        return '';
+    }
+  };
+
+  const getFontColorFromRole = (role: string) => {
+    switch (role) {
+      case 'admin':
+        return 'white';
+      default:
+        return '';
+    }
+  };
+
   if (error) {
     return (
       <>
@@ -158,9 +178,11 @@ export const PlayerProfilePage: React.FC = () => {
             display="flex"
             marginTop={10}
           >
-            <div className="card">
+            <div className="card" style={{ backgroundColor: getCardColorFromRole(playerRole) }}>
               <div className="content">
-                <div className="name">{playerName}</div>
+                <div className="name" style={{ color: getFontColorFromRole(playerRole) }}>
+                  {playerName}
+                </div>
                 <div className="handle">
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <EmojiEventsIcon sx={{ color: 'black', scale: 0.75 }} />
@@ -170,12 +192,6 @@ export const PlayerProfilePage: React.FC = () => {
                 </div>
                 <Grid container>
                   <Grid size={6} alignContent="center" justifyContent="center">
-                    {/* <div className="title">
-                      {playerRole === 'user' && (
-                        <h1 style={{ textAlign: 'left' }}>#{playerRank}</h1>
-                      )}
-                      {playerRole !== 'user' && <h1>-</h1>}
-                    </div> */}
                     <Box
                       sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}
                       width={200}
@@ -188,7 +204,12 @@ export const PlayerProfilePage: React.FC = () => {
                         value={Number(playerScore).toLocaleString()}
                         sx={{
                           alignContent: 'end',
-                          input: { fontFamily: 'emoji', textAlign: 'right' },
+                          input: {
+                            fontFamily: 'emoji',
+                            textAlign: 'right',
+                            backgroundColor: 'white',
+                            borderRadius: '5px',
+                          },
                         }}
                       />
                     </Box>
@@ -205,60 +226,5 @@ export const PlayerProfilePage: React.FC = () => {
         </Grid>
       </Container>
     </>
-  );
-
-  return (
-    // <div classNameName="player-default-div">
-    <>
-      <Container maxWidth="sm">
-        <Grid container spacing={0}>
-          <Grid size={4}>
-            {playerRole === 'user' && <h1 style={{ textAlign: 'left' }}>#{playerRank}</h1>}
-            {playerRole !== 'user' && <h1>-</h1>}
-          </Grid>
-          <Grid size={8}>
-            <h1
-              style={{
-                textAlign: 'right',
-              }}
-            >
-              {playerName}
-            </h1>
-          </Grid>
-          <Grid size={2} alignContent={'center'}>
-            <IconButton color="inherit" size="large">
-              <AccountBalanceIcon />
-            </IconButton>
-          </Grid>
-          <Grid size={10}>
-            <h1
-              style={{
-                textAlign: 'right',
-              }}
-            >
-              {playerScore}
-            </h1>
-          </Grid>
-        </Grid>
-        <Grid size={12}>
-          <Divider />
-        </Grid>
-        <Grid container spacing={2}>
-          <Grid size={12}>
-            <Container
-              maxWidth="sm"
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                display: 'flex',
-              }}
-            >
-              <img src={qrcode} alt="logo" width={350} height={350} />
-            </Container>
-          </Grid>
-        </Grid>
-      </Container>
-    </>
-    // </div>
   );
 };

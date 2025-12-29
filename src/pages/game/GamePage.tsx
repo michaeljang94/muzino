@@ -22,11 +22,16 @@ import { GameWaitPage } from './GameWaitPage';
 interface SessionInfo {
   player_session: PlayerSessionInfo;
   table_session: TableSessionInfo;
+  players: Player[];
 }
 
 interface PlayerSessionInfo {
   session_id: string;
   table_name: string;
+}
+
+interface Player {
+  name: string;
 }
 
 interface TableSessionInfo {
@@ -137,6 +142,29 @@ export const GamePage: React.FC = () => {
     );
   };
 
+  const renderPlayersSection = () => {
+    return (
+      <>
+        <Grid size={12}>
+          <h4 style={{ fontFamily: 'emoji' }}>Players({sessionInfo?.players.length || 0})</h4>
+        </Grid>
+        {sessionInfo?.players.map(player => (
+          <>
+            <Grid size={4} fontFamily={'emoji'}>
+              {player.name}
+            </Grid>
+            <Grid size={4} fontFamily={'emoji'} textAlign="center">
+              bet
+            </Grid>
+            <Grid size={4} fontFamily={'emoji'} textAlign="center">
+              turn
+            </Grid>
+          </>
+        ))}
+      </>
+    );
+  };
+
   if (!inGame) {
     return <GameWaitPage />;
   }
@@ -152,7 +180,7 @@ export const GamePage: React.FC = () => {
             alignContent={'center'}
             justifyContent="center"
           >
-            <h1>{sessionInfo?.player_session.table_name}</h1>
+            <h1 style={{ fontFamily: 'emoji' }}>{sessionInfo?.player_session.table_name}</h1>
           </Grid>
           <Grid size={4} textAlign={'center'}>
             <h3>{tableInfo?.game}</h3>
@@ -172,9 +200,7 @@ export const GamePage: React.FC = () => {
           <Grid size={6} textAlign={'right'}>
             <h4>{sessionInfo?.table_session.pool}</h4>
           </Grid>
-          <Grid size={12}>
-            <h4>Players</h4>
-          </Grid>
+          {renderPlayersSection()}
           <Grid size={12}>
             <LinearProgress color="warning" />
           </Grid>
