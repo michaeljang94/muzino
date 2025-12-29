@@ -11,6 +11,13 @@ interface UserInfo {
   name: string;
   role: string;
   score: number;
+  student_number: StudentNumber;
+}
+
+interface StudentNumber {
+  year: number;
+  class: number;
+  number: number;
 }
 
 export interface SettingsPageProps {
@@ -67,6 +74,30 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ username }) => {
           </Grid>
           <Grid size={6}>
             <TextField fullWidth disabled label="name" value={userInfo?.name || ''} />
+          </Grid>
+          <Grid size={4}>
+            <TextField
+              fullWidth
+              disabled
+              label="year"
+              value={userInfo?.student_number?.year ?? ''}
+            />
+          </Grid>
+          <Grid size={4}>
+            <TextField
+              fullWidth
+              disabled
+              label="class"
+              value={userInfo?.student_number?.class ?? ''}
+            />
+          </Grid>
+          <Grid size={4}>
+            <TextField
+              fullWidth
+              disabled
+              label="number"
+              value={userInfo?.student_number?.number ?? ''}
+            />
           </Grid>
           <Grid size={12}>
             <Divider />

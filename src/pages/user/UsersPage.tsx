@@ -20,6 +20,13 @@ interface User {
   score: number;
   username: string;
   role: string;
+  student_number: StudentNumber;
+}
+
+interface StudentNumber {
+  year: number;
+  class: number;
+  number: number;
 }
 
 export const UsersPage: React.FC = () => {
@@ -72,6 +79,24 @@ export const UsersPage: React.FC = () => {
     { field: 'score', headerName: 'Score', type: 'number', flex: 1 },
 
     { field: 'role', headerName: 'Role', flex: 1 },
+    {
+      field: 'year',
+      headerName: 'Year',
+      flex: 1,
+      valueGetter: (value, row) => row.student_number.year,
+    },
+    {
+      field: 'class',
+      headerName: 'Class',
+      flex: 1,
+      valueGetter: (value, row) => row.student_number.class,
+    },
+    {
+      field: 'number',
+      headerName: 'Number',
+      flex: 1,
+      valueGetter: (value, row) => row.student_number.number,
+    },
     {
       flex: 1,
       field: 'edit',

@@ -29,6 +29,10 @@ export const RegisterPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [pincode, setPincode] = useState('');
 
+  const [studentYear, setStudentYear] = useState('');
+  const [studentClass, setStudentClass] = useState('');
+  const [studentNumber, setStudentNumber] = useState('');
+
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
@@ -79,8 +83,19 @@ export const RegisterPage: React.FC = () => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: userName, pincode: pincode, name: name }),
+        body: JSON.stringify({
+          username: userName,
+          pincode: pincode,
+          name: name,
+          student_number: {
+            year: studentYear,
+            class: studentClass,
+            number: studentNumber,
+          },
+        }),
       };
+
+      console.log(requestOptions);
 
       const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
       const response = await fetch(`${addr}/api/auth/signup`, requestOptions);
@@ -197,6 +212,9 @@ export const RegisterPage: React.FC = () => {
                   select
                   variant="outlined"
                   label="Year"
+                  onChange={e => {
+                    setStudentYear(e.target.value);
+                  }}
                 >
                   {createNumbers(10).map(option => (
                     <MenuItem key={option} value={option}>
@@ -216,6 +234,9 @@ export const RegisterPage: React.FC = () => {
                   select
                   variant="outlined"
                   label="Class"
+                  onChange={e => {
+                    setStudentClass(e.target.value);
+                  }}
                 >
                   {createNumbers(15).map(option => (
                     <MenuItem key={option} value={option}>
@@ -235,6 +256,9 @@ export const RegisterPage: React.FC = () => {
                   select
                   variant="outlined"
                   label="Number"
+                  onChange={e => {
+                    setStudentNumber(e.target.value);
+                  }}
                 >
                   {createNumbers(40).map(option => (
                     <MenuItem key={option} value={option}>
