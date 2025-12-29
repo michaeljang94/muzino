@@ -22,7 +22,9 @@ import { jwtDecode } from 'jwt-decode';
 import { TokenPayload } from '../PlayerProfilePage';
 import { useAuth } from '../../components/auth/AuthProvider';
 
-import { GameWaitPage } from './GameWaitPage';
+import { NotInGamePage } from './NotInGamePage';
+import './GameStatusWaiting.css';
+import { WaitingForGameStartPage } from './WaitingForGameStartPage';
 
 interface SessionInfo {
   player_session: PlayerSessionInfo;
@@ -177,21 +179,27 @@ export const GamePage: React.FC = () => {
   };
 
   if (!inGame) {
-    return <GameWaitPage />;
+    return <NotInGamePage />;
   }
 
-  console.log(sessionInfo);
+  if (sessionInfo?.table_session.status === 'waiting') {
+    return <WaitingForGameStartPage />;
+  }
+
   return (
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid
-            size={12}
+            size={6}
             display={inGame ? 'flow' : 'flex'}
             alignContent={'center'}
             justifyContent="center"
           >
             <h1 style={{ fontFamily: 'emoji' }}>{sessionInfo?.player_session.table_name}</h1>
+          </Grid>
+          <Grid size={6} textAlign={'right'}>
+            <h1>{Number(sessionInfo?.table_session.pool).toLocaleString()}</h1>
           </Grid>
           <Grid size={4} textAlign={'center'}>
             <h3>{tableInfo?.game}</h3>
@@ -204,12 +212,6 @@ export const GamePage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <LinearProgress color="warning" />
-          </Grid>
-          <Grid size={6}>
-            <h4>Total Money</h4>
-          </Grid>
-          <Grid size={6} textAlign={'right'}>
-            <h4>{sessionInfo?.table_session.pool}</h4>
           </Grid>
           {renderPlayersSection()}
           <Grid size={12}>

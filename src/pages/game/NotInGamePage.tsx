@@ -19,7 +19,7 @@ import { useAuth } from '../../components/auth/AuthProvider';
 
 import './GamePage.css';
 
-export const GameWaitPage: React.FC = () => {
+export const NotInGamePage: React.FC = () => {
   const onClickJoinGame = () => {};
 
   return (
