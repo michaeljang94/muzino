@@ -490,7 +490,7 @@ export const TablePage: React.FC = () => {
                 <Divider />
               </Grid>
               <Grid size={10}>
-                <h1>Players</h1>
+                <h1>Players({players?.length || 0})</h1>
               </Grid>
               <Grid size={2} alignContent={'center'}>
                 <IconButton

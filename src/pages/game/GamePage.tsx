@@ -10,6 +10,11 @@ import {
   Grid,
   LinearProgress,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { EnvironmentVariables } from '../../config';
@@ -148,19 +153,25 @@ export const GamePage: React.FC = () => {
         <Grid size={12}>
           <h4 style={{ fontFamily: 'emoji' }}>Players({sessionInfo?.players.length || 0})</h4>
         </Grid>
-        {sessionInfo?.players.map(player => (
-          <>
-            <Grid size={4} fontFamily={'emoji'}>
-              {player.name}
-            </Grid>
-            <Grid size={4} fontFamily={'emoji'} textAlign="center">
-              bet
-            </Grid>
-            <Grid size={4} fontFamily={'emoji'} textAlign="center">
-              turn
-            </Grid>
-          </>
-        ))}
+        <Grid size={12}>
+          <Container maxWidth="sm">
+            <TableContainer
+              sx={{ border: '2px solid black', borderRadius: '10px', boxShadow: '4px 4px black' }}
+            >
+              <Table>
+                <TableBody>
+                  {sessionInfo?.players.map(player => (
+                    <>
+                      <TableRow>
+                        <TableCell>{player.name}</TableCell>
+                      </TableRow>
+                    </>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Container>
+        </Grid>
       </>
     );
   };
