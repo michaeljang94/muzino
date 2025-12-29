@@ -446,84 +446,89 @@ export const TablePage: React.FC = () => {
           <Grid size={12}>
             <Divider />
           </Grid>
-          <Grid size={5}>
-            <h1>Dealer</h1>
-          </Grid>
-          <Grid size={5}>
-            {!sessions[selectedIndex]?.dealer && <h1>N/A</h1>}
-            {sessions[selectedIndex]?.dealer && <h1>{sessions[selectedIndex]?.dealer}</h1>}
-          </Grid>
-          <Grid size={2} alignContent={'center'}>
-            <IconButton
-              size="large"
-              color={!sessions[selectedIndex]?.dealer ? 'primary' : 'error'}
-              style={{ float: 'right' }}
-              onClick={
-                sessions[selectedIndex]?.dealer
-                  ? () => {
-                      setRemoveDealerFromSessionDialogOpen(true);
-                    }
-                  : () => {
-                      setAddDealerToSessionDialogOpen(true);
-                    }
-              }
-            >
-              {!sessions[selectedIndex]?.dealer && <AddBoxIcon />}
-              {sessions[selectedIndex]?.dealer && <DeleteIcon />}
-            </IconButton>
-          </Grid>
-          <Grid size={12}>
-            <Divider />
-          </Grid>
-          <Grid size={10}>
-            <h1>Players</h1>
-          </Grid>
-          <Grid size={2} alignContent={'center'}>
-            <IconButton
-              size="large"
-              color="primary"
-              style={{ float: 'right' }}
-              onClick={handleAddPlayerToSession}
-            >
-              <AddBoxIcon />
-            </IconButton>
-          </Grid>
-          <Grid size={12}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    {tableHeaders.map(header => (
-                      <TableCell>{header}</TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {players?.map(player => (
-                    <>
-                      <TableRow hover>
-                        <TableCell>{player.name}</TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                        <TableCell align="right">
-                          <IconButton
-                            color="error"
-                            onClick={() => {
-                              // handleRemovePlayerFromSession(player.name);
-                              setRemovePlayerFromSessionDialogOpen(true);
-                              setPlayerToRemove(player.name);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </TableCell>
+          {sessionValue && (
+            <>
+              <Grid size={5}>
+                <h1>Dealer</h1>
+              </Grid>
+              <Grid size={5}>
+                {!sessions[selectedIndex]?.dealer && <h1>N/A</h1>}
+                {sessions[selectedIndex]?.dealer && <h1>{sessions[selectedIndex]?.dealer}</h1>}
+              </Grid>
+              <Grid size={2} alignContent={'center'}>
+                <IconButton
+                  size="large"
+                  color={!sessions[selectedIndex]?.dealer ? 'primary' : 'error'}
+                  style={{ float: 'right' }}
+                  onClick={
+                    sessions[selectedIndex]?.dealer
+                      ? () => {
+                          setRemoveDealerFromSessionDialogOpen(true);
+                        }
+                      : () => {
+                          setAddDealerToSessionDialogOpen(true);
+                        }
+                  }
+                >
+                  {!sessions[selectedIndex]?.dealer && <AddBoxIcon />}
+                  {sessions[selectedIndex]?.dealer && <DeleteIcon />}
+                </IconButton>
+              </Grid>
+              <Grid size={12}>
+                <Divider />
+              </Grid>
+              <Grid size={10}>
+                <h1>Players</h1>
+              </Grid>
+              <Grid size={2} alignContent={'center'}>
+                <IconButton
+                  size="large"
+                  color="primary"
+                  style={{ float: 'right' }}
+                  onClick={handleAddPlayerToSession}
+                >
+                  <AddBoxIcon />
+                </IconButton>
+              </Grid>
+              <Grid size={12}>
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        {tableHeaders.map(header => (
+                          <TableCell>{header}</TableCell>
+                        ))}
                       </TableRow>
-                    </>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
+                    </TableHead>
+                    <TableBody>
+                      {players?.map(player => (
+                        <>
+                          <TableRow hover>
+                            <TableCell>{player.name}</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell></TableCell>
+                            <TableCell align="right">
+                              <IconButton
+                                color="error"
+                                onClick={() => {
+                                  // handleRemovePlayerFromSession(player.name);
+                                  setRemovePlayerFromSessionDialogOpen(true);
+                                  setPlayerToRemove(player.name);
+                                }}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        </>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+            </>
+          )}
+
           {/* </Container> */}
         </Grid>
       </Container>

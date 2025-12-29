@@ -27,6 +27,13 @@ interface User {
   name: string;
   score: number;
   username: string;
+  student_number: StudentNumber;
+}
+
+interface StudentNumber {
+  year: number;
+  class: number;
+  number: number;
 }
 
 export const EditUserPage: React.FC = () => {
@@ -39,6 +46,8 @@ export const EditUserPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [score, setScore] = useState('');
   const [role, setRole] = useState('');
+
+  const [studentYear, setStudentYear] = useState('');
 
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
@@ -64,6 +73,8 @@ export const EditUserPage: React.FC = () => {
         setUsername(res.user.username);
         setScore(res.user.score);
         setRole(res.user.role);
+
+        setStudentYear(res.user.student_number.year);
       } catch (error: any) {
       } finally {
       }
@@ -71,6 +82,10 @@ export const EditUserPage: React.FC = () => {
 
     fetchUser(); // Call the async function
   }, []);
+
+  const createNumbers = (length: number) => {
+    return Array.from({ length: length }, (_, index) => index + 1);
+  };
 
   const handleOnSave = async () => {
     try {
@@ -100,6 +115,8 @@ export const EditUserPage: React.FC = () => {
     } finally {
     }
   };
+
+  console.log(user);
 
   return (
     <>
@@ -169,6 +186,15 @@ export const EditUserPage: React.FC = () => {
                 setName(event.target.value);
               }}
             />
+          </Grid>
+          <Grid size={4}>
+            <TextField fullWidth label="year" value={user?.student_number.year ?? ''} />
+          </Grid>
+          <Grid size={4}>
+            <TextField fullWidth label="class" value={user?.student_number.class ?? ''} />
+          </Grid>
+          <Grid size={4}>
+            <TextField fullWidth label="number" value={user?.student_number.number ?? ''} />
           </Grid>
           <Grid size={12}>
             <TextField

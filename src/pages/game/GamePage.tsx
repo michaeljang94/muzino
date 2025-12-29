@@ -17,11 +17,20 @@ import { jwtDecode } from 'jwt-decode';
 import { TokenPayload } from '../PlayerProfilePage';
 import { useAuth } from '../../components/auth/AuthProvider';
 
-import { GameWaitPage } from './GameWatiPage';
+import { GameWaitPage } from './GameWaitPage';
 
 interface SessionInfo {
+  player_session: PlayerSessionInfo
+  table_session: TableSessionInfo
+}
+
+interface PlayerSessionInfo {
   session_id: string;
   table_name: string;
+}
+
+interface TableSessionInfo {
+  dealer: string;
 }
 
 interface TableInfo {
@@ -53,7 +62,7 @@ export const GamePage: React.FC = () => {
         if (response.ok) {
           const sessionInfo = await response.json();
           setInGame(true);
-          setSessionInfo(sessionInfo.player_session);
+          setSessionInfo(sessionInfo);
         }
 
         setError(null);
@@ -67,7 +76,7 @@ export const GamePage: React.FC = () => {
       try {
         const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
-        const response = await fetch(`${addr}/api/table/${sessionInfo?.table_name}`, {
+        const response = await fetch(`${addr}/api/table/${sessionInfo?.player_session.table_name}`, {
           headers: {
             Authorization: 'Bearer ' + token,
           },
@@ -83,7 +92,7 @@ export const GamePage: React.FC = () => {
 
     fetchSessionInfo();
 
-    if (sessionInfo?.table_name) {
+    if (sessionInfo?.player_session.table_name) {
       fetchTableInfo();
     }
   }, [inGame]);
@@ -127,23 +136,33 @@ export const GamePage: React.FC = () => {
     return <GameWaitPage />;
   }
 
+
+  console.log(sessionInfo)
   return (
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
           <Grid
-            size={12}
+            size={8}
             display={inGame ? 'flow' : 'flex'}
             alignContent={'center'}
             justifyContent="center"
           >
-            <h1>{sessionInfo?.table_name}</h1>
+            <h1>{sessionInfo?.player_session.table_name}</h1>
             <h3>{tableInfo?.game}</h3>
+          </Grid>
+          <Grid size={4}>
+            <h1>{sessionInfo?.table_session?.dealer}</h1>
           </Grid>
           <Grid size={12}>
             <LinearProgress color="warning" />
           </Grid>
-          <Grid size={12}></Grid>
+          <Grid size={12}>
+            <h4>Total Money</h4>
+          </Grid>
+          <Grid size={12}>
+            <h4>Players</h4>
+          </Grid>
           <Grid size={12}>
             <LinearProgress color="warning" />
           </Grid>
