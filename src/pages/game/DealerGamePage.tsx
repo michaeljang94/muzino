@@ -72,11 +72,11 @@ export const DealerGamePage: React.FC = () => {
     <>
       <Container maxWidth="sm">
         <Grid container spacing={2}>
-          <Grid size={10}>
+          <Grid size={9}>
             <h1>{tableSession?.table_session.table_name}</h1>
             <h4>{tableSession?.table_session.session_id}</h4>
           </Grid>
-          <Grid size={2}>
+          <Grid size={3}>
             <h2>{tableSession?.table_session.status}</h2>
           </Grid>
           <Grid size={2}>Pool</Grid>
