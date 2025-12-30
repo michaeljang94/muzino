@@ -20,6 +20,8 @@ import { TokenPayload } from '../PlayerProfilePage';
 import { useAuth } from '../../components/auth/AuthProvider';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 
+import useWebSocket, { ReadyState } from 'react-use-websocket';
+
 interface TableSession {
   session_id: string;
   table_name: string;

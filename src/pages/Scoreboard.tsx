@@ -18,6 +18,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import './Scoreboard.css';
 import { Label } from '@mui/icons-material';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 interface User {
   id: string;
@@ -31,6 +32,36 @@ export const Scoreboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState(null);
   const { token } = useAuth();
+
+  const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+  const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } =
+    useWebSocket<any>(`${addr}/api/public/scoreboard`, {
+      share: false,
+      shouldReconnect: () => true,
+    });
+
+  const connectionStatus = {
+    [ReadyState.CONNECTING]: 'Connecting',
+    [ReadyState.OPEN]: 'Open',
+    [ReadyState.CLOSING]: 'Closing',
+    [ReadyState.CLOSED]: 'Closed',
+    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+  }[readyState];
+
+  // console.log(`The WebSocket is currently ${connectionStatus}`);
+  // Run when the connection state (readyState) changes
+  useEffect(() => {
+    console.log(`Connection state changed: ${connectionStatus}`);
+  }, [readyState]);
+
+  // Run when a new WebSocket message is received (lastJsonMessage)
+  useEffect(() => {
+    if (lastJsonMessage && lastJsonMessage?.users) {
+      console.log(`Got a new message: ${lastJsonMessage}`);
+      setUsers(lastJsonMessage?.users);
+    }
+  }, [lastJsonMessage]);
 
   useEffect(() => {
     const fetchScoreboard = async () => {
