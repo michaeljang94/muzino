@@ -1,9 +1,12 @@
 import {
+  Alert,
+  AlertTitle,
   Button,
   Container,
   Divider,
   Grid,
   IconButton,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -34,15 +37,21 @@ interface SessionInfo {
   players: Players[];
 }
 
+type GameState = 'waiting' | 'gaming';
+
 export const DealerGamePage: React.FC = () => {
   const [tableSession, setTableSession] = useState<SessionInfo>();
   const { token } = useAuth();
 
-  useEffect(() => {
-    const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-    const decoded = jwtDecode<TokenPayload>(token || '');
-    const username = decoded.username;
+  const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+  const decoded = jwtDecode<TokenPayload>(token || '');
+  const username = decoded.username;
 
+  const [snackBarSuccess, setSnackBarSuccess] = useState(false);
+  const [snackbarShow, setSnackbarShow] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('Something went wrong.');
+
+  useEffect(() => {
     const fetchTableSessionDetails = async () => {
       try {
         const response = await fetch(`${addr}/api/dealer/${username}/session`, {
@@ -56,19 +65,45 @@ export const DealerGamePage: React.FC = () => {
           setTableSession(sessionInfo);
         }
       } catch (error: any) {
+        setSnackBarSuccess(false);
+        setSnackbarShow(true);
+        setSnackbarMessage(error.Error);
       } finally {
       }
     };
 
     fetchTableSessionDetails();
-  }, []);
+  }, [snackbarShow]);
 
-  const handleStartGame = () => {
-     try {
-      } catch (error: any) {
-      } finally {
+  const handleGameState = async (state: GameState) => {
+    try {
+      const response = await fetch(
+        `${addr}/api/table/${tableSession?.table_session.table_name}/session/${tableSession?.table_session.session_id}/status/update`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            status: state,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw 'Failed to start game.';
       }
-  }
+
+      setSnackbarShow(true);
+      setSnackbarMessage('Started game.');
+      setSnackBarSuccess(true);
+    } catch (error: any) {
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage(error);
+    } finally {
+    }
+  };
 
   const renderNoSession = () => {
     return <></>;
@@ -81,6 +116,19 @@ export const DealerGamePage: React.FC = () => {
   return (
     <>
       <Container maxWidth="sm">
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={snackbarShow}
+          autoHideDuration={2500}
+          onClose={() => {
+            setSnackbarShow(false);
+          }}
+        >
+          <Alert severity={snackBarSuccess ? 'success' : 'error'}>
+            <AlertTitle>{snackBarSuccess ? 'Success' : 'Error'}</AlertTitle>
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
         <Grid container spacing={2}>
           <Grid size={9}>
             <h1>{tableSession?.table_session.table_name}</h1>
@@ -103,7 +151,7 @@ export const DealerGamePage: React.FC = () => {
               >
                 <Table>
                   <TableBody>
-                    {tableSession.players.map(player => (
+                    {tableSession?.players.map(player => (
                       <>
                         <TableRow>
                           <TableCell>{player.name}</TableCell>
@@ -122,13 +170,18 @@ export const DealerGamePage: React.FC = () => {
           </Grid>
           <Grid size={12}>
             <Button
-              sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: "75px" }}
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: '75px' }}
               fullWidth
               variant="contained"
+              color={tableSession.table_session.status === 'waiting' ? 'primary' : 'error'}
               startIcon={<PlayCircleFilledWhiteIcon />}
-              onClick={handleStartGame}
+              onClick={() => {
+                tableSession.table_session.status === 'waiting'
+                  ? handleGameState('gaming')
+                  : handleGameState('waiting');
+              }}
             >
-              Start Game
+              {tableSession.table_session.status === 'gaming' ? 'Stop Game' : 'Start Game'}
             </Button>
           </Grid>
         </Grid>
