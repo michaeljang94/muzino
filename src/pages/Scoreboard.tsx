@@ -35,6 +35,7 @@ export const Scoreboard: React.FC = () => {
 
   const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
 
+  // Websocket stuff start
   const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } =
     useWebSocket<any>(`${addr}/api/public/scoreboard`, {
       share: false,
@@ -62,6 +63,7 @@ export const Scoreboard: React.FC = () => {
       setUsers(lastJsonMessage?.users);
     }
   }, [lastJsonMessage]);
+  // Websocket stuff end
 
   useEffect(() => {
     const fetchScoreboard = async () => {

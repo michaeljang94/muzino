@@ -41,8 +41,6 @@ export const CustomRoutes: React.FC = () => {
             <Route path="/users" element={<UsersPage />} />
 
             <Route path="/user/:id/edit" element={<EditUserPage />} />
-
-            <Route path="/scoreboard" element={<Scoreboard />} />
           </>
         )}
 
@@ -64,6 +62,7 @@ export const CustomRoutes: React.FC = () => {
           </Route>
         )}
 
+        <Route path="/scoreboard" element={<Scoreboard />} />
         <Route path="*" element={<MissingRoute />} />
       </Routes>
     </>
