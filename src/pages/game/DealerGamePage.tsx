@@ -200,6 +200,17 @@ export const DealerGamePage: React.FC = () => {
             <Divider />
           </Grid>
           <Grid size={12}>
+            <Button
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: '75px' }}
+              fullWidth
+              variant="contained"
+              startIcon={<PlayCircleFilledWhiteIcon />}
+              onClick={handleAddPlayerToSession}
+            >
+              Add Player
+            </Button>
+          </Grid>
+          <Grid size={12}>
             <Container maxWidth="sm">
               <TableContainer
                 sx={{ border: '2px solid black', borderRadius: '10px', boxShadow: '4px 4px black' }}
@@ -249,17 +260,6 @@ export const DealerGamePage: React.FC = () => {
               }}
             >
               {tableSession.table_session.status === 'gaming' ? 'Stop Game' : 'Start Game'}
-            </Button>
-          </Grid>
-          <Grid size={12}>
-            <Button
-              sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: '75px' }}
-              fullWidth
-              variant="contained"
-              startIcon={<PlayCircleFilledWhiteIcon />}
-              onClick={handleAddPlayerToSession}
-            >
-              Add Player
             </Button>
           </Grid>
         </Grid>
