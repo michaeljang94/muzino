@@ -68,8 +68,6 @@ export const Scoreboard: React.FC = () => {
   useEffect(() => {
     const fetchScoreboard = async () => {
       try {
-        const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
-
         const response = await fetch(`${addr}/api/users/scoreboard`, {
           headers: {
             Authorization: 'Bearer ' + token,

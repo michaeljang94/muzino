@@ -21,6 +21,10 @@ import { useAuth } from '../../components/auth/AuthProvider';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 
 import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { AddPlayerToSessionModal } from '../table/AddPlayerToSessionModal';
+
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import { RemovePlayerFromSessionModal } from '../table/RemovePlayerFromSessionModal';
 
 interface TableSession {
   session_id: string;
@@ -53,6 +57,18 @@ export const DealerGamePage: React.FC = () => {
   const [snackbarShow, setSnackbarShow] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('Something went wrong.');
 
+  const [addPlayerToSessionDialogOpen, setAddPlayerToSessionDialogOpen] = useState(false);
+  const [removePlayerFromSessionDialogOpen, setRemovePlayerFromSessionDialogOpen] = useState(false);
+
+  const [playerToRemove, setPlayerToRemove] = useState('');
+
+  const handleAddPlayerToSession = () => {
+    setAddPlayerToSessionDialogOpen(true);
+  };
+
+  const handleAddPlayerToSessionOnClose = () => {
+    setAddPlayerToSessionDialogOpen(false);
+  };
   useEffect(() => {
     const fetchTableSessionDetails = async () => {
       try {
@@ -75,7 +91,7 @@ export const DealerGamePage: React.FC = () => {
     };
 
     fetchTableSessionDetails();
-  }, [snackbarShow]);
+  }, [snackbarShow, addPlayerToSessionDialogOpen]);
 
   const handleGameState = async (state: GameState) => {
     try {
@@ -103,6 +119,43 @@ export const DealerGamePage: React.FC = () => {
       setSnackBarSuccess(false);
       setSnackbarShow(true);
       setSnackbarMessage(error);
+    } finally {
+    }
+  };
+
+  const handleRemovePlayerFromSession = async (username: string) => {
+    try {
+      const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
+
+      const response = await fetch(
+        `${addr}/api/table/${tableSession?.table_session.table_name}/session/${tableSession?.table_session.session_id}/player/delete`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+          body: JSON.stringify({
+            username: username,
+          }),
+        }
+      );
+
+      const res = await response.json();
+
+      if (!response.ok) {
+        throw 'Removing player from session failed';
+      }
+
+      setSnackBarSuccess(true);
+      setSnackbarShow(true);
+      setSnackbarMessage(`Successfully removed ${username} from session`);
+
+      setRemovePlayerFromSessionDialogOpen(false);
+    } catch (error: any) {
+      console.error(error);
+      setSnackBarSuccess(false);
+      setSnackbarShow(true);
+      setSnackbarMessage('Removing player from session failed');
     } finally {
     }
   };
@@ -159,6 +212,18 @@ export const DealerGamePage: React.FC = () => {
                           <TableCell>{player.name}</TableCell>
                           <TableCell>bet</TableCell>
                           <TableCell align="center">turn</TableCell>
+                          <TableCell align="center">
+                            <IconButton
+                              color="error"
+                              onClick={() => {
+                                // handleRemovePlayerFromSession(player.name);
+                                setRemovePlayerFromSessionDialogOpen(true);
+                                setPlayerToRemove(player.name);
+                              }}
+                            >
+                              <PersonRemoveIcon />
+                            </IconButton>
+                          </TableCell>
                         </TableRow>
                       </>
                     ))}
@@ -186,8 +251,35 @@ export const DealerGamePage: React.FC = () => {
               {tableSession.table_session.status === 'gaming' ? 'Stop Game' : 'Start Game'}
             </Button>
           </Grid>
+          <Grid size={12}>
+            <Button
+              sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: '75px' }}
+              fullWidth
+              variant="contained"
+              startIcon={<PlayCircleFilledWhiteIcon />}
+              onClick={handleAddPlayerToSession}
+            >
+              Add Player
+            </Button>
+          </Grid>
         </Grid>
       </Container>
+      <AddPlayerToSessionModal
+        open={addPlayerToSessionDialogOpen}
+        onClose={handleAddPlayerToSessionOnClose}
+        tableName={tableSession.table_session.table_name}
+        sessionId={tableSession.table_session.session_id}
+      />
+      <RemovePlayerFromSessionModal
+        open={removePlayerFromSessionDialogOpen}
+        onClose={() => {
+          setRemovePlayerFromSessionDialogOpen(false);
+        }}
+        onClick={() => {
+          handleRemovePlayerFromSession(playerToRemove);
+        }}
+        username={playerToRemove}
+      />
     </>
   );
 };
