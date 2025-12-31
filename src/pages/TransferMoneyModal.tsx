@@ -75,17 +75,18 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
         </IconButton>
         <DialogContent>
           <Grid container spacing={2}>
-            <Grid size={6}>
+            <Grid size={12}>
               <TextField
                 sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
                 label="username"
                 value={username}
+                fullWidth
                 onChange={event => {
                   setUsername(event.target.value);
                 }}
               />
             </Grid>
-            <Grid size={6}>
+            <Grid size={12}>
               {' '}
               <TextField
                 sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
@@ -95,6 +96,7 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
                 onChange={event => {
                   setAmount(event.target.value);
                 }}
+                fullWidth
                 slotProps={{
                   input: {
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -105,10 +107,24 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={onClose} color="primary" size="large">
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={onClose}
+            color="primary"
+            size="large"
+            sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
+          >
             Cancel
           </Button>
-          <Button color="error" variant="contained" size="large" onClick={handleTransfer}>
+          <Button
+            fullWidth
+            color="error"
+            variant="contained"
+            size="large"
+            onClick={handleTransfer}
+            sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
+          >
             Confirm
           </Button>
         </DialogActions>
