@@ -222,7 +222,7 @@ export const DealerGamePage: React.FC = () => {
               >
                 <Table>
                   <TableBody>
-                    {tableSession?.players.map(player => (
+                    {tableSession?.players?.map(player => (
                       <>
                         <TableRow>
                           <TableCell>{player.name}</TableCell>
