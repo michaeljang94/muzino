@@ -28,6 +28,8 @@ import { RemovePlayerFromSessionModal } from '../table/RemovePlayerFromSessionMo
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import { TransferMoneyModal } from '../TransferMoneyModal';
 
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+
 interface TableSession {
   session_id: string;
   table_name: string;
@@ -209,7 +211,7 @@ export const DealerGamePage: React.FC = () => {
               sx={{ boxShadow: '4px 4px black', border: '2px solid black', height: '75px' }}
               fullWidth
               variant="contained"
-              startIcon={<PlayCircleFilledWhiteIcon />}
+              startIcon={<PersonAddAlt1Icon />}
               onClick={handleAddPlayerToSession}
             >
               Add Player
