@@ -29,6 +29,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import { TransferMoneyModal } from '../TransferMoneyModal';
 
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import { NotInGamePage } from './NotInGamePage';
 
 interface TableSession {
   session_id: string;
@@ -168,7 +169,11 @@ export const DealerGamePage: React.FC = () => {
   };
 
   const renderNoSession = () => {
-    return <></>;
+    return (
+      <>
+        <NotInGamePage />
+      </>
+    );
   };
 
   if (!tableSession) {

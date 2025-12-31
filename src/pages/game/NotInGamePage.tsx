@@ -68,10 +68,10 @@ export const NotInGamePage: React.FC = () => {
               </div>
             </div>
           </Grid>
-          <Grid size={12}>
+          {/* <Grid size={12}>
             <Divider />
-          </Grid>
-          <Grid size={12}>
+          </Grid> */}
+          {/* <Grid size={12}>
             <Container maxWidth="sm">
               <Button
                 onClick={onClickJoinGame}
@@ -83,7 +83,7 @@ export const NotInGamePage: React.FC = () => {
                 Join Game
               </Button>
             </Container>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </>
