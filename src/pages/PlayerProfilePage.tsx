@@ -38,6 +38,9 @@ import PaidIcon from '@mui/icons-material/Paid';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { ScoreboardFirstPlace } from '../components/ScoreboardFirstPlace';
 
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import { TransferMoneyModal } from './TransferMoneyModal';
+
 export interface TokenPayload {
   username: string;
   role: string;
@@ -53,6 +56,8 @@ export const PlayerProfilePage: React.FC = () => {
   const [playerRole, setPlayerRole] = useState('');
 
   const { token } = useAuth();
+
+  const [transferMoneyDialogOpen, setTransferMoneyDialogOpen] = useState(false);
 
   useEffect(() => {
     const addr = EnvironmentVariables.ZIKEEPER_ENDPOINT;
@@ -105,7 +110,7 @@ export const PlayerProfilePage: React.FC = () => {
 
     fetchUser(); // Call the async function
     fetchRank();
-  }, []); // Empty array to run the effect only once (on mount)
+  }, [transferMoneyDialogOpen]); // Empty array to run the effect only once (on mount)
 
   const getCardColorFromRole = (role: string) => {
     switch (role) {
@@ -158,19 +163,6 @@ export const PlayerProfilePage: React.FC = () => {
         }}
       >
         <Grid container spacing={2}>
-          {/* <Grid
-            size={12}
-            paddingTop={5}
-            alignContent="center"
-            justifyContent="center"
-            display="flex"
-          >
-            <ScoreboardFirstPlace
-              score={playerScore || 0}
-              name={playerName || ''}
-              rank={playerRank || '-'}
-            />
-          </Grid> */}
           <Grid
             size={12}
             alignContent="center"
@@ -223,8 +215,29 @@ export const PlayerProfilePage: React.FC = () => {
               <div className="dots pink-dots"></div>
             </div>
           </Grid>
+          {(playerRole === 'dealer' || playerRole === 'admin') && (
+            <Grid size={12} marginTop={5}>
+              <Button
+                sx={{ height: '75px' }}
+                variant="contained"
+                fullWidth
+                startIcon={<CurrencyExchangeIcon />}
+                onClick={() => {
+                  setTransferMoneyDialogOpen(true);
+                }}
+              >
+                Send Money
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Container>
+      <TransferMoneyModal
+        open={transferMoneyDialogOpen}
+        onClose={() => {
+          setTransferMoneyDialogOpen(false);
+        }}
+      />
     </>
   );
 };
