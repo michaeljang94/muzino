@@ -20,10 +20,15 @@ import { useAuth } from '../components/auth/AuthProvider';
 export interface TransferMoneyModalProps {
   open: boolean;
   onClose: () => void;
+  transferTo?: string;
 }
 
-export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, onClose }) => {
-  const [username, setUsername] = useState('');
+export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({
+  open,
+  onClose,
+  transferTo,
+}) => {
+  const [username, setUsername] = useState(transferTo || '');
   const [amount, setAmount] = useState('');
 
   const { token } = useAuth();
@@ -41,7 +46,7 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
         },
         body: JSON.stringify({
           amount: parseInt(amount),
-          to: username,
+          to: transferTo || username,
         }),
       });
 
@@ -55,6 +60,12 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
     } catch (error: any) {
     } finally {
     }
+  };
+
+  const handleMoneyChange = (value: number) => {
+    const currAmount = amount || '0';
+    const newAmount = parseInt(currAmount) + value;
+    setAmount(newAmount.toString());
   };
 
   return (
@@ -79,7 +90,7 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
               <TextField
                 sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
                 label="username"
-                value={username}
+                value={transferTo || username}
                 fullWidth
                 onChange={event => {
                   setUsername(event.target.value);
@@ -87,7 +98,6 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
               />
             </Grid>
             <Grid size={12}>
-              {' '}
               <TextField
                 sx={{ boxShadow: '4px 4px black', border: '2px solid black', borderRadius: '5px' }}
                 label="amount"
@@ -103,6 +113,75 @@ export const TransferMoneyModal: React.FC<TransferMoneyModalProps> = ({ open, on
                   },
                 }}
               />
+            </Grid>
+            <Grid size={4}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={() => {
+                  handleMoneyChange(50);
+                }}
+              >
+                +50
+              </Button>
+            </Grid>
+            <Grid size={4}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={() => {
+                  handleMoneyChange(100);
+                }}
+              >
+                +100
+              </Button>
+            </Grid>
+            <Grid size={4}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={() => {
+                  handleMoneyChange(200);
+                }}
+              >
+                +200
+              </Button>
+            </Grid>
+            <Grid size={4}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  handleMoneyChange(-50);
+                }}
+              >
+                -50
+              </Button>
+            </Grid>
+            <Grid size={4}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  handleMoneyChange(-100);
+                }}
+              >
+                -100
+              </Button>
+            </Grid>
+            <Grid size={4}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  handleMoneyChange(-200);
+                }}
+              >
+                -200
+              </Button>
             </Grid>
           </Grid>
         </DialogContent>

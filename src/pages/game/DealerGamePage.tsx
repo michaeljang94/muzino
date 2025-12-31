@@ -25,6 +25,8 @@ import { AddPlayerToSessionModal } from '../table/AddPlayerToSessionModal';
 
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { RemovePlayerFromSessionModal } from '../table/RemovePlayerFromSessionModal';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import { TransferMoneyModal } from '../TransferMoneyModal';
 
 interface TableSession {
   session_id: string;
@@ -61,6 +63,9 @@ export const DealerGamePage: React.FC = () => {
   const [removePlayerFromSessionDialogOpen, setRemovePlayerFromSessionDialogOpen] = useState(false);
 
   const [playerToRemove, setPlayerToRemove] = useState('');
+
+  const [transferMoneyDialogOpen, setTransferMoneyDialogOpen] = useState(false);
+  const [transferToUsername, setTransferToUsername] = useState('');
 
   const handleAddPlayerToSession = () => {
     setAddPlayerToSessionDialogOpen(true);
@@ -221,8 +226,17 @@ export const DealerGamePage: React.FC = () => {
                       <>
                         <TableRow>
                           <TableCell>{player.name}</TableCell>
-                          <TableCell>bet</TableCell>
-                          <TableCell align="center">turn</TableCell>
+                          <TableCell align="center">
+                            <IconButton
+                              color="success"
+                              onClick={() => {
+                                setTransferToUsername(player.name);
+                                setTransferMoneyDialogOpen(true);
+                              }}
+                            >
+                              <CurrencyExchangeIcon />
+                            </IconButton>
+                          </TableCell>
                           <TableCell align="center">
                             <IconButton
                               color="error"
@@ -279,6 +293,13 @@ export const DealerGamePage: React.FC = () => {
           handleRemovePlayerFromSession(playerToRemove);
         }}
         username={playerToRemove}
+      />
+      <TransferMoneyModal
+        open={transferMoneyDialogOpen}
+        onClose={() => {
+          setTransferMoneyDialogOpen(false);
+        }}
+        transferTo={transferToUsername}
       />
     </>
   );
